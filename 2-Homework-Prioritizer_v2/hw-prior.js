@@ -10,6 +10,7 @@ function addHW(){
    
    /*Homework Name Input*/
       var hwInput = document.createElement("input");
+      hwInput.classList.add("hw-name");
       hwInput.type = "text";
       hwInput.placeholder = "Homework Name";
 
@@ -49,9 +50,13 @@ function removeHW(){
 }
 
 
-var homeworks[];
-function storeValues(){
+var homeworks = [];
 
+function storeValues(){
+   for(let x =0; x < hwCounter; x++){
+      homeworks[x] = new Object();
+      homework[x].name = document.querySelectorAll(".hw-name")[x].value;
+   }
 }
 
 
