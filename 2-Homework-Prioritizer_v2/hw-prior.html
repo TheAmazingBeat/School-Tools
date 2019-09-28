@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homework Prioritizer - School Tools</title>
+
+        <!--Quicksand Font-->
+        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+        <!--Stylesheets-->
+        <link rel="stylesheet" href="../Home/index.css">
+        <link rel="stylesheet" href="hw-prior.css">
+        <!--Javascript Files-->
+        <script type="text/javascript" src="../Home/index.js"></script>
+        <script type="text/javascript" src="hw-prior.js"></script>
+    </head>
+    <body>
+        <!--Website Title-->
+        <h1 id="site-title">School Tools</h1>
+
+        <!--Menu Bar-->
+        <div class="menu-bar">
+            <div class="tab" onclick="switchPage(1)">
+                <p>Home</p>
+            </div>
+            <div class="tab" onclick="switchPage(2)">
+                <p>Calculator</p>
+            </div>
+            <div class="active-page tab" onclick="switchPage(3)">
+                <p>Homework Prioritizer</p>
+            </div>
+            <div class="tab" onclick="switchPage(4)">
+                <p>Solving Matrices</p>
+            </div>
+        </div>
+
+
+        <!--Top Buttons-->
+        <div>
+            <button id="add-hw" class="hw-btn" onclick="addHW()">Add Homework</button>
+            <button id="remove-hw" class="hw-btn" onclick="removeHW()">Remove Homework</button>
+        </div>
+
+        <!--List of Homeworks-->
+        <div style="margin-right: 2%;">
+            <ul class="homework-list">
+
+
+            </ul>
+        </div>
+
+        <!--Bottom Button-->
+        <button class="hw-btn prior-btn">Prioritize</button>
+    </body>
+</html>
