@@ -1,4 +1,4 @@
-var hwCounter;
+var hwCounter = 0;
 
 /*Adds inputs about homework as an item onto the list*/
 function addHW(){
@@ -16,7 +16,7 @@ function addHW(){
 
    /*Major or Minor Dropdown*/
       var hwType = document.createElement("select");
-      hwType.classList.add("hw-type-dropdown");
+      hwType.classList.add("hw-type");
       //Minor option
          var homeworkMinor = document.createElement("option");
          homeworkMinor.label = "Minor";
@@ -32,6 +32,8 @@ function addHW(){
       var hwDate = document.createElement("input");
       hwDate.classList.add("hw-date");
       hwDate.setAttribute("type", "date");
+      var myDate = new Date().toISOString().substr(0, 10);    
+      hwDate.setAttribute("value", myDate);
 
    /*Attaching together*/
       hwItem.appendChild(hwInput);
@@ -39,7 +41,9 @@ function addHW(){
       hwItem.appendChild(hwDate);
       hwList.appendChild(hwItem);
 
+   homeworks[hwCounter] = hwItem;
    hwCounter++;
+   
 }
 
 /*removes homework-item*/
@@ -55,8 +59,13 @@ var homeworks = [];
 function storeValues(){
    for(let x =0; x < hwCounter; x++){
       homeworks[x] = new Object();
-      homework[x].name = document.querySelectorAll(".hw-name")[x].value;
+      homeworks[x].name = document.querySelectorAll(".hw-name")[x].value;
+      homeworks[x].type = document.querySelectorAll(".hw-type")[x].value;
+      homeworks[x].dueDate = document.querySelectorAll(".hw-date")[x].value;
+      //console.log(homeworks);
    }
+
+   console.log(homeworks);
 }
 
 
