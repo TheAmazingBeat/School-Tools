@@ -62,14 +62,45 @@ function storeValues(){
       homeworks[x].name = document.querySelectorAll(".hw-name")[x].value;
       homeworks[x].type = document.querySelectorAll(".hw-type")[x].value;
       homeworks[x].dueDate = document.querySelectorAll(".hw-date")[x].value;
-      //console.log(homeworks);
    }
-
    console.log(homeworks);
 }
 
 
+var prioritizedHw = [];
+
+function compareHw(){
+   for(let i = 0; i < hwCounter; i++){
+      if(homeworks[i].type == "Major"){
+         prioritizedHw.unshift(homeworks[i].name);
+      } else{
+         prioritizedHw.push(homeworks[i].name);
+      }
+   }
+   console.log(prioritizedHw);
+}
+
 function prioritize(){
    storeValues();
+   compareHw();
+   showPrioritized();
+}
+
+function showPrioritized(){
+   document.querySelectorAll(".first-divs")[0].style.display = "none";
+   document.querySelectorAll(".first-divs")[1].style.display = "none";
+   document.querySelectorAll(".first-divs")[2].style.display = "none";
+   document.querySelector("#last-div").style.display = "block";
+
+   var priorList = document.querySelector(".prioritized-list")
+
+   for(let z = 0; z < hwCounter; z++){
+      var priorItem = document.createElement("li");
+      var priorHwName = document.createTextNode(prioritizedHw[z]);
+      priorItem.appendChild(priorHwName);
+      priorList.appendChild(priorItem);
+   }
+   
+
 }
 

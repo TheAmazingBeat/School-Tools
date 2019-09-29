@@ -35,13 +35,13 @@
 
 
         <!--Top Buttons-->
-        <div>
+        <div class="first-divs">
             <button id="add-hw" class="hw-btn" onclick="addHW()">Add Homework</button>
             <button id="remove-hw" class="hw-btn" onclick="removeHW()">Remove Homework</button>
         </div>
 
         <!--List of Homeworks-->
-        <div style="margin-right: 2%;">
+        <div class="first-divs" style="margin-right: 2%;">
             <ul class="homework-list">
 
 
@@ -49,6 +49,17 @@
         </div>
 
         <!--Bottom Button-->
-        <button class="hw-btn prior-btn" onclick="prioritize()">Prioritize</button>
+        <div class="first-divs">
+            <button class="hw-btn prior-btn" onclick="prioritize()">Prioritize</button>
+        </div>
+
+        <div id="last-div" style="display: none;">
+            <h3>You should do your homework in this order:</h3>
+            <ul class="prioritized-list" style="list-style-type: none;">
+
+            </ul>
+        </div>
+
+
     </body>
 </html>
