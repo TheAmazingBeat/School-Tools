@@ -1,4 +1,8 @@
 var hwCounter = 0;
+var homeworks = [];
+var prioritizedHw = [];
+var majorHw = [];
+var minorHw = [];
 
 /*Adds inputs about homework as an item onto the list*/
 function addHW(){
@@ -54,37 +58,61 @@ function removeHW(){
 }
 
 
-var homeworks = [];
-
 function storeValues(){
+   /*Gets homework from inputs*/
    for(let x =0; x < hwCounter; x++){
       homeworks[x] = new Object();
       homeworks[x].name = document.querySelectorAll(".hw-name")[x].value;
       homeworks[x].type = document.querySelectorAll(".hw-type")[x].value;
       homeworks[x].dueDate = document.querySelectorAll(".hw-date")[x].value;
+
+      if(document.querySelectorAll(".hw-type")[x].value == "Major"){
+         majorHw.push({name: homeworks[x].name, dueDate: homeworks[x].dueDate});
+      } else{
+         minorHw.push({name: homeworks[x].name, dueDate: homeworks[x].dueDate});
+      }
    }
+   console.log("Homework list::");
    console.log(homeworks);
+
+   console.log("Major::");
+   console.log(majorHw);
+
+   console.log("Minor::");
+   console.log(minorHw);
 }
 
 
-var prioritizedHw = [];
-
 function compareHw(){
-   for(let i = 0; i < hwCounter; i++){
-      if(homeworks[i].type == "Major"){
-         prioritizedHw.unshift(homeworks[i].name);
-      } else{
-         prioritizedHw.push(homeworks[i].name);
+   if(majorHw.length == 1)
+      prioritizedHw.unshift(majorHw[0].name);
+      else{
+         for(let i = 0; i < majorHw.length; i++){
+            for(let k = i+1; k < majorHw.length; k++){
+               if(majorHw[i] > majorHw[k])
+                  prioritizedHw.unshift(majorHw[k].name);
+                  else
+                     prioritizedHw.unshift(majorHw[i].name);
+            }
+         }
       }
+   
+for(let i = 0; i , minorHw.length; i++){
+   for(let k = i+1; k , majorHw.length; k++){
+      if(minorHw[i].dueDate > minorHw[k])
+         prioritizedHw.splice(prioritizedHw.length-1, 0, minorHw[k].name);
+         else
+            prioritizedHw.splice(prioritizedHw.length-1, 0, minorHw[i].name);
+
    }
+}
+   
+
+
+   console.log("Prioritized Homework");
    console.log(prioritizedHw);
 }
 
-function prioritize(){
-   storeValues();
-   compareHw();
-   showPrioritized();
-}
 
 function showPrioritized(){
    document.querySelectorAll(".first-divs")[0].style.display = "none";
@@ -100,7 +128,13 @@ function showPrioritized(){
       priorItem.appendChild(priorHwName);
       priorList.appendChild(priorItem);
    }
-   
-
 }
+
+function prioritize(){
+   storeValues();
+   compareHw();
+   showPrioritized();
+}
+
+
 
