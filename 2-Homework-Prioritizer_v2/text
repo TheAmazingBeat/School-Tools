@@ -1,0 +1,66 @@
+// var priorMajor = []
+// priorMinor = [];
+
+/*function compareHw(){
+   if(majorHw.length == 1){
+      priorMajor.unshift(majorHw[0].name);
+      console.log(priorMajor);
+   }
+      else{
+         for(let i = 0; i < majorHw.length; i++){
+            for(let k = i+1; k < majorHw.length; k++){
+               if(majorHw[i].dueDate > majorHw[k].dueDate){
+                  priorMajor.unshift(majorHw[k].name);
+                  console.log(priorMajor);
+               }
+                  else{
+                     priorMajor.unshift(majorHw[i].name);
+                     console.log(priorMajor);
+                  }
+            }
+         }
+      }
+
+      
+      for(let i = 0; i < minorHw.length; i++){
+         for(let k = i+1; k < minorHw.length; k++){
+
+            if(minorHw[i].dueDate < minorHw[k].dueDate){
+               if(priorMinor[0] != minorHw[i].name){
+                  if(priorMinor.length == 0)
+                     priorMinor.unshift(minorHw[i].name);
+                  else{
+                     priorMinor.splice(1, 0, minorHw[i].name);
+                  }
+               }
+
+            if(minorHw.length == 2){
+               if(priorMinor[priorMinor.length-1] != minorHw[k].name)
+                  priorMinor.splice(minorHw.length, 0, minorHw[k].name);
+               }
+               console.log(priorMinor);
+            } else
+               priorMinor.push(minorHw[i].name);
+            
+            
+               // if(minorHw[i].dueDate < minorHw[k].dueDate){
+            //    if(priorMinor[0] != minorHw[i].name)
+            //    priorMinor.unshift(minorHw[i].name);
+               
+            //    priorMinor.splice(minorHw.length, 0, minorHw[k].name);
+            //    console.log(priorMinor);
+            // }
+            //    else{
+            //       priorMinor.unshift(minorHw[k].name);
+            //       priorMinor.splice(minorHw.length, 0, minorHw[i].name);
+            //       console.log(priorMinor);
+            //    }
+         }
+      }
+   
+
+   //prioritizedHw = priorMajor.concat(priorMinor);
+   prioritizedHw = homeworks.sort();
+   console.log("Prioritized Homework");
+   console.log(prioritizedHw);
+}*/

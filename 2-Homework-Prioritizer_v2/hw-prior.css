@@ -34,3 +34,19 @@
 .hw-date{
    margin: 5px;
 }
+
+.prioritized-list{
+   border-collapse: collapse;
+   margin: auto;
+   width: 50%;
+}
+
+th, td{
+   border: 1px solid white;
+   padding: 10px;
+}
+
+th{
+   background-color: lightgreen;
+   color: black;
+}

@@ -1,10 +1,8 @@
 var hwCounter = 0;
-var homeworks = [],
-    prioritizedHw = [],
-    majorHw = [],
-    minorHw = [],
-    priorMajor = [],
-    priorMinor = [];
+var homeworks = [];
+var prioritizedHw = [];
+var majorHw = [];
+var minorHw = [];
 
 /*Adds inputs about homework as an item onto the list*/
 function addHW(){
@@ -38,7 +36,7 @@ function addHW(){
       var hwDate = document.createElement("input");
       hwDate.classList.add("hw-date");
       hwDate.setAttribute("type", "date");
-      var myDate = new Date().toISOString().substr(0,10);
+      var myDate = new Date().toISOString().substr(0, 10);    
       hwDate.setAttribute("value", myDate);
 
    /*Attaching together*/
@@ -55,6 +53,7 @@ function addHW(){
 /*removes homework-item*/
 function removeHW(){
    document.querySelector(".homework-item").parentElement.removeChild(document.querySelector(".homework-item"));
+
    hwCounter--;
 }
 
@@ -68,10 +67,12 @@ function storeValues(){
       homeworks[x].dueDate = document.querySelectorAll(".hw-date")[x].value;
 
       if(document.querySelectorAll(".hw-type")[x].value == "Major"){
-         majorHw.push({name: homeworks[x].name, type: "Major", dueDate: homeworks[x].dueDate}); //stores major homeworks
+         majorHw.push({name: homeworks[x].name, dueDate: homeworks[x].dueDate});
+
          //console.log(majorHw[x]);
       } else{
-         minorHw.push({name: homeworks[x].name, type: "Minor", dueDate: homeworks[x].dueDate}); //stores minor homeworks
+         minorHw.push({name: homeworks[x].name, dueDate: homeworks[x].dueDate});
+
          //console.log(minorHw[x]);
       }
    }
@@ -86,61 +87,58 @@ function storeValues(){
 }
 
 
+var dueDates = [];
 function sortHw(){
-   majorHw.sort(compareHw);
-   minorHw.sort(compareHw);
-   prioritizedHw = majorHw.concat(minorHw);
+   for(let i = 0; i < homeworks.length; i++){
+      dueDates[i] = homeworks[i].dueDate;
+   }
+
+   prioritizedHw = homeworks.sort(compareValues('dueDate'));
 }
 
-
- function compareHw(a, b){
-    var dateA = a.dueDate;
-    var dateB = b.dueDate;
-
-    if(dateA > dateB){return 1;}
-      else if(dateB > dateA){return -1;}
-
-      return 0;
+function compareValues(key, order='asc') {
+   return function(a, b) {
+     if(!a.hasOwnProperty(key) || 
+        !b.hasOwnProperty(key)) {
+        return 0; 
+     }
+     
+     const varA = (typeof a[key] === 'string') ? 
+       a[key].toUpperCase() : a[key];
+     const varB = (typeof b[key] === 'string') ? 
+       b[key].toUpperCase() : b[key];
+       
+     let comparison = 0;
+     if (varA > varB) {
+       comparison = 1;
+     } else if (varA < varB) {
+       comparison = -1;
+     }
+     return (
+       (order == 'desc') ? 
+       (comparison * -1) : comparison
+     );
+   };
  }
  
 
 function showPrioritized(){
-   /*hides all user inputs*/
-   for(let x = 0; x < document.querySelectorAll(".first-divs").length; x++){
-      document.querySelectorAll(".first-divs")[x].style.display = "none";
-   }
-
-   /*shows the table*/
+   document.querySelectorAll(".first-divs")[0].style.display = "none";
+   document.querySelectorAll(".first-divs")[1].style.display = "none";
+   document.querySelectorAll(".first-divs")[2].style.display = "none";
    document.querySelector("#last-div").style.display = "block";
 
-
    var priorList = document.querySelector(".prioritized-list")
-   var someDate;
 
    for(let z = 0; z < hwCounter; z++){
-      var row = document.createElement("tr"),
-      dataName = document.createElement("td"),
-      dataType = document.createElement("td"),
-      dataDate = document.createElement("td"),
-   
-      priorHwName = document.createTextNode(prioritizedHw[z].name),
-      priorHwType = document.createTextNode(prioritizedHw[z].type),
-      //reformats the date to MM/DD/YYYY
-      someDate = prioritizedHw[z].dueDate;
-      someDate = someDate.substr(5, someDate.length)+ "-" + someDate.substr(0,4);
-      priorHwDate = document.createTextNode(someDate);
-
-      
-      /*attaches name, type, date to cells in row*/
-      dataName.appendChild(priorHwName);
-      dataType.appendChild(priorHwType);
-      dataDate.appendChild(priorHwDate);
-      /*attaches the cells to the row*/
-      row.appendChild(dataName);
-      row.appendChild(dataType);
-      row.appendChild(dataDate);
-      /*inserts row to the table*/
-      priorList.appendChild(row);
+      var priorItem = document.createElement("li");
+      var priorHwName = document.createTextNode("Name: " + prioritizedHw[z].name);
+      var priorHwType = document.createTextNode(" Type: " + prioritizedHw[z].type);
+      var priorHwDate = document.createTextNode(" Due Date: " + prioritizedHw[z].dueDate);
+      priorItem.appendChild(priorHwName);
+      priorItem.appendChild(priorHwType);
+      priorItem.appendChild(priorHwDate);
+      priorList.appendChild(priorItem);
    }
 }
 
