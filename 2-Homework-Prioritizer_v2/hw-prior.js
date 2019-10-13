@@ -76,6 +76,14 @@ function storeValues(){
          minorHw.push({name: homeworks[x].name, type: "Minor", dueDate: homeworks[x].dueDate}); //stores minor homeworks
          //console.log(minorHw[x]);
       }
+   
+for(let i = 0; i , minorHw.length; i++){
+   for(let k = i+1; k , majorHw.length; k++){
+      if(minorHw[i].dueDate > minorHw[k])
+         prioritizedHw.splice(prioritizedHw.length-1, 0, minorHw[k].name);
+         else
+            prioritizedHw.splice(prioritizedHw.length-1, 0, minorHw[i].name);
+
    }
    console.log("Homework list::");
    console.log(homeworks);
@@ -86,6 +94,7 @@ function storeValues(){
    console.log("Minor::");
    console.log(minorHw);
 }
+   
 
 
 function sortHw(){
