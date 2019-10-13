@@ -19,18 +19,18 @@
 
         <!--Menu Bar-->
         <div class="menu-bar">
-            <div class="tab" onclick="switchPage(1)">
-                <p>Home</p>
-            </div>
             <div class="tab" onclick="switchPage(2)">
                 <p>Calculator</p>
+            </div>
+            <div class="tab" onclick="switchPage(1)">
+                <p>Home</p>
             </div>
             <div class="active-page tab" onclick="switchPage(3)">
                 <p>Homework Prioritizer</p>
             </div>
-            <div class="tab" onclick="switchPage(4)">
+            <!-- <div class="tab" onclick="switchPage(4)">
                 <p>Solving Matrices</p>
-            </div>
+            </div> -->
         </div>
 
 
@@ -55,9 +55,15 @@
 
         <div id="last-div" style="display: none;">
             <h3>You should do your homework in this order:</h3>
-            <ul class="prioritized-list" style="list-style-type: none;">
 
-            </ul>
+            <table class="prioritized-list">
+                <tr id="tableheaders">
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Due Date</th>
+                </tr>
+                
+            </table>
         </div>
 
 

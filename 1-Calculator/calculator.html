@@ -5,7 +5,9 @@
 
         <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
         <link rel="stylesheet" href="../Home/index.css">
+        <link rel="stylesheet" href="calculator.css">
         <script type="text/javascript" src="../Home/index.js"></script>
+        <script type="text/javascript" src="calculator.js"></script>
     </head>
     <body>
         <!--Website Title-->
@@ -13,17 +15,52 @@
 
         <!--Menu Bar-->
         <div class="menu-bar">
-            <div class="tab" onclick="switchPage(1)">
-                <p>Home</p>
-            </div>
             <div class="active-page tab" onclick="switchPage(2)">
                     <p>Calculator</p>
+            </div>
+            <div class="tab" onclick="switchPage(1)">
+                <p>Home</p>
             </div>
             <div class="tab" onclick="switchPage(3)">
                 <p>Homework Prioritizer</p>
             </div>
-            <div class="tab" onclick="switchPage(4)">
+            <!-- <div class="tab" onclick="switchPage(4)">
                 <p>Solving Matrices</p>
+            </div> -->
+        </div>
+
+        <!--Calculator-->
+        <div id="calculator">
+            <div id="answerscreen">
+                <p id="screen"></p>
+            </div>
+
+            <div id="firstrow">
+                <button class="num-btn" onclick="addDigit(7)">7</button>
+                <button class="num-btn" onclick="addDigit(8)">8</button>
+                <button class="num-btn" onclick="addDigit(9)">9</button>
+                <button class="num-btn" onclick="operation('divide')">&divide;</button>
+            </div>
+
+            <div id="secondrow">
+                <button class="num-btn" onclick="addDigit(4)">4</button>
+                <button class="num-btn" onclick="addDigit(5)">5</button>
+                <button class="num-btn" onclick="addDigit(6)">6</button>
+                <button class="num-btn" onclick="operation('multiply')">X</button>
+            </div>
+
+            <div id="thirdrow">
+                <button class="num-btn" onclick="addDigit(1)">1</button>
+                <button class="num-btn" onclick="addDigit(2)">2</button>
+                <button class="num-btn" onclick="addDigit(3)">3</button>
+                <button class="num-btn" onclick="operation('subtract')">-</button>
+            </div>
+
+            <div id="fourthrow">
+                <button class="num-btn" onclick="addDigit(0)">0</button>
+                <button class="num-btn" onclick="addDigit('.')">.</button>
+                <button class="num-btn" onclick="showAnswer()">=</button>
+                <button class="num-btn" onclick="operation('add')">+</button>
             </div>
         </div>
     </body>

@@ -5,6 +5,10 @@ body{
     font-family: Quicksand;
     color: white;
     text-align: center;
+
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
 
 #site-title{
@@ -20,7 +24,7 @@ body{
 
 .tab{
     float: left;
-    width: 25%;
+    width: 33.33%;
     height: 50px;
     cursor: pointer;
 
