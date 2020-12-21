@@ -7,10 +7,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Hover.css -->
+    <link rel="stylesheet" href="../css/hover.css">
     <!-- Local Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/hw-prior.css">
 
-    <title>Home | School Tools</title>
+    <title>Homework Prioritizer | School Tools</title>
   </head>
   <body>
     <!-- NAVIGATION BAR -->
@@ -22,23 +27,41 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
             <li class="nav-item active mx-3">
-              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="../src/hw-prior.html">HW Prioritizer</a>
             </li>
             <li class="nav-item mx-3">
-              <a class="nav-link" href="src/hw-prior.html">HW Prioritizer</a>
-            </li>
-            <li class="nav-item mx-3">
-              <a class="nav-link" href="src/calculator.html">Calculator</a>
+              <a class="nav-link" href="../src/calculator.html">Calculator</a>
             </li>
           </ul>
         </div>
       </nav>
 
+      <div class="invisible-div"></div>
+
+      <!-- APP ITSELF -->
+      <div class="container">
+        <div class="header-buttons my-3">
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add Homework</button>
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn" onclick="removeHW()">Remove Selected</button>
+        </div>
+
+        <div class="homework-div my-3">
+          <ul class="homework-list"></ul>
+        </div>
+
+        <div class="footer-buttons my-3">
+          <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
+        </div>
+      </div>
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="../js/hw-prior.js"></script>
   </body>
 </html>
