@@ -15,10 +15,7 @@ for(let i = 0; i < 3; i++){
 // Today's Date
 function getDateToday(){
    var date = new Date();
-   var year = date.getFullYear().toString();
-   var month = (date.getMonth()+1).toString();
-   var day = date.getDate().toString();
-   var today = year + '-' + month + '-' + day;
+   var today = date.toISOString().substr(0,10);
 
    return today;
 }
@@ -198,7 +195,7 @@ function sortHW(){
       var firstMajor;
       if(sortedHW[i].type == 'Major')
          firstMajor = sortedHW[i];
-      if(sortedHW[i].type == 'Minor'){
+      if(sortedHW[i].type == 'Minor' && firstMajor != undefined){
          /*
           * If there are more minor than major and
           * the major is due in 4 days then the minor comes first
@@ -217,7 +214,7 @@ function sortHW(){
 function showPrioritized(){
    $('#sortedDiv').toggle();
    for(let i = 0; i < sortedHW.length; i++){
-      
+      var $row = $('<tr>');
    }
 }
 
@@ -227,7 +224,7 @@ function prioritize(){
    majorHW = [],
    minorHW = [];
 
-   getAllInput(),
-   sortHW(),
+   getAllInput();
+   sortHW();
    showPrioritized();
 }
