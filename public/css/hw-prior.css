@@ -2,23 +2,14 @@
   list-style-type: none;
 }
 
-.homework-item {
-}
-
-.hw-name {
-  background: #2d2d2d;
-  color: white;
-  font-size: 20px;
-}
-
-.hw-date {
-  background: #2d2d2d;
-  color: white;
-  font-size: 20px;
-}
-
+.hw-name, 
+.hw-date, 
 .hw-type {
   background: #2d2d2d;
   color: white;
   font-size: 20px;
+}
+
+#sortedDiv {
+  display: none;
 }

@@ -28,8 +28,8 @@
   <!-- NAVIGATION BAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">School Tools</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      <a class="navbar-brand" href="../../index.html">School Tools</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -39,8 +39,8 @@
           <li class="nav-item mx-3">
             <a class="nav-link" href="../../index.html">Home <span class="sr-only"></span></a>
           </li>
-          <li class="nav-item active mx-3">
-            <a class="nav-link" href="../src/hw-prior.html">HW Prioritizer</a>
+          <li class="nav-item mx-3">
+            <a class="nav-link acitve" aria-current="page" href="../src/hw-prior.html">HW Prioritizer</a>
           </li>
           <li class="nav-item mx-3">
             <a class="nav-link" href="../src/calculator.html">Calculator</a>
@@ -52,7 +52,6 @@
 
   <div class="invisible-div"></div>
 
-  <!-- APP ITSELF -->
   <div class="container">
     <div class="header-buttons my-3">
       <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add Homework</button>
@@ -61,7 +60,7 @@
     </div>
 
     <div class="homework-div table-responsive my-3">
-      <table class="table table-dark">
+      <table class="table table-dark" id="homework-list">
         <thead>
           <tr>
             <th scope="col"></th>
@@ -75,12 +74,31 @@
         </tbody>
 
       </table>
-      <ul class="homework-list"></ul>
     </div>
 
     <div class="footer-buttons my-3">
       <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
     </div>
+   
+    <!-- Table for Sorted Homework -->
+    <div id="sortedDiv">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#:</th>
+            <th scope="col">Name:</th>
+            <th scope="col">Due Date:</th>
+            <th scope="col">Grade Type:</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+      </table>
+
+    </div>
+    
   </div>
 
   <!-- Local Scripts -->

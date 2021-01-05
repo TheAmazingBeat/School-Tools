@@ -1,8 +1,10 @@
+// jshint esversion:6
+
 var hwList = [],
-   hwValues = [], 
+   hwValues = [],
    majorHW = [], 
    minorHW = [],
-   sortedHW = [];
+   sortedHW = []; 
 var hwCounter = 0;
 
 // First three homework items
@@ -26,8 +28,8 @@ function createCheckBox(){
    // Creates -> <input class="hw-select mx-2" type="checkbox">
    
    var checkboxCell = document.createElement('th');
-   $(checkboxCell).attr('scope', 'row')
-   $(checkboxCell).attr('class', 'hw-select-cell')
+   $(checkboxCell).attr('scope', 'row');
+   $(checkboxCell).attr('class', 'hw-select-cell');
    var checkbox = document.createElement('input');
    $(checkbox).attr('class', 'hw-select hvr-grow');
    $(checkbox).attr('type', 'checkbox');
@@ -38,7 +40,7 @@ function createCheckBox(){
 function createNameInput(){
    // Creates -> <input class="hw-name" type="text" placeholder="Name">
    var nameCell = document.createElement('td');
-   $(nameCell).attr('class', 'hw-name-cell')
+   $(nameCell).attr('class', 'hw-name-cell');
    var nameInput = document.createElement('input');
    $(nameInput).attr('class', 'hw-name hvr-grow');
    $(nameInput).attr('type', 'text');
@@ -50,7 +52,7 @@ function createNameInput(){
 function createDateInput(){
    // Creates -> <input class="hw-date" type="date" name="duedate">
    var dateInputCell = document.createElement('td');
-   $(dateInputCell).attr('class', 'hw-date-cell')
+   $(dateInputCell).attr('class', 'hw-date-cell');
    var dateInput = document.createElement('input');
    $(dateInput).attr('class', 'hw-date hvr-grow');
    $(dateInput).attr('type', 'date');
@@ -66,7 +68,7 @@ function createDateInput(){
 function createTypeInput(){
    // Creates -> <select name="type" id="" class="hw-type"><option value="Minor">Minor</option><option value="Major">Major</option></select>
    var typeCell = document.createElement('td');
-   $(typeCell).attr('class', 'hw-type-cell')
+   $(typeCell).attr('class', 'hw-type-cell');
    var typeInput = document.createElement('select');
    $(typeInput).attr('class', 'hw-type hvr-grow');
    $(typeInput).attr('name', 'type');
@@ -107,7 +109,7 @@ function addHW(){
 
    hwList.unshift(hwItem);
    hwCounter++;
-   $('table.table > tbody').prepend(hwItem);
+   $('#homework-list > tbody').prepend(hwItem);
 }
 
 // Removes the selected homework item(s) in the list
@@ -140,7 +142,7 @@ function removeHW(){
 
 function getAllInput(){
    for(let i = 0; i < hwCounter; i++){
-      hwValues[i] = new Object();
+      hwValues[i] = {};
       hwValues[i].name = getNameInput(i);
       hwValues[i].date = getDateInput(i);
       hwValues[i].type = getTypeInput(i);
@@ -152,6 +154,7 @@ function getAllInput(){
 }
 
 function sortByDate(array){
+   // Selection Sort
    for(let i = 0; i < array.length; i++){
       var min = i;
       for(let j = i+1; j < array.length; j++){
@@ -212,13 +215,19 @@ function sortHW(){
 }
 
 function showPrioritized(){
-
+   $('#sortedDiv').toggle();
+   for(let i = 0; i < sortedHW.length; i++){
+      
+   }
 }
 
 function prioritize(){
+   // resets arrays
    hwValues = [],
    majorHW = [],
    minorHW = [];
-   getAllInput();
-   sortHW();
+
+   getAllInput(),
+   sortHW(),
+   showPrioritized();
 }
