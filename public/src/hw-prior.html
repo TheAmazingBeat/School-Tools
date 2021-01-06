@@ -56,35 +56,39 @@
   <div class="invisible-div"></div>
 
   <div class="container">
-    <div class="header-buttons my-3">
-      <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add Homework</button>
-      <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn" onclick="removeHW()">Remove
-        Selected</button>
+    <div id="userDiv">
+      <div class="header-buttons my-3">
+        <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add Homework</button>
+        <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn" onclick="removeHW()">Remove
+          Selected</button>
+      </div>
+  
+      <div class="homework-div table-responsive my-3">
+        <table class="table table-dark table-hover table-striped" id="homework-list">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Name:</th>
+              <th scope="col">Due Date:</th>
+              <th scope="col">Grade Type:</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+          </tbody>
+  
+        </table>
+      </div>
+  
+      <div class="footer-buttons my-3">
+        <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
+      </div>
     </div>
 
-    <div class="homework-div table-responsive my-3">
-      <table class="table table-dark table-hover table-striped" id="homework-list">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Name:</th>
-            <th scope="col">Due Date:</th>
-            <th scope="col">Grade Type:</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        </tbody>
-
-      </table>
-    </div>
-
-    <div class="footer-buttons my-3">
-      <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
-    </div>
 
     <!-- Table for Sorted Homework -->
     <div id="sortedDiv" class="my-3">
+
       <h3>Prioritized Homework:</h3>
       <table class="table table-dark" id="sorted-list">
         <thead>
@@ -99,6 +103,10 @@
         <tbody>
         </tbody>
       </table>
+
+      <div class="footer-buttons my-3">
+        <button type="button" class="btn btn-warning hvr-pulse-grow" onclick="edit()">Edit</button>
+      </div>
 
     </div>
 

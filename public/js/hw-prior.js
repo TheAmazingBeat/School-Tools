@@ -210,6 +210,8 @@ function sortHW() {
 }
 
 function showPrioritized() {
+
+   hideList();
    // prevents the table from having old list
    $('#sorted-list > tbody').empty();
 
@@ -232,6 +234,16 @@ function showPrioritized() {
 
       $('#sorted-list > tbody').append($row);
    }
+}
+
+// hides where the user edits homework list
+function hideList(){
+   $('#userDiv:visible').toggle('slow');
+}
+
+function edit(){
+   $('#sortedDiv:visible').toggle('slow');
+   $('#userDiv:hidden').toggle('slow');
 }
 
 function prioritize() {
