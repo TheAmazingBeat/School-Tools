@@ -1,4 +1,5 @@
 // jshint esversion:6
+// jshint -W030 
 
 var hwList = [],
    hwValues = [],
@@ -252,7 +253,7 @@ function prioritize() {
       majorHW = [],
       minorHW = [];
 
-   getAllInput();
-   sortHW();
+   getAllInput(),
+   sortHW(),
    showPrioritized();
 }
