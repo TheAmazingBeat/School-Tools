@@ -1,11 +1,10 @@
-
-body{
+body {
     background-color: black;
     font-family: Quicksand;
     color: white;
     text-align: center;
 }
 
-.invisible-div{
+.invisible-div {
     height: 50px;
 }
