@@ -8,3 +8,8 @@ body {
 .invisible-div {
     height: 50px;
 }
+
+.nav-item:hover {
+    background-color: #4f4e4e !important;
+    border-radius: 5px;
+}

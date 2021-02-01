@@ -55,14 +55,14 @@
   <div class="invisible-div"></div>
 
   <div class="container">
-    <div id="userDiv">
+    <div id="userDiv" class="animate__animated animate__fadeInUp">
       <div class="header-buttons my-3">
         <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add Homework</button>
         <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn" onclick="removeHW()">Remove
           Selected</button>
       </div>
   
-      <div class="homework-div table-responsive my-3">
+      <div class="homework-div table-responsive my-3 animate__animated animate__fadeInUp">
         <table class="table table-dark table-hover table-striped" id="homework-list">
           <thead>
             <tr>
@@ -79,7 +79,7 @@
         </table>
       </div>
   
-      <div class="footer-buttons my-3">
+      <div class="footer-buttons my-3 animate__animated animate__fadeInUp">
         <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
       </div>
     </div>
@@ -88,8 +88,8 @@
     <!-- Table for Sorted Homework -->
     <div id="sortedDiv" class="my-3">
 
-      <h3>Prioritized Homework:</h3>
-      <table class="table table-dark" id="sorted-list">
+      <h3 class="animate__animated animate__fadeInUp">Prioritized Homework:</h3>
+      <table class="table table-dark animate__animated animate__fadeInUp" id="sorted-list">
         <thead>
           <tr>
             <th scope="col">#:</th>
@@ -103,7 +103,7 @@
         </tbody>
       </table>
 
-      <div class="footer-buttons my-3">
+      <div class="footer-buttons my-3 animate__animated animate__fadeInUp">
         <button type="button" class="btn btn-warning hvr-pulse-grow" onclick="edit()">Edit</button>
       </div>
 
