@@ -15,8 +15,9 @@
   <link rel="stylesheet" href="vendor/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
   <!-- Local Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/calculator.css">
 
-  <title>Home | School Tools</title>
+  <title>Calculator | School Tools</title>
 </head>
 
 <body>
@@ -52,18 +53,46 @@
   <!-- Calculator -->
   <div class="container">
 
-    <h1>Coming Soon</h1>
+    <!-- <h1>Coming Soon</h1> -->
 
-    <div id="">
-      <div id="calc-base">
+    <div id="calculator">
+      <div id="calcBase">
         <div id="calcScreen">
-
+          <span id="screenText"></span>
         </div>
 
         <div id="calcBody">
+          <div id="topRow" class="btn-row">
+            <div id="top-left-btn" class="btn function-btn clear-btn"><span class="btn-text">AC</span></div>
+            <div class="btn function-btn"><span class="btn-text">&plus;/&minus;</span></div>
+            <div class="btn function-btn"><span class="btn-text">&percnt;</span></div>
+            <div onclick="operator('divide')" id="top-right-btn" class="btn operator-btn"><span class="btn-text">&divide;</span></div>
+          </div>
 
-          
+          <div class="btn-row">
+            <div onclick="addNumber('7')" class="btn"><span class="btn-text">7</span></div>
+            <div onclick="addNumber('8')" class="btn"><span class="btn-text">8</span></div>
+            <div onclick="addNumber('9')" class="btn"><span class="btn-text">9</span></div>
+            <div onclick="operator('multiply')" class="btn operator-btn"><span class="btn-text">&times;</span></div>
+          </div>
 
+          <div class="btn-row">
+            <div onclick="addNumber('4')" class="btn"><span class="btn-text">4</span></div>
+            <div onclick="addNumber('5')" class="btn"><span class="btn-text">5</span></div>
+            <div onclick="addNumber('6')" class="btn"><span class="btn-text">6</span></div>
+            <div onclick="operator('subtract')" class="btn operator-btn"><span class="btn-text">&minus;</span></div>
+          </div>
+          <div class="btn-row">
+            <div onclick="addNumber('1')" class="btn"><span class="btn-text">1</span></div>
+            <div onclick="addNumber('2')" class="btn"><span class="btn-text">2</span></div>
+            <div onclick="addNumber('3')" class="btn"><span class="btn-text">3</span></div>
+            <div onclick="operator('add')" class="btn operator-btn"><span class="btn-text">&plus;</span></div>
+          </div>
+          <div id="btmRow" class="btn-row">
+            <div onclick="addNumber('0')" id="btm-left-btn" class="btn zero-btn"><span class="btn-text">0</span></div>
+            <div onclick="addNumber('.')" class="btn"><span class="btn-text">.</span></div>
+            <div onclick="solve()" id="btm-right-btn" class="btn operator-btn"><span class="btn-text">&equals;</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,6 +100,7 @@
 
   </div>
 
+  <script src="js/calculator.js"></script>
 
 </body>
 
