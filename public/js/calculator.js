@@ -7,6 +7,8 @@ let currentNum = '',
    operator = '',
    functional = '';
 let answer = 0;
+let numPressed = false,
+   opPressed = false;
 
 const $screen = $('#screenText');
 $('#screenText').text('0');
@@ -104,6 +106,8 @@ function addNumber(n) {
    //else add pressed number to the screen
    else
       $screen.text($text + n);
+
+   numPressed = true;
 }
 
 
@@ -159,6 +163,7 @@ function operation(op) {
       }
 
    }
+   opPressed = true;
 }
 
 function functionals(f) {
@@ -201,23 +206,42 @@ function solve(operator, first, second) {
    let numOne = parseFloat(first);
    let numTwo = parseFloat(second);
 
-   switch (operator) {
-      case 'add':
-         answer = numOne + numTwo;
-         break;
-      case 'subtract':
-         answer = numOne - numTwo;
-         break;
-      case 'multiply':
-         answer = numOne * numTwo;
-         break;
-      case 'divide':
-         answer = numOne / numTwo;
-         break;
+   //Returns back answer if equals was pressed again after just solving an equation
+   if (!numPressed && !opPressed) {
+      $screen.text(answer.toString());
+   }
+   //Return current number if user did not make an equation but pressed equals 
+   else if (numPressed && !opPressed) {
+      answer = parseFloat(currentNum);
+      $screen.text(answer.toString());
+   }
+   //Returns "Error" when user presses operation and then equals
+   else if (numPressed && opPressed && second == '') {
+      $screen.text('Error');
+   } else {
+      switch (operator) {
+         case 'add':
+            answer = numOne + numTwo;
+            break;
+         case 'subtract':
+            answer = numOne - numTwo;
+            break;
+         case 'multiply':
+            answer = numOne * numTwo;
+            break;
+         case 'divide':
+            answer = numOne / numTwo;
+            break;
+      }
+
+      numPressed = false;
+      opPressed = false;
+      $screen.text(answer.toString());
+      clear();
    }
 
-   $screen.text(answer.toString());
-   clear();
+
+   equalsPressed = true;
    console.log({
       answer,
       previousNum,
