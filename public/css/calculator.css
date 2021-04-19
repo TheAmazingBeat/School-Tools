@@ -2,8 +2,6 @@
    display: flex;
    justify-content: space-around;
    flex-wrap: wrap;
-   height: 600px;
-   width: 400px;
    margin: auto;
    background-color: grey;
    border-radius: 15px;
@@ -21,7 +19,6 @@
 #screenText {
    margin-right: 5px;
    color: black;
-   font-size: 4.5rem;
 }
 
 #calcBody {
@@ -39,6 +36,25 @@
    /* background: #39B54a; */
 }
 
+.btn {
+   width: 24%;
+   height: 100%;
+   background: #39B54a;
+   border-radius: 0px;
+}
+
+.btn:hover {
+   background: #bcf7ac;
+}
+
+.function-btn {
+   background: #009245;
+}
+
+.operator-btn {
+   background: #22B573;
+}
+
 #topRow {
    margin-top: 0;
    border-top-left-radius: 15px;
@@ -49,13 +65,6 @@
    margin-bottom: 0;
    border-bottom-left-radius: 15px;
    border-bottom-right-radius: 15px;
-}
-
-.btn {
-   width: 24%;
-   height: 100%;
-   background: #39B54a;
-   border-radius: 0px;
 }
 
 #top-left-btn {
@@ -74,22 +83,55 @@
    border-bottom-right-radius: 15px;
 }
 
-.function-btn {
-   background: #009245;
+
+
+@media screen and (min-device-width:320px) and (max-device-width:767px){
+   #calcBase {
+      height: 450px;
+      width: 300px;
+   }
+
+   #screenText {
+      font-size: 3.5rem;
+   }
+
+   .btn-row{
+      height: 18.7%;
+   }
+
+   .btn-text {
+      font-size: 2rem;
+   }
+
+   .btn {
+      width: 23.7%;
+      height: 100%;
+   }
+
+   .zero-btn {
+      width: 48.5%;
+   }
 }
 
-.operator-btn {
-   background: #22B573;
+@media screen and (min-device-width:768px) {
+   #calcBase {
+      height: 600px;
+      width: 400px;
+      margin: auto;
+   }
+
+   #screenText{
+      font-size: 4.5rem;
+   }
+
+   .btn-text {
+      font-size: 2.5rem;
+   }
+   
+   .zero-btn {
+      width: 49.5%;
+   }
 }
 
-.zero-btn {
-   width: 49.5%;
-}
 
-.btn:hover {
-   background: #bcf7ac;
-}
 
-.btn-text {
-   font-size: 2.5rem;
-}
