@@ -1,0 +1,19 @@
+#calendar {
+   margin: auto;
+   border-radius: 15px;
+   width: 75%;
+   height: 50%;
+   background: gray;
+}
+
+#monthYear {
+   color: white;
+}
+
+.arrow{
+   color: white;
+}
+
+.arrow:hover{
+   color: aquamarine;
+}

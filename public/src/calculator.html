@@ -30,7 +30,7 @@
       </button>
   
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav nav-pills mx-auto">
           <li class="nav-item active mx-3">
             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
           </li>
@@ -62,7 +62,7 @@
         </div>
 
         <div id="calcBody">
-          <div id="topRow" class="btn-row">
+          <!-- <div id="topRow" class="btn-row">
             <div id="top-left-btn" class="btn function-btn clear-btn"><span class="btn-text">AC</span></div>
             <div onclick="functionals('plusminus')" class="btn function-btn"><span class="btn-text">&plus;/&minus;</span></div>
             <div onclick="functionals('percent')" class="btn function-btn"><span class="btn-text">&percnt;</span></div>
@@ -92,7 +92,42 @@
             <div onclick="addNumber('0')" id="btm-left-btn" class="btn zero-btn"><span class="btn-text">0</span></div>
             <div onclick="addNumber('.')" class="btn"><span class="btn-text">.</span></div>
             <div onclick="getNumbers()" id="btm-right-btn" class="btn operator-btn"><span class="btn-text">&equals;</span></div>
+          </div> -->
+
+
+          <div class="numbers-functions">
+            <div id="top-left-btn" class="btn function-btn clear-btn"><span class="btn-text">AC</span></div>
+            <div onclick="functionals('plusminus')" class="btn function-btn"><span class="btn-text">&plus;/&minus;</span></div>
+            <div onclick="functionals('percent')" class="btn function-btn"><span class="btn-text">&percnt;</span></div>
+            
+            <div onclick="addNumber('7')" class="btn num-btn"><span class="btn-text">7</span></div>
+            <div onclick="addNumber('8')" class="btn num-btn"><span class="btn-text">8</span></div>
+            <div onclick="addNumber('9')" class="btn num-btn"><span class="btn-text">9</span></div>
+
+            <div onclick="addNumber('4')" class="btn num-btn"><span class="btn-text">4</span></div>
+            <div onclick="addNumber('5')" class="btn num-btn"><span class="btn-text">5</span></div>
+            <div onclick="addNumber('6')" class="btn num-btn"><span class="btn-text">6</span></div>
+
+            <div onclick="addNumber('1')" class="btn num-btn"><span class="btn-text">1</span></div>
+            <div onclick="addNumber('2')" class="btn num-btn"><span class="btn-text">2</span></div>
+            <div onclick="addNumber('3')" class="btn num-btn"><span class="btn-text">3</span></div>
           </div>
+
+          <div class="operators">
+            <div onclick="operation('divide')" id="top-right-btn" class="btn operator-btn"><span class="btn-text">&divide;</span></div>
+            <div onclick="operation('multiply')" class="btn operator-btn"><span class="btn-text">&times;</span></div>
+            <div onclick="operation('subtract')" class="btn operator-btn"><span class="btn-text">&minus;</span></div>
+            <div onclick="operation('add')" class="btn operator-btn"><span class="btn-text">&plus;</span></div>
+            <div onclick="getNumbers()" id="btm-right-btn" class="btn operator-btn"><span
+                class="btn-text">&equals;</span></div>
+          </div>
+
+          <!-- Bottom Row -->
+          <div class="btm-row">
+            <div onclick="addNumber('0')" id="btm-left-btn" class="btn"><span class="btn-text">0</span></div>
+            <div onclick="addNumber('.')" class="btn"><span class="btn-text">.</span></div>
+          </div>
+          
         </div>
       </div>
     </div>

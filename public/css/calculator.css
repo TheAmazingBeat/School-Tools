@@ -27,20 +27,39 @@
    width: 90%;
    height: 70%;
    background-color: darkgray;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-template-areas: 
+   "num num num op"
+   "num num num op"
+   "num num num op"
+   "num num num op"
+   "bot bot bot op";
 }
 
-.btn-row {
-   margin: 5px auto;
-   width: 100%;
-   height: 19.025%;
-   /* background: #39B54a; */
+
+.numbers-functions{
+   grid-area: num;
+   display: grid;
+   grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.operators{
+   grid-area: op;
+   display: grid;
+   grid-template-columns: 1fr;
+}
+
+.btm-row{
+   grid-area: bot;
+   display: grid;
+   grid-template-columns: 2fr 1fr;
 }
 
 .btn {
-   width: 24%;
-   height: 100%;
    background: #39B54a;
    border-radius: 0px;
+   border: 0.25px grey solid;
 }
 
 .btn:hover {
@@ -55,17 +74,7 @@
    background: #22B573;
 }
 
-#topRow {
-   margin-top: 0;
-   border-top-left-radius: 15px;
-   border-top-right-radius: 15px;
-}
 
-#btmRow {
-   margin-bottom: 0;
-   border-bottom-left-radius: 15px;
-   border-bottom-right-radius: 15px;
-}
 
 #top-left-btn {
    border-top-left-radius: 15px;
@@ -95,21 +104,8 @@
       font-size: 3.5rem;
    }
 
-   .btn-row{
-      height: 18.7%;
-   }
-
    .btn-text {
       font-size: 2rem;
-   }
-
-   .btn {
-      width: 23.7%;
-      height: 100%;
-   }
-
-   .zero-btn {
-      width: 48.5%;
    }
 }
 
@@ -126,10 +122,6 @@
 
    .btn-text {
       font-size: 2.5rem;
-   }
-   
-   .zero-btn {
-      width: 49.5%;
    }
 }
 
