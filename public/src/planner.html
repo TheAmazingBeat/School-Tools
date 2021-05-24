@@ -54,11 +54,12 @@
 
   <div class="container">
 
-    <!-- <h1>Coming Soon</h1> -->
+    <div id="calendar"></div>
 
-    <div id="calendar">
-      <div id="calendar-header" class="row align-items-center">
-        <div class="col-3 btn arrow">
+    <div id="calendarOne">
+      <div id="calendarHeader" class="row align-items-center">
+
+        <div id="prevArrow" onclick="previous()" class="col-3 btn arrow">
           <i class="fas fa-caret-left fa-2x"></i>
         </div>
         
@@ -66,14 +67,28 @@
           <h1 id="monthYear"></h1>
         </div>
         
-        <div class="col-3 btn arrow">
+        <div id="nextArrow" onclick="next()" class="col-3 btn arrow">
           <i class="fas fa-caret-right fa-2x"></i>
         </div>
         
       </div>
 
       <div id="calendar-body">
+        <div id="weekdays">
+          <div class="weekday">SUN</div>
+            <div class="weekday">MON</div>
+            <div class="weekday">TUE</div>
+            <div class="weekday">WED</div>
+            <div class="weekday">THU</div>
+            <div class="weekday">FRI</div>
+            <div class="weekday">SAT</div>
 
+
+        </div>
+
+        <div id="calendarDays">
+
+        </div>
       </div>
     </div>
 

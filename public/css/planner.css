@@ -1,19 +1,60 @@
-#calendar {
+#calendarOne {
    margin: auto;
    border-radius: 15px;
    width: 75%;
    height: 50%;
-   background: gray;
+   background: #333333;
 }
 
 #monthYear {
    color: white;
 }
 
-.arrow{
+.arrow {
    color: white;
 }
 
-.arrow:hover{
+.arrow:hover {
    color: aquamarine;
 }
+
+#calendarHeader {
+   padding: 15px 10px;
+}
+
+#calendarBody {}
+
+#weekdays {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.weekday {
+   padding: 10px;
+   background: darkgray;
+   color: black;
+   border: 1px solid gray;
+}
+
+#calendarDays {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.day {
+   background: white;
+   color: black;
+   border: 1px solid gray;
+   padding: 30px;
+   cursor: pointer;
+}
+
+.day:hover{
+   background: rgb(255, 255, 255, 0.8);
+}
+
+.blank {
+   background: #ececec;
+}
+
+.day-num {}
