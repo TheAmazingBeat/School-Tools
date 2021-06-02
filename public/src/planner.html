@@ -15,6 +15,9 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="vendor/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
+  <!-- Animations -->
+  <link rel="stylesheet" href="vendor/animate.css-4.1.1/animate.css">
+  <link rel="stylesheet" href="vendor/Hover-master/css/hover.css">
   <!-- Local Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/planner.css">
@@ -30,7 +33,7 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav nav-pills mx-auto">
           <li class="nav-item mx-3">
@@ -54,34 +57,32 @@
 
   <div class="container">
 
-    <div id="calendar"></div>
-
-    <div id="calendarOne">
-      <div id="calendarHeader" class="row align-items-center">
+    <div id="calendar" class="animate__animated animate__zoomIn animate__faster">
+      <div id="calendarHeader" class="row align-items-center animate__animated animate__backInDown">
 
         <div id="prevArrow" onclick="previous()" class="col-3 btn arrow">
           <i class="fas fa-caret-left fa-2x"></i>
         </div>
-        
+
         <div class="col-6">
           <h1 id="monthYear"></h1>
         </div>
-        
+
         <div id="nextArrow" onclick="next()" class="col-3 btn arrow">
           <i class="fas fa-caret-right fa-2x"></i>
         </div>
-        
+
       </div>
 
       <div id="calendar-body">
-        <div id="weekdays">
+        <div id="weekdays" class="animate__animated animate__zoomIn animate__delay-1s">
           <div class="weekday">SUN</div>
-            <div class="weekday">MON</div>
-            <div class="weekday">TUE</div>
-            <div class="weekday">WED</div>
-            <div class="weekday">THU</div>
-            <div class="weekday">FRI</div>
-            <div class="weekday">SAT</div>
+          <div class="weekday">MON</div>
+          <div class="weekday">TUE</div>
+          <div class="weekday">WED</div>
+          <div class="weekday">THU</div>
+          <div class="weekday">FRI</div>
+          <div class="weekday">SAT</div>
 
 
         </div>

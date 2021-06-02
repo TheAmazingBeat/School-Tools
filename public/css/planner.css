@@ -1,8 +1,7 @@
-#calendarOne {
+#calendar {
    margin: auto;
    border-radius: 15px;
-   width: 75%;
-   height: 50%;
+   width: 100%;
    background: #333333;
 }
 
@@ -21,8 +20,6 @@
 #calendarHeader {
    padding: 15px 10px;
 }
-
-#calendarBody {}
 
 #weekdays {
    display: grid;
@@ -43,21 +40,33 @@
 
 .day {
    width: 100%;
-   height: 100px;
+   height: 125px;
    background: white;
    color: black;
    border: 1px solid gray;
    cursor: pointer;
 }
 
-.day:hover{
+.day:hover,
+.day:focus,
+.day:active {
    background: rgb(255, 255, 255, 0.8);
+}
+
+.day-num {
+   margin: 5px;
 }
 
 .blank {
    background: #ececec;
 }
 
-.day-num{
-   margin: 5px;
+.blank > .day-num{
+   color: (0, 0, 0, 0.6);
+}
+
+
+
+:root{
+   --animation-duration: 0.5s;
 }
