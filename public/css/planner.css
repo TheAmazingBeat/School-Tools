@@ -42,10 +42,11 @@
 }
 
 .day {
+   width: 100%;
+   height: 100px;
    background: white;
    color: black;
    border: 1px solid gray;
-   padding: 30px;
    cursor: pointer;
 }
 
@@ -57,4 +58,6 @@
    background: #ececec;
 }
 
-.day-num {}
+.day-num{
+   margin: 5px;
+}

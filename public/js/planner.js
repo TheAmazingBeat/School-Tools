@@ -5,21 +5,32 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June',
 ];
 
 let d = new Date();
-let currMonth = d.getMonth();
-let currYear = d.getFullYear();
+// let currMonth = d.getMonth();
+// let currYear = d.getFullYear();
 let monthNum = d.getMonth();
 let yearNum = d.getFullYear();
 let $calendar = $('#monthYear');
 
+function dateLog(){
+   console.log('%c Date:', 'color: green; font-weight: bold;' );
+   console.log({monthNum, yearNum});
+}
+
+
+//Beginning at the current month and year
 $(document).ready(function () {
-   $calendar.text(getRealMonth() + ' ' + yearNum);
+   $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
+   dateLog();
    loadCalendarDays();
 });
 
+/*
 function getRealMonth() {
    return getTheMonth(d.getMonth());
 }
+*/
 
+//Get month from string array
 function getTheMonth(num) {
    let month;
 
@@ -37,8 +48,8 @@ function previous() {
    if (getTheMonth(monthNum - 1) == months[11])
       yearNum--;
 
-
-   if ((monthNum - 1) < 0) {
+   //Month before
+   if ((monthNum - 1) < 0) { //December <- January
       monthNum = 11;
       $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
    } else {
@@ -46,6 +57,7 @@ function previous() {
       monthNum--;
    }
 
+   dateLog();
    loadCalendarDays();
 }
 
@@ -54,8 +66,8 @@ function next() {
    if (getTheMonth(monthNum + 1) == months[0])
       yearNum++;
 
-
-   if ((monthNum + 1) > 11) {
+   //Month after
+   if ((monthNum + 1) > 11) { //December -> January
       monthNum = 0;
       $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
    } else {
@@ -63,6 +75,7 @@ function next() {
       monthNum++;
    }
 
+   dateLog();
    loadCalendarDays();
 
 }
@@ -76,23 +89,28 @@ function numOfDays(month, year) {
 function loadCalendarDays() {
    $('#calendarDays').html('');
 
-   let tmpDate = new Date(currYear, currMonth, 0);
-   let num = numOfDays(currMonth, currYear);
+   let tmpDate = new Date(yearNum, monthNum, 0);
+   //Gets how many days in the month
+   let num = numOfDays(monthNum, yearNum);
    //Gets the first day of the month
-   let dayofweek = tmpDate.getDay();
+   let dayOfWeek = tmpDate.getDay();
+
+   console.log('%c loadCalendarDays():', 'color:white; font-weight:bold;');
+   console.log({tmpDate, num, dayOfWeek});
 
    // create day prefixes before first day of the month
-   for (let i = 0; i <= dayofweek; i++) {
-      let d = document.createElement("div");
-      $(d).attr('class', 'day blank');
-      $('#calendarDays').append(d);
+   if(dayOfWeek != 6){ //when month starts at Sunday, don't create
+      for (let i = 0; i <= dayOfWeek; i++) {
+         let d = document.createElement("div");
+         $(d).attr('class', 'day blank');
+         $('#calendarDays').append(d);
+      }
    }
-
    // creates rest of the days in the month
    for (let i = 0; i < num; i++) {
       let dayNum = i + 1;
       let d = document.createElement("div");
-      $(d).attr('id', 'calendarDay_' + i)
+      $(d).attr('id', 'calendarDay_' + i);
       $(d).attr('class', 'day');
 
       // text box inside div
