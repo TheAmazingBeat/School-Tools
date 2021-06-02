@@ -7,6 +7,8 @@ let d = new Date();
 let monthNum = d.getMonth();
 let yearNum = d.getFullYear();
 let $calendar = $('#monthYear');
+let animateDelay = 2000;
+let days;
 
 
 function dateLog() {
@@ -40,6 +42,7 @@ function getTheMonth(num) {
 }
 
 function previous() {
+   animateDelay = 0;
    // Indicates year before
    if (getTheMonth(monthNum - 1) == months[11])
       yearNum--;
@@ -53,11 +56,17 @@ function previous() {
       monthNum--;
    }
 
+   $calendar.attr('class', 'animate__animated animate__fadeInLeft');
+   $calendar.on('animationend', function () {
+      $calendar.attr('class', '');
+   });
+
    dateLog();
    loadCalendarDays();
 }
 
 function next() {
+   animateDelay = 0;
    // Indicates new year
    if (getTheMonth(monthNum + 1) == months[0])
       yearNum++;
@@ -71,6 +80,11 @@ function next() {
       monthNum++;
    }
 
+   $calendar.attr('class', 'animate__animated animate__fadeInRight');
+   $calendar.on('animationend', function(){
+      $calendar.attr('class','');
+   });
+
    dateLog();
    loadCalendarDays();
 
@@ -82,9 +96,10 @@ function numOfDays(month, year) {
    return d.getDate();
 }
 
-let days = 0;
+
 function loadCalendarDays() {
    $('#calendarDays').html('');
+   days = 0;
 
    let tmpDate = new Date(yearNum, monthNum, 1);
    // Gets how many days in the month
@@ -101,9 +116,8 @@ function loadCalendarDays() {
    });
 
    // create day prefixes before first day of the month
-   for (let i = 0; i < dayOfWeek; i++) {
-      createDayCells('blank-begin',i);
-
+   for (let i = dayOfWeek; i > 0; i--) {
+      createDayCells('blank-begin', i, tmpDate);
       days++;
    }
    // creates rest of the days in the month
@@ -112,7 +126,13 @@ function loadCalendarDays() {
       days++;
    }
    // create blank days after last day of the month
-   let daysLeft = 35-days;
+   let daysLeft;
+   if(days > 35){
+      daysLeft = 42-days;
+   }
+   else{
+      daysLeft = 35 - days;
+   }
    if(days != 35){
       for(let i = 0; i < daysLeft; i++){
          createDayCells('blank-end', i);
@@ -125,30 +145,26 @@ function loadCalendarDays() {
 }
 
 // Makes days in the calendar
-let animateDelay = 2000;
-function createDayCells(type, index){
-   
+function createDayCells(type, index, date){
+   let d = document.createElement('div');
+   $(d).css('animation-delay', animateDelay.toString() + 'ms');
 
+   //blank cells before the current month
    if(type == 'blank-begin'){
-      let d = document.createElement("div");
       $(d).attr('class', 'day blank animate__animated animate__fadeIn');
-      $(d).css('animation-delay', animateDelay.toString()+'ms');
       
       // text box inside div
-      let daysBefore = index + 1;
+      let daysBefore = numOfDays(monthNum-1, yearNum)-(index-1);
       let n = document.createElement('div');
       $(n).attr('class', 'day-num');
       $(n).text(daysBefore);
       $(d).append(n);
-
-      $('#calendarDays').append(d);
-      animateDelay += 60;
+      
    }
 
+   //blank cells after the current month
    if (type == 'blank-end') {
-      let d = document.createElement("div");
       $(d).attr('class', 'day blank animate__animated animate__fadeIn');
-      $(d).css('animation-delay', animateDelay.toString() + 'ms');
 
       // text box inside div
       let daysAfter = index+1;
@@ -156,27 +172,23 @@ function createDayCells(type, index){
       $(n).attr('class', 'day-num');
       $(n).text(daysAfter);
       $(d).append(n);
-
-      $('#calendarDays').append(d);
-      animateDelay += 60;
    }
 
+   //days in the current month
    if(type == 'real'){
-      let d = document.createElement("div");
       $(d).attr('id', 'calendarDay_' + index);
       $(d).attr('class', 'day animate__animated animate__fadeIn');
-      $(d).css('animation-delay', animateDelay.toString() + 'ms');
 
       // text box inside div
       let dayNum = index + 1;
       let n = document.createElement('div');
       $(n).attr('class', 'day-num');
       $(n).text(dayNum);
-      $(d).append(n);
-
-      $('#calendarDays').append(d);
-      animateDelay += 60;
+      $(d).append(n);      
    }
+
+   $('#calendarDays').append(d);
+   animateDelay += 40;
 }
 
 
