@@ -11,6 +11,14 @@ let animateDelay = 2000;
 let days;
 
 
+// Beginning at the current month and year
+$(document).ready(function () {
+   $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
+   dateLog();
+   loadCalendarDays();
+});
+
+
 function dateLog() {
    console.log('%c Date:', 'color: green; font-weight: bold;');
    console.log({
@@ -20,26 +28,17 @@ function dateLog() {
 }
 
 
-// Beginning at the current month and year
-$(document).ready(function () {
-   $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
-   dateLog();
-   loadCalendarDays();
-});
 
-
-// Get month from string array
+// Get month from months array
 function getTheMonth(num) {
-   let month;
-
    if (num < 0)
       num = 11;
    else if (num > 11)
       num = 0;
 
-   month = months[num];
-   return month;
+   return months[num];
 }
+
 
 function previous() {
    animateDelay = 0;
@@ -65,6 +64,7 @@ function previous() {
    loadCalendarDays();
 }
 
+
 function next() {
    animateDelay = 0;
    // Indicates new year
@@ -81,21 +81,20 @@ function next() {
    }
 
    $calendar.attr('class', 'animate__animated animate__fadeInRight');
-   $calendar.on('animationend', function(){
-      $calendar.attr('class','');
+   $calendar.on('animationend', function () {
+      $calendar.attr('class', '');
    });
 
    dateLog();
    loadCalendarDays();
-
 }
+
 
 // Returns the number of days in the month
 function numOfDays(month, year) {
    let d = new Date(year, month + 1, 0);
    return d.getDate();
 }
-
 
 function loadCalendarDays() {
    $('#calendarDays').html('');
@@ -106,7 +105,7 @@ function loadCalendarDays() {
    let num = numOfDays(monthNum, yearNum);
    // Gets the first day of the month
    let dayOfWeek = tmpDate.getDay();
-   
+
 
    console.log('%c loadCalendarDays():', 'color:white; font-weight:bold;');
    console.log({
@@ -127,47 +126,55 @@ function loadCalendarDays() {
    }
    // create blank days after last day of the month
    let daysLeft;
-   if(days > 35){
-      daysLeft = 42-days;
-   }
-   else{
+
+   if (days > 35)
+      daysLeft = 42 - days;
+   else
       daysLeft = 35 - days;
-   }
-   if(days != 35){
-      for(let i = 0; i < daysLeft; i++){
+
+   if (days != 35) {
+      for (let i = 0; i < daysLeft; i++) {
          createDayCells('blank-end', i);
       }
    }
-
-   var clear = document.createElement("div");
-   clear.className = "clear";
-   document.getElementById("calendarDays").appendChild(clear);
 }
 
 // Makes days in the calendar
-function createDayCells(type, index, date){
+function createDayCells(type, index) {
+   let idStem = 'calendarMonthDayYear_';
+   let id = '';
+
+   // Base day cell
    let d = document.createElement('div');
    $(d).css('animation-delay', animateDelay.toString() + 'ms');
+   $(d).attr('data-bs-toggle', 'modal');
+   $(d).attr('data-bs-target', '#dayDetails');
 
-   //blank cells before the current month
-   if(type == 'blank-begin'){
+   // Blank cells before the current month
+   if (type == 'blank-begin') {
+      let daysBefore = numOfDays(monthNum - 1, yearNum) - (index - 1);
+      id = monthNum + '-' + daysBefore + '-' + yearNum;
+      $(d).attr('id', idStem + id);
       $(d).attr('class', 'day blank animate__animated animate__fadeIn');
-      
-      // text box inside div
-      let daysBefore = numOfDays(monthNum-1, yearNum)-(index-1);
+      $(d).attr('data-bs-whatever', id);
+
+      // text inside div
       let n = document.createElement('div');
       $(n).attr('class', 'day-num');
       $(n).text(daysBefore);
       $(d).append(n);
-      
+
    }
 
-   //blank cells after the current month
+   // Blank cells after the current month
    if (type == 'blank-end') {
+      id = (monthNum + 2) + '-' + (index + 1) + '-' + yearNum;
+      $(d).attr('id', idStem + id);
       $(d).attr('class', 'day blank animate__animated animate__fadeIn');
+      $(d).attr('data-bs-whatever', id);
 
-      // text box inside div
-      let daysAfter = index+1;
+      // text inside div
+      let daysAfter = index + 1;
       let n = document.createElement('div');
       $(n).attr('class', 'day-num');
       $(n).text(daysAfter);
@@ -175,16 +182,18 @@ function createDayCells(type, index, date){
    }
 
    //days in the current month
-   if(type == 'real'){
-      $(d).attr('id', 'calendarDay_' + index);
+   if (type == 'real') {
+      id = (monthNum + 1) + '-' + (index + 1) + '-' + yearNum;
+      $(d).attr('id', idStem + id);
       $(d).attr('class', 'day animate__animated animate__fadeIn');
+      $(d).attr('data-bs-whatever', id);
 
-      // text box inside div
+      // text inside div
       let dayNum = index + 1;
       let n = document.createElement('div');
       $(n).attr('class', 'day-num');
       $(n).text(dayNum);
-      $(d).append(n);      
+      $(d).append(n);
    }
 
    $('#calendarDays').append(d);
@@ -192,4 +201,17 @@ function createDayCells(type, index, date){
 }
 
 
+// Modal stuff
+let $modal = $('#dayDetails');
+$modal.on('show.bs.modal', function (event) {
+   // Div that triggered the modal
+   let button = event.relatedTarget;
 
+   // Extract info from data-bs-* attributes
+   let date = button.getAttribute('data-bs-whatever');
+
+   // Update the modal's content.
+   let $modalTitle = $('.modal-title');
+
+   $modalTitle.text(date);
+});

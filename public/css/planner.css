@@ -1,8 +1,42 @@
+/* Phone */
+@media only screen and (max-device-width: 375px) {
+   #calendarHeader {
+      padding: 10px 5px !important;
+   }
+
+   .weekday {
+      padding: 10px 0px !important;
+   }
+
+   #monthYear {
+      font-size: 1.25rem;
+   }
+}
+
+/* Tablet and smaller */
+@media only screen and (max-device-width: 768px) {
+   .container-fluid {
+      padding: 0px !important;
+   }
+
+   .invisible-div {
+      display: none;
+   }
+
+   #calendar {
+      border-radius: 0px !important;
+   }
+}
+
+:root {
+   --animation-duration: 0.5s !important;
+}
+
 #calendar {
    margin: auto;
-   border-radius: 15px;
    width: 100%;
    background: #333333;
+   border-radius: 5px;
 }
 
 #monthYear {
@@ -61,12 +95,10 @@
    background: #ececec;
 }
 
-.blank > .day-num{
+.blank>.day-num {
    color: (0, 0, 0, 0.6);
 }
 
-
-
-:root{
-   --animation-duration: 0.5s;
+.modal {
+   color: black;
 }
