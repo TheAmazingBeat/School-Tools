@@ -16,8 +16,17 @@ $(document).ready(function () {
    $calendar.text(getTheMonth(monthNum) + ' ' + yearNum);
    dateLog();
    loadCalendarDays();
+   highlightToday();
 });
 
+// Highlight current date
+function highlightToday(){
+   let dateString = (monthNum+1) + '-' + d.getDate() + '-' + yearNum;
+   let idStem = 'calendarMonthDayYear_';
+   let selector = '#' + idStem + dateString;
+   console.log(selector);
+   $(selector).addClass('today');
+}
 
 function dateLog() {
    console.log('%c Date:', 'color: green; font-weight: bold;');
@@ -146,6 +155,7 @@ function createDayCells(type, index) {
 
    // Base day cell
    let d = document.createElement('div');
+   $(d).addClass('day animate__animated animate__fadeIn');
    $(d).css('animation-delay', animateDelay.toString() + 'ms');
    $(d).attr('data-bs-toggle', 'modal');
    $(d).attr('data-bs-target', '#dayDetails');
@@ -155,7 +165,7 @@ function createDayCells(type, index) {
       let daysBefore = numOfDays(monthNum - 1, yearNum) - (index - 1);
       id = monthNum + '-' + daysBefore + '-' + yearNum;
       $(d).attr('id', idStem + id);
-      $(d).attr('class', 'day blank animate__animated animate__fadeIn');
+      $(d).addClass('blank');
       $(d).attr('data-bs-whatever', id);
 
       // text inside div
@@ -170,7 +180,7 @@ function createDayCells(type, index) {
    if (type == 'blank-end') {
       id = (monthNum + 2) + '-' + (index + 1) + '-' + yearNum;
       $(d).attr('id', idStem + id);
-      $(d).attr('class', 'day blank animate__animated animate__fadeIn');
+      $(d).addClass('blank');
       $(d).attr('data-bs-whatever', id);
 
       // text inside div
@@ -185,7 +195,6 @@ function createDayCells(type, index) {
    if (type == 'real') {
       id = (monthNum + 1) + '-' + (index + 1) + '-' + yearNum;
       $(d).attr('id', idStem + id);
-      $(d).attr('class', 'day animate__animated animate__fadeIn');
       $(d).attr('data-bs-whatever', id);
 
       // text inside div
@@ -194,6 +203,7 @@ function createDayCells(type, index) {
       $(n).attr('class', 'day-num');
       $(n).text(dayNum);
       $(d).append(n);
+
    }
 
    $('#calendarDays').append(d);
@@ -201,7 +211,7 @@ function createDayCells(type, index) {
 }
 
 
-// Modal stuff
+// Details when clicked on a day
 let $modal = $('#dayDetails');
 $modal.on('show.bs.modal', function (event) {
    // Div that triggered the modal
@@ -215,3 +225,14 @@ $modal.on('show.bs.modal', function (event) {
 
    $modalTitle.text(date);
 });
+
+
+// Add Event
+let dayEvent = {
+   name: '',
+   date: ''
+};
+
+function addCalendarEvent(){
+
+}

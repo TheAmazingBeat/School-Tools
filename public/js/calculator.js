@@ -116,7 +116,7 @@ $('.clear-btn').click(function () {
    clear();
    answer = 0;
    $screen.text('0');
-   console.log('Calculator Cleared!');
+   console.log('%c Calculator Cleared!', 'color:green;font-weight:bold;');
 });
 
 //Clears Memory of Calculator
@@ -248,4 +248,25 @@ function solve(operator, first, second) {
       currentNum
    });
    return answer;
+}
+
+
+function add(num1, num2) {
+   return num1 + num2;
+}
+
+function subtract(num1, num2) {
+   return num1 - num2;
+}
+
+function multiply(num1, num2) {
+   return num1 * num2;
+}
+
+function divide(num1, num2) {
+   return num1 / num2;
+}
+
+function calculate(num1, num2, o){
+   return o(num1, num2);
 }

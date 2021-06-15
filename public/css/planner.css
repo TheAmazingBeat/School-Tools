@@ -28,6 +28,13 @@
    }
 }
 
+@media only screen and (min-device-width: 1920px) {
+   .day {
+      height: 160px !important;
+   }
+}
+
+
 :root {
    --animation-duration: 0.5s !important;
 }
@@ -99,6 +106,17 @@
    color: (0, 0, 0, 0.6);
 }
 
+
+.today{
+   background: #8ec8ff;
+}
+
+/* Modal Styles */
 .modal {
    color: black;
+}
+
+#dayDetails>.modal-dialog>.modal-content>.modal-body {
+   text-align: left;
+   list-style-type: none;
 }

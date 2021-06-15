@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/planner.css">
 
-  <title>Home | School Tools</title>
+  <title>School Tools</title>
 </head>
 
 <body>
@@ -95,7 +95,15 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Modal body text goes here.</p>
+              <div id="schoolWorkDiv">
+                <h3>School Work:</h3>
+                <li id="schoolWorkList"></li>
+              </div>
+              <div id="eventsDiv">
+                <h3>Events:</h3>
+                <li id="eventsList"></li>
+                <button id="addEvent" class="btn btn-outline-primary btn-sm" onclick="addCalendarEvent()">Add Event <i class="fas fa-plus"></i></button>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
