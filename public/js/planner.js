@@ -209,16 +209,24 @@ function createDayCells(type, index) {
 // Details when clicked on a day
 let $modal = $("#dayDetails");
 $modal.on("show.bs.modal", function (event) {
-  // Div that triggered the modal
+  /// Div that triggered the modal
   let button = event.relatedTarget;
 
-  // Extract info from data-bs-* attributes
+  /// Extract info from data-bs-* attributes
   let date = button.getAttribute("data-bs-whatever");
 
-  // Update the modal's content.
+  /// Update the modal's content.
   let $modalTitle = $(".modal-title");
 
-  $modalTitle.text(date);
+	let formatDate = () => {
+		let someDate = date.toString();
+		let firstNum = someDate.substring(0, someDate.indexOf('-'));
+		let secondNum = someDate.substring((date.indexOf('-')+1), someDate.indexOf('-', someDate.indexOf('-')+1)) 
+		let thirdNum = someDate.substring(someDate.indexOf('-', (someDate.indexOf('-')+1))+1);
+
+		return getTheMonth(firstNum-1)+ ' ' + secondNum + ', ' +thirdNum;
+	}
+  $modalTitle.text(formatDate);
 });
 
 // Add Event

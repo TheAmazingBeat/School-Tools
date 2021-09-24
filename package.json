@@ -4,7 +4,7 @@
   "description": "A library of web applications that can be used for school.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "heroku": "^7.59.0",
     "nodemon": "^2.0.7"
   }
 }
