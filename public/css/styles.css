@@ -82,6 +82,10 @@ main {
     color: var(--text-secondary);
 }
 
+.nav-link.active{
+    color: var(--text-secondary);
+}
+
 .logo {
     font-weight: bold;
     text-transform: uppercase;
