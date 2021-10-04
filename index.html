@@ -6,10 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Scripts -->
+  <!-- Bootstrap JS -->
   <script src="vendor/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
   <!-- jQuery -->
   <script src="vendor/jquery-3.5.1.min.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/d6a4ed92eb.js" crossorigin="anonymous"></script>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="vendor/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
@@ -21,68 +23,88 @@
 
 <body>
   <!-- NAVIGATION BAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav nav-pills mx-auto">
-          <li class="nav-item mx-3">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" href="hw-prior.html">HW Prioritizer</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" href="calculator.html">Calculator</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" href="planner.html">Planner</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <!-- inspired by Fireship.io -->
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item logo">
+        <a href="#" class="nav-link">
+          <span class="link-text">School Tools</span>
+          <i class="fas fa-angle-right fa-2x"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/" class="nav-link">
+          <i class="fas fa-home fa-2x"></i>
+          <span class="link-text">Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="hw-prior.html" class="nav-link">
+          <i class="fas fa-calendar-check fa-2x"></i>
+          <span class="link-text">Prioritizer</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="calculator.html" class="nav-link">
+          <i class="fas fa-calculator fa-2x"></i>
+          <span class="link-text">Calculator</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="planner.html" class="nav-link">
+          <i class="fas fa-calendar-alt fa-2x"></i>
+          <span class="link-text">Calendar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="" class="nav-link">
+          <i class="fas fa-adjust fa-2x"></i>
+          <span class="link-text">Theme</span>
+        </a>
+      </li>
+    </ul>
   </nav>
+  <main>
+    <div class="container">
+      <div class="row row-cols-2 g-4">
+        <!-- Homework Prioritzer Card -->
+        <div class="col">
+          <div class="card text-white bg-dark p-2">
+            <div class="card-body">
+              <h5 class="card-title">Homework Priorizer</h5>
+              <p class="card-text">An app that suggests in what order the user should do their homework.</p>
+              <a href="hw-prior.html" class="btn btn-primary">Check It Out</a>
+            </div>
+          </div>
+        </div>
 
-  <div class="invisible-div"></div>
+        <!-- Calculator Card -->
+        <div class="col">
+          <div class="card text-white bg-dark p-2">
+            <div class="card-body">
+              <h5 class="card-title">Calculator</h5>
+              <p class="card-text">An essential tool for many students.</p>
+              <a href="calculator.html" class="btn btn-primary">Check It Out</a>
+            </div>
+          </div>
+        </div>
 
-  <div class="container">
-
-    <div class="card-group">
-      <!-- Homework Prioritzer Card -->
-      <div class="card text-white bg-dark" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Homework Priorizer</h5>
-          <p class="card-text">An app that suggests in what order the user should do their homework.</p>
-          <a href="hw-prior.html" class="btn btn-primary">Check It Out</a>
+        <!-- Planner Card -->
+        <div class="col">
+          <div class="card text-white bg-dark p-2">
+            <div class="card-body">
+              <h5 class="card-title">Planner</h5>
+              <p class="card-text">Everybody needs a planner. Instead of wasting paper, try this digital planner for
+                students!</p>
+              <a href="planner.html" class="btn btn-primary">Check It Out</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Calculator Card -->
-      <div class="card text-white bg-dark" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Calculator</h5>
-          <p class="card-text">An essential tool for many students.</p>
-          <a href="calculator.html" class="btn btn-primary">Check It Out</a>
-        </div>
-      </div>
-
-
-      <!-- Planner Card -->
-      <div class="card text-white bg-dark" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Planner</h5>
-          <p class="card-text">Everybody needs a planner. Instead of wasting paper, try this digital planner for
-            students!</p>
-          <a href="planner.html" class="btn btn-primary">Check It Out</a>
-        </div>
-      </div>
     </div>
-
-  </div>
+  </main>
+  
 
 </body>
 
