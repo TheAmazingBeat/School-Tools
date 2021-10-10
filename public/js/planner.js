@@ -16,23 +16,23 @@ let d = new Date();
 let monthNum = d.getMonth();
 let yearNum = d.getFullYear();
 let $calendar = $("#monthYear");
-let animateDelay = 2000;
+let animateDelay = 1500;
 let days;
 
 // Beginning at the current month and year
 $(document).ready(function () {
   $calendar.text(getTheMonth(monthNum) + " " + yearNum);
-  dateLog();
+  // dateLog();
   loadCalendarDays();
   highlightToday();
 });
 
 // Highlight current date
 function highlightToday() {
-  let dateString = monthNum + 1 + "-" + d.getDate() + "-" + yearNum;
+  let dateString = (d.getMonth()+1) + "-" + d.getDate() + "-" + yearNum;
   let idStem = "calendarMonthDayYear_";
   let selector = "#" + idStem + dateString;
-  console.log(selector);
+  console.log("Today's Date DOM Selector: " + selector);
   $(selector).addClass("today");
 }
 
@@ -74,6 +74,7 @@ function previous() {
 
   dateLog();
   loadCalendarDays();
+  highlightToday();
 }
 
 function next() {
@@ -98,6 +99,7 @@ function next() {
 
   dateLog();
   loadCalendarDays();
+  highlightToday();
 }
 
 // Returns the number of days in the month
@@ -203,10 +205,10 @@ function createDayCells(type, index) {
   }
 
   $("#calendarDays").append(d);
-  animateDelay += 40;
+  animateDelay += 20;
 }
 
-// Details when clicked on a day
+// Day Details when clicked on a day
 let $modal = $("#dayDetails");
 $modal.on("show.bs.modal", function (event) {
   /// Div that triggered the modal
@@ -214,10 +216,11 @@ $modal.on("show.bs.modal", function (event) {
 
   /// Extract info from data-bs-* attributes
   let date = button.getAttribute("data-bs-whatever");
-
+  
   /// Update the modal's content.
   let $modalTitle = $(".modal-title");
 
+  /// Date formatting on modal header
 	let formatDate = () => {
 		let someDate = date.toString();
 		let firstNum = someDate.substring(0, someDate.indexOf('-'));

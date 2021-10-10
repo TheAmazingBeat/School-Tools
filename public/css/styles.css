@@ -124,8 +124,17 @@ main {
         justify-content: center;
     }
 
+    .nav-link svg{
+        min-width: 1rem;
+        margin: 0 0.5rem
+    }
+
     main {
         margin: 0;
+    }
+
+    .nav-item:last-child {
+        margin-top: 0;
     }
 }
 
