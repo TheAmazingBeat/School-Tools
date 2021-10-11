@@ -239,3 +239,6 @@ let dayEvent = {
 };
 
 function addCalendarEvent() {}
+
+let homeworks = JSON.parse(localStorage.getItem('homeworks'));
+console.log({homeworks});

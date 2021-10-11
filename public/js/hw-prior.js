@@ -1,9 +1,9 @@
-var hwList = [],
+let hwList = [],
   hwValues = [],
   majorHW = [],
   minorHW = [],
   sortedHW = [];
-var hwCounter = 0;
+let hwCounter = 0;
 
 // First three homework items
 for (let i = 0; i < 3; i++) {
@@ -12,20 +12,20 @@ for (let i = 0; i < 3; i++) {
 
 // Today's Date
 function getDateToday() {
-  var date = new Date();
-  var today = date.toISOString().substr(0, 10);
+  let date = new Date();
+  let today = date.toISOString().substr(0, 10);
 
   return today;
 }
 
 // Creating Inputs for Homework Name, Due Date, and Homework Type
 function createCheckBox() {
-  // Creates -> <input class="hw-select mx-2" type="checkbox">
+  /// Creates -> <input class="hw-select mx-2" type="checkbox">
 
-  var checkboxCell = document.createElement("th");
+  let checkboxCell = document.createElement("th");
   $(checkboxCell).attr("scope", "row");
   $(checkboxCell).attr("class", "hw-select-cell");
-  var checkbox = document.createElement("input");
+  let checkbox = document.createElement("input");
   $(checkbox).attr("class", "hw-select hvr-grow");
   $(checkbox).attr("type", "checkbox");
   $(checkboxCell).append(checkbox);
@@ -33,10 +33,10 @@ function createCheckBox() {
 }
 
 function createNameInput() {
-  // Creates -> <input class="hw-name" type="text" placeholder="Name">
-  var nameCell = document.createElement("td");
+  /// Creates -> <input class="hw-name" type="text" placeholder="Name">
+  let nameCell = document.createElement("td");
   $(nameCell).attr("class", "hw-name-cell");
-  var nameInput = document.createElement("input");
+  let nameInput = document.createElement("input");
   $(nameInput).attr("class", "hw-name hvr-grow");
   $(nameInput).attr("type", "text");
   $(nameInput).attr("placeholder", "Homework Item");
@@ -45,10 +45,10 @@ function createNameInput() {
 }
 
 function createDateInput() {
-  // Creates -> <input class="hw-date" type="date" name="duedate">
-  var dateInputCell = document.createElement("td");
+  /// Creates -> <input class="hw-date" type="date" name="duedate">
+  let dateInputCell = document.createElement("td");
   $(dateInputCell).attr("class", "hw-date-cell");
-  var dateInput = document.createElement("input");
+  let dateInput = document.createElement("input");
   $(dateInput).attr("class", "hw-date hvr-grow");
   $(dateInput).attr("type", "date");
   $(dateInput).attr("name", "duedate");
@@ -61,18 +61,18 @@ function createDateInput() {
 }
 
 function createTypeInput() {
-  // Creates -> <select name="type" id="" class="hw-type"><option value="Minor">Minor</option><option value="Major">Major</option></select>
-  var typeCell = document.createElement("td");
+  /// Creates -> <select name="type" id="" class="hw-type"><option value="Minor">Minor</option><option value="Major">Major</option></select>
+  let typeCell = document.createElement("td");
   $(typeCell).attr("class", "hw-type-cell");
-  var typeInput = document.createElement("select");
+  let typeInput = document.createElement("select");
   $(typeInput).attr("class", "hw-type hvr-grow");
   $(typeInput).attr("name", "type");
   // Minor in dropdown
-  var minorOption = document.createElement("option");
+  let minorOption = document.createElement("option");
   $(minorOption).val("Minor");
   $(minorOption).html("Minor");
   // Major in dropdown
-  var majorOption = document.createElement("option");
+  let majorOption = document.createElement("option");
   $(majorOption).val("Major");
   $(majorOption).html("Major");
   $(typeInput).append(minorOption, majorOption);
@@ -95,8 +95,8 @@ function getTypeInput(index) {
 
 // Add a homework item in the list
 function addHW() {
-  // Creates -> <li class="homework-item my-2"></li>
-  var hwItem = document.createElement("tr");
+  /// Creates -> <li class="homework-item my-2"></li>
+  let hwItem = document.createElement("tr");
   $(hwItem).attr(
     "class",
     "homework-item animate__animated animate__fadeInDown"
@@ -151,21 +151,19 @@ function getAllInput() {
       date: getDateInput(i),
       type: getTypeInput(i),
     };
-    // hwValues[i].name = getNameInput(i);
-    // hwValues[i].date = getDateInput(i);
-    // hwValues[i].type = getTypeInput(i);
   }
 }
 
+// Sorts array from closest date to farthest date
 function sortByDate(array) {
-  // Selection Sort
+  /// Selection Sort
   for (let i = 0; i < array.length; i++) {
-    var min = i;
+    let min = i;
     for (let j = i + 1; j < array.length; j++) {
       if (new Date(array[j].date) < new Date(array[i].date)) min = j;
     }
     if (min != i) {
-      var temp = array[min];
+      let temp = array[min];
       array[min] = array[i];
       array[i] = temp;
     }
@@ -173,15 +171,16 @@ function sortByDate(array) {
 }
 
 function sortHW() {
-  //Counts how many MAJOR and MINOR assignments
-  for (var i = 0; i < hwCounter; i++) {
+  /// Counts how many MAJOR and MINOR assignments
+  for (let i = 0; i < hwCounter; i++) {
     if (hwValues[i].type == "Major") {
       majorHW.push(hwValues[i]);
     } else {
       minorHW.push(hwValues[i]);
     }
   }
-  // Sorts MAJOR AND MINOR assignmentsby due date
+
+  /// Sorts MAJOR AND MINOR assignments by due date
   if (minorHW.length > 0) {
     sortByDate(minorHW);
     console.log("Minor Homeworks :: ");
@@ -193,11 +192,12 @@ function sortHW() {
     console.log(majorHW);
   }
 
-  // New array of Major Homeworks + Minor Homeworks
+  /// New array of Major Homeworks + Minor Homeworks
   sortedHW = majorHW.concat(minorHW);
 
+  /// Prioritization between major and minor homeworks based on quantity and date
   for (let i = 0; i < hwCounter; i++) {
-    var firstMajor;
+    let firstMajor;
     if (sortedHW[i].type == "Major") firstMajor = sortedHW[i];
     if (sortedHW[i].type == "Minor" && firstMajor != undefined) {
       /*
@@ -209,7 +209,7 @@ function sortHW() {
         minorHW.length > majorHW.length &&
         new Date(firstMajor.date) - new Date(sortedHW[i].date) >= 345600000
       ) {
-        var temp = sortedHW[i];
+        let temp = sortedHW[i];
         sortedHW[i] = firstMajor;
         sortedHW[sortedHW.indexOf(firstMajor)] = temp;
       }
@@ -226,7 +226,7 @@ function showPrioritized() {
   $("#sortedDiv:hidden").toggle("slow");
 
   for (let i = 0; i < sortedHW.length; i++) {
-    var $row = $("<tr>"),
+    let $row = $("<tr>"),
       $numCell = $("<td>"),
       $nameCell = $("<td>"),
       $dateCell = $("<td>"),
@@ -243,6 +243,12 @@ function showPrioritized() {
   }
 }
 
+function storeHW(){
+  let homeworks = JSON.stringify(sortedHW);
+  localStorage.setItem('homeworks', homeworks);
+  console.log('Stored Homeworks');
+}
+
 // hides where the user edits homework list
 function hideList() {
   $("#userDiv:visible").toggle("slow");
@@ -257,5 +263,5 @@ function prioritize() {
   // resets arrays
   (hwValues = []), (majorHW = []), (minorHW = []);
 
-  getAllInput(), sortHW(), showPrioritized();
+  getAllInput(), sortHW(), showPrioritized(), storeHW();
 }
