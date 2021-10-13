@@ -1,13 +1,23 @@
-let hwList = [],
-	hwValues = [],
-	majorHW = [],
-	minorHW = [],
-	sortedHW = [];
-let hwCounter = 0;
+let hwList = [], hwValues = [], majorHW = [], minorHW = [];
 
-// First three homework items
-for (let i = 0; i < 3; i++) {
-	addHW();
+// Checks whether user has prioritized homeworks
+let sortedHW = JSON.parse(localStorage.getItem('homeworks'));
+let hwCounter = sortedHW.length
+if (sortedHW != null) {
+	if (sortedHW.length > 0)
+		showPrioritized()
+	for (let i = 0; i < hwCounter; i++) {
+		addHW(true, sortedHW[i]);
+	}
+}
+else {
+	hwList = [], hwValues = [], majorHW = [], minorHW = [], sortedHW = [];
+	hwCounter = 0;
+	/// First three homework items
+	for (let i = 0; i < 3; i++) {
+		addHW();
+	}
+
 }
 
 // Today's Date
@@ -19,7 +29,7 @@ function getDateToday() {
 }
 
 // Creating Inputs for Homework Name, Due Date, and Homework Type
-function createCheckBox() {
+function createCheckBox(stored, object) {
 	/// Creates -> <input class="hw-select mx-2" type="checkbox">
 
 	let checkboxCell = document.createElement("th");
@@ -32,19 +42,22 @@ function createCheckBox() {
 	return checkboxCell;
 }
 
-function createNameInput() {
+function createNameInput(stored, object) {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
 	let nameCell = document.createElement("td");
 	$(nameCell).attr("class", "hw-name-cell");
 	let nameInput = document.createElement("input");
 	$(nameInput).attr("class", "hw-name hvr-grow");
 	$(nameInput).attr("type", "text");
-	$(nameInput).attr("placeholder", "Homework Item");
+	if (stored) {
+		$(nameInput).text(object.name);
+	} else
+		$(nameInput).attr("placeholder", "Homework Item");
 	$(nameCell).append(nameInput);
 	return nameCell;
 }
 
-function createDateInput() {
+function createDateInput(stored, object) {
 	/// Creates -> <input class="hw-date" type="date" name="duedate">
 	let dateInputCell = document.createElement("td");
 	$(dateInputCell).attr("class", "hw-date-cell");
@@ -53,14 +66,19 @@ function createDateInput() {
 	$(dateInput).attr("type", "date");
 	$(dateInput).attr("name", "duedate");
 
-	// Sets the initial value to today's date
-	$(dateInput).val(getDateToday());
+	if (stored) {
+		let someDate = new Date(object.date)
+		$(dateInput).val(someDate.toISOString().substr(0, 10));
+	} else {
+		// Sets the initial value to today's date
+		$(dateInput).val(getDateToday());
+	}
 
 	$(dateInputCell).append(dateInput);
 	return dateInputCell;
 }
 
-function createTypeInput() {
+function createTypeInput(stored, object) {
 	/// Creates -> <select name="type" id="" class="hw-type"><option value="Minor">Minor</option><option value="Major">Major</option></select>
 	let typeCell = document.createElement("td");
 	$(typeCell).attr("class", "hw-type-cell");
@@ -76,6 +94,9 @@ function createTypeInput() {
 	$(majorOption).val("Major");
 	$(majorOption).html("Major");
 	$(typeInput).append(minorOption, majorOption);
+	if (stored) {
+		$(typeInput).val(object.type);
+	}
 	$(typeCell).append(typeInput);
 	return typeCell;
 }
@@ -90,14 +111,14 @@ function getDateInput(index) {
 	let dateString = $(hwList[index]).find(".hw-date").val();
 
 	/// Format to MM-DD-YYYY
-	let month = dateString.substring(dateString.indexOf('-')+1, dateString.indexOf('-', dateString.indexOf('-')+1));
+	let month = dateString.substring(dateString.indexOf('-') + 1, dateString.indexOf('-', dateString.indexOf('-') + 1));
 	//// Removes ZERO in the first digit of month
-	if(month.substring(0,1) == '0' && month.length > 1){
+	if (month.substring(0, 1) == '0' && month.length > 1) {
 		month = month.substring(1);
 	}
-	let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-')+1)+1)
-	let year = dateString.substring(0,4)
-	
+	let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-') + 1) + 1)
+	let year = dateString.substring(0, 4)
+
 	let formattedDate = month + '-' + day + '-' + year;
 
 	return formattedDate;
@@ -108,19 +129,30 @@ function getTypeInput(index) {
 }
 
 // Add a homework item in the list
-function addHW() {
+function addHW(stored, object) {
 	/// Creates -> <li class="homework-item my-2"></li>
 	let hwItem = document.createElement("tr");
 	$(hwItem).attr(
 		"class",
 		"homework-item animate__animated animate__fadeInDown"
 	);
+
+	if (stored) {
 	$(hwItem).append(
-		createCheckBox(),
-		createNameInput(),
-		createDateInput(),
-		createTypeInput()
-	);
+			createCheckBox(stored, object),
+			createNameInput(stored, object),
+			createDateInput(stored, object),
+			createTypeInput(stored, object)
+		);
+	} else {
+		$(hwItem).append(
+			createCheckBox(stored),
+			createNameInput(stored),
+			createDateInput(stored),
+			createTypeInput(stored)
+		);
+	}
+
 
 	hwList.unshift(hwItem);
 	hwCounter++;
@@ -144,18 +176,9 @@ function removeHW() {
 			}
 		}
 	} else {
-		$(".alert").toggle();
+		// $(".alert").toggle();
+		alert('At least 3 homeworks required')
 	}
-
-	// Gets the last prepended homework item
-  /*if(hwCounter > 3){
-      $('ul.homework-list li:last-child').remove();
-      hwList.pop();
-      hwCounter--;
-   }
-   else{
-      // alert that 3 homework items is required
-   }*/
 }
 
 function getAllInput() {
@@ -210,9 +233,17 @@ function sortHW() {
 	sortedHW = majorHW.concat(minorHW);
 
 	/// Prioritization between major and minor homeworks based on quantity and date
+	let firstMajor;
 	for (let i = 0; i < hwCounter; i++) {
-		let firstMajor;
-		if (sortedHW[i].type == "Major") firstMajor = sortedHW[i];
+		if (sortedHW[i].type == "Major") {
+			firstMajor = sortedHW[i];
+		}
+	}
+
+	for (let i = 0; i < hwCounter; i++) {
+		// if (sortedHW[i].type == "Major") {
+		// 	firstMajor = sortedHW[i];
+		// }
 		if (sortedHW[i].type == "Minor" && firstMajor != undefined) {
       /*
        * If there are more minor than major and
@@ -233,6 +264,7 @@ function sortHW() {
 
 function showPrioritized() {
 	hideList();
+
 	// prevents the table from having old list
 	$("#sorted-list > tbody").empty();
 

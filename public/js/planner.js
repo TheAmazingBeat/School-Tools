@@ -247,16 +247,19 @@ function addCalendarEvent() { }
 // Stored HW
 let homeworks = JSON.parse(localStorage.getItem('homeworks'));
 // Display Homeworks from Prioritizer
-function displayStoredHW(selectedDate){
-	$('#schoolWorkList').text('');
-	// $('#schoolWorkList').text(homeworks);
-	console.log('Selected Date: ' + selectedDate);
-	/// Analyze/Format objects
-	for(let i = 0; i<homeworks.length; i++){
-		let schoolWorkItem = document.createElement('li');
-		$(schoolWorkItem).addClass('school-work-item');
-		$(schoolWorkItem).text(homeworks[i].name + ' (' + homeworks[i].type + ' Grade' + ')');
-		if(homeworks[i].date == selectedDate)
-			$('#schoolWorkList').append(schoolWorkItem);
+function displayStoredHW(selectedDate) {
+	if (homeworks != null) {
+		$('#schoolWorkList').text('');
+		// $('#schoolWorkList').text(homeworks);
+		console.log('Selected Date: ' + selectedDate);
+		/// Analyze/Format objects
+		for (let i = 0; i < homeworks.length; i++) {
+			let schoolWorkItem = document.createElement('li');
+			$(schoolWorkItem).addClass('school-work-item');
+			$(schoolWorkItem).text(homeworks[i].name + ' (' + homeworks[i].type + ' Grade' + ')');
+			if (homeworks[i].date == selectedDate)
+				$('#schoolWorkList').append(schoolWorkItem);
+		}
 	}
+
 }
