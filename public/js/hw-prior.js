@@ -50,7 +50,7 @@ function createNameInput(stored, object) {
 	$(nameInput).attr("class", "hw-name hvr-grow");
 	$(nameInput).attr("type", "text");
 	if (stored) {
-		$(nameInput).text(object.name);
+		$(nameInput).val(object.name);
 	} else
 		$(nameInput).attr("placeholder", "Homework Item");
 	$(nameCell).append(nameInput);
@@ -144,6 +144,7 @@ function addHW(stored, object) {
 			createDateInput(stored, object),
 			createTypeInput(stored, object)
 		);
+		hwList.push(hwItem);
 	} else {
 		$(hwItem).append(
 			createCheckBox(stored),
@@ -151,11 +152,9 @@ function addHW(stored, object) {
 			createDateInput(stored),
 			createTypeInput(stored)
 		);
+		hwList.unshift(hwItem);
+		hwCounter++;
 	}
-
-
-	hwList.unshift(hwItem);
-	hwCounter++;
 	$("#homework-list > tbody").prepend(hwItem);
 }
 
