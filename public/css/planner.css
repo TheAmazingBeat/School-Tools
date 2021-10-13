@@ -15,6 +15,9 @@
 
 /* Tablet and smaller */
 @media only screen and (max-device-width: 768px) {
+		main{
+			padding: 0;
+		}
    .container-fluid {
       padding: 0px !important;
    }
