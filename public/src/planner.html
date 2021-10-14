@@ -116,14 +116,19 @@
               </div>
               <div class="modal-body">
                 <div id="schoolWorkDiv">
-                  <h3>School Work:</h3>
+                  <h3>School Work due:</h3>
                   <ul id="schoolWorkList"></ul>
                 </div>
                 <div id="eventsDiv">
                   <h3>Events:</h3>
                   <li id="eventsList"></li>
-                  <button id="addEvent" class="btn btn-outline-primary btn-sm" onclick="addCalendarEvent()">Add Event <i
-                      class="fas fa-plus"></i></button>
+                  <button id="addEvent" class="btn btn-outline-primary btn-sm" onclick="addCalendarEvent()">Add Event <i class="fas fa-plus"></i></button>
+									
+									<form action="">
+										<input type="text" placeholder="Name">
+										<input type="date">
+									<button class="btn btn-primary" type="submit">Add</button>
+									</form>
                 </div>
               </div>
               <div class="modal-footer">

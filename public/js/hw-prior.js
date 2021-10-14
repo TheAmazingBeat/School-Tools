@@ -1,11 +1,12 @@
 let hwList = [], hwValues = [], majorHW = [], minorHW = [];
+let hwCounter;
 
 // Checks whether user has prioritized homeworks
 let sortedHW = JSON.parse(localStorage.getItem('homeworks'));
-let hwCounter = sortedHW.length
 if (sortedHW != null) {
 	if (sortedHW.length > 0)
-		showPrioritized()
+		hwCounter = sortedHW.length;
+	showPrioritized()
 	for (let i = 0; i < hwCounter; i++) {
 		addHW(true, sortedHW[i]);
 	}
@@ -138,7 +139,7 @@ function addHW(stored, object) {
 	);
 
 	if (stored) {
-	$(hwItem).append(
+		$(hwItem).append(
 			createCheckBox(stored, object),
 			createNameInput(stored, object),
 			createDateInput(stored, object),

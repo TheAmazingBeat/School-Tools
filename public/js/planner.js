@@ -241,7 +241,9 @@ let dayEvent = {
 };
 
 // Add Event Form
-function addCalendarEvent() { }
+function addCalendarEvent() {
+
+}
 
 
 // Stored HW
