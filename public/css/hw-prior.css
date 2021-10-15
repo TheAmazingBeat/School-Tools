@@ -1,3 +1,7 @@
+:root{
+	font-size: 18px;
+}
+
 .homework-list {
   list-style-type: none;
 }
@@ -7,12 +11,12 @@
 .hw-type {
   background: #2d2d2d;
   color: white;
-  font-size: 20px;
 }
 
 input, select{
 	border: none;
-	border-radius: 10px;
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
 }
 
 .hw-select{

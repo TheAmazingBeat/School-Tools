@@ -3,23 +3,27 @@ let hwCounter;
 
 // Checks whether user has prioritized homeworks
 let sortedHW = JSON.parse(localStorage.getItem('homeworks'));
-if (sortedHW != null) {
-	if (sortedHW.length > 0)
-		hwCounter = sortedHW.length;
-	showPrioritized()
-	for (let i = 0; i < hwCounter; i++) {
-		addHW(true, sortedHW[i]);
+$(document).ready(() => {
+	if (sortedHW != null) {
+		if (sortedHW.length > 0)
+			hwCounter = sortedHW.length;
+		showPrioritized()
+		for (let i = 0; i < hwCounter; i++) {
+			addHW(true, sortedHW[i]);
+		}
 	}
-}
-else {
-	hwList = [], hwValues = [], majorHW = [], minorHW = [], sortedHW = [];
-	hwCounter = 0;
-	/// First three homework items
-	for (let i = 0; i < 3; i++) {
-		addHW();
-	}
+	/// When there is no homeworks found in localStorage
+	else {
+		hwList = [], hwValues = [], majorHW = [], minorHW = [], sortedHW = [];
+		hwCounter = 0;
+		//// First three homework items
+		for (let i = 0; i < 3; i++) {
+			addHW();
+		}
 
-}
+	}
+});
+
 
 // Today's Date
 function getDateToday() {
@@ -45,52 +49,64 @@ function createCheckBox(stored, object) {
 
 function createNameInput(stored, object) {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
-	let nameCell = document.createElement("td");
-	$(nameCell).attr("class", "hw-name-cell");
-	let nameInput = document.createElement("input");
-	$(nameInput).attr("class", "hw-name hvr-grow");
-	$(nameInput).attr("type", "text");
-	if (stored) {
-		$(nameInput).val(object.name);
-	} else
-		$(nameInput).attr("placeholder", "Homework Item");
-	$(nameCell).append(nameInput);
-	return nameCell;
+	let $nameCell = $('<td>');
+	$nameCell.addClass('hw-name-cell');
+
+	let $nameInput = $('<input>');
+	$nameInput.addClass('hw-name hvr-grow');
+	$nameInput.attr('type', 'text');
+
+	if (stored)	$nameInput.val(object.name);
+	else $nameInput.attr("placeholder", "Homework Item");
+
+	$nameCell.append($nameInput);
+
+	return $nameCell;
 }
 
 function createDateInput(stored, object) {
 	/// Creates -> <input class="hw-date" type="date" name="duedate">
-	let dateInputCell = document.createElement("td");
-	$(dateInputCell).attr("class", "hw-date-cell");
-	let dateInput = document.createElement("input");
-	$(dateInput).attr("class", "hw-date hvr-grow");
-	$(dateInput).attr("type", "date");
-	$(dateInput).attr("name", "duedate");
+	let $dateCell = $('<td>');
+	$dateCell.addClass('hw-date-cell');
+
+	let $dateInput = $('<input>');
+	$dateInput.addClass('hw-date hvr-grow');
+	$dateInput.attr('type', 'date');
+	$dateInput.attr('name', 'duedate');
 
 	if (stored) {
 		let someDate = new Date(object.date)
-		$(dateInput).val(someDate.toISOString().substr(0, 10));
+		$dateInput.val(someDate.toISOString().substr(0, 10));
 	} else {
-		// Sets the initial value to today's date
-		$(dateInput).val(getDateToday());
+		//// Sets the initial value to today's date
+		$dateInput.val(getDateToday());
 	}
 
-	$(dateInputCell).append(dateInput);
-	return dateInputCell;
+	$dateCell.append($dateInput);
+	return $dateCell;
 }
 
 function createTypeInput(stored, object) {
-	/// Creates -> <select name="type" id="" class="hw-type"><option value="Minor">Minor</option><option value="Major">Major</option></select>
+	/*// Creates -> 
+	/* 		<select name="type" id="" class="hw-type">
+	/*			<option value="Minor">Minor</option>
+	/* 			<option value="Major">Major</option>
+	/* 		</select>
+	//*/
+
+	/// Select input
 	let typeCell = document.createElement("td");
 	$(typeCell).attr("class", "hw-type-cell");
 	let typeInput = document.createElement("select");
 	$(typeInput).attr("class", "hw-type hvr-grow");
 	$(typeInput).attr("name", "type");
-	// Minor in dropdown
+
+	/// Minor in dropdown
 	let minorOption = document.createElement("option");
 	$(minorOption).val("Minor");
 	$(minorOption).html("Minor");
-	// Major in dropdown
+
+	/// Major in dropdown
 	let majorOption = document.createElement("option");
 	$(majorOption).val("Major");
 	$(majorOption).html("Major");
