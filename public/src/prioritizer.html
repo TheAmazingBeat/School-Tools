@@ -5,6 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>School Tools</title>
 
   <!-- Scripts -->
   <script src="vendor/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
@@ -23,7 +24,9 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/hw-prior.css">
 
-  <title>School Tools</title>
+  <!-- Local Javascript -->
+  <script src="../js/prioritizer.js" defer></script>
+
 </head>
 
 <body>
@@ -44,19 +47,19 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="hw-prior.html" class="nav-link active">
+        <a href="prioritzer" class="nav-link active">
           <i class="fas fa-calendar-check fa-2x"></i>
           <span class="link-text">Prioritizer</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="calculator.html" class="nav-link">
+        <a href="calculator" class="nav-link">
           <i class="fas fa-calculator fa-2x"></i>
           <span class="link-text">Calculator</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="planner.html" class="nav-link">
+        <a href="planner" class="nav-link">
           <i class="fas fa-calendar-alt fa-2x"></i>
           <span class="link-text">Planner</span>
         </a>
@@ -74,7 +77,7 @@
     <div class="invisible-div"></div>
 
     <div class="container">
-			<!-- Table for Adding Homework -->
+      <!-- Table for Adding Homework -->
       <div id="userDiv">
         <div class="header-buttons my-3">
           <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add
@@ -132,10 +135,6 @@
 
     </div>
   </main>
-
-
-  <!-- Local Scripts -->
-  <script src="/js/hw-prior.js"></script>
 </body>
 
 </html>
