@@ -57,15 +57,11 @@ const getDateToday = () => {
  */
 const createCheckBox = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-select hvr-grow" type="checkbox">
+	const $checkboxCell = $('<th class="hw-select-cell" scope="row"></th>');
+	const $checkbox = $('<input class="hw-select hvr-grow" type="checkbox">');
 
-	let checkboxCell = document.createElement('th');
-	$(checkboxCell).attr('scope', 'row');
-	$(checkboxCell).attr('class', 'hw-select-cell');
-	let checkbox = document.createElement('input');
-	$(checkbox).attr('class', 'hw-select hvr-grow');
-	$(checkbox).attr('type', 'checkbox');
-	$(checkboxCell).append(checkbox);
-	return checkboxCell;
+	$($checkboxCell).append($checkbox);
+	return $checkboxCell;
 };
 
 /**
@@ -76,15 +72,10 @@ const createCheckBox = (isStored, hwObject) => {
  */
 const createNameInput = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
-	let $nameCell = $('<td>');
-	$nameCell.addClass('hw-name-cell');
-
-	let $nameInput = $('<input>');
-	$nameInput.addClass('hw-name hvr-grow');
-	$nameInput.attr('type', 'text');
+	const $nameCell = $('<td class="hw-name-cell">');
+	const $nameInput = $('<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Item">');
 
 	if (isStored) $nameInput.val(hwObject.name);
-	else $nameInput.attr('placeholder', 'Homework Item');
 
 	$nameCell.append($nameInput);
 
@@ -99,16 +90,11 @@ const createNameInput = (isStored, hwObject) => {
  */
 const createDateInput = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-date" type="date" name="duedate">
-	let $dateCell = $('<td>');
-	$dateCell.addClass('hw-date-cell');
-
-	let $dateInput = $('<input>');
-	$dateInput.addClass('hw-date hvr-grow');
-	$dateInput.attr('type', 'date');
-	$dateInput.attr('name', 'duedate');
+	const $dateCell = $('<td class="hw-date-cell">');
+	const $dateInput = $('<input class="hw-date hvr-grow" type="date" name="dueDate">');
 
 	if (isStored) {
-		let someDate = new Date(hwObject.date);
+		const someDate = new Date(hwObject.date);
 		$dateInput.val(someDate.toISOString().substring(0, 10));
 	} else {
 		//// Sets the initial value to today's date
@@ -134,27 +120,23 @@ const createTypeInput = (isStored, hwObject) => {
 	//*/
 
 	/// Select input
-	let typeCell = document.createElement('td');
-	$(typeCell).attr('class', 'hw-type-cell');
-	let typeInput = document.createElement('select');
-	$(typeInput).attr('class', 'hw-type hvr-grow');
-	$(typeInput).attr('name', 'type');
+	const $typeCell = $('<td class="hw-type-cell"></td>')
+	const $typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>')
 
 	/// Minor in dropdown
-	let minorOption = document.createElement('option');
-	$(minorOption).val('Minor');
-	$(minorOption).html('Minor');
+	const $minorOption = $('<option value="Minor">Minor</option>')
 
 	/// Major in dropdown
-	let majorOption = document.createElement('option');
-	$(majorOption).val('Major');
-	$(majorOption).html('Major');
-	$(typeInput).append(minorOption, majorOption);
+	const $majorOption = $('<option value="Major">Major</option>');
+
+	$($typeInput).append($minorOption, $majorOption);
+
 	if (isStored) {
-		$(typeInput).val(hwObject.type);
+		$($typeInput).val(hwObject.type);
 	}
-	$(typeCell).append(typeInput);
-	return typeCell;
+
+	$($typeCell).append($typeInput);
+	return $typeCell;
 };
 
 /**
@@ -209,8 +191,7 @@ const getTypeInput = (index) => {
  */
 const addHW = (isStored, hwObject) => {
 	/// Creates -> <li class="homework-item my-2"></li>
-	let hwItem = document.createElement('tr');
-	$(hwItem).attr('class', 'homework-item animate__animated animate__fadeInDown');
+	const hwItem = $('<tr class="homework-item animate__animated animate__fadeInDown"></tr>');
 
 	if (isStored) {
 		$(hwItem).append(
