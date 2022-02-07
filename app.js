@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 
 const app = express();
 
@@ -25,6 +24,7 @@ app.get('/planner', function (req, res) {
 	res.sendFile(__dirname + '/public/src/planner.html');
 });
 
-app.listen(process.env.PORT || 5000, function () {
-	console.log('Server is running');
+const port = 5000;
+app.listen(process.env.PORT || port, function () {
+	console.log(`Server is running at http://localhost:${port}`);
 });
