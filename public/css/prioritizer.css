@@ -24,6 +24,15 @@ input, select{
 	height: 1rem;
 }
 
-#sortedDiv {
+#sortedDiv, #userDiv {
   display: none;
+}
+
+.stored-hw-item td{
+	transition: all 250ms ease-in-out;
+}
+
+.stored-hw-item:hover td{
+	text-decoration: line-through solid white 0.25rem;
+	background-color: #272727;
 }

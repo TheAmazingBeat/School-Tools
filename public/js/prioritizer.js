@@ -6,10 +6,23 @@ let hwList = [],
 let hwCounter;
 const requiredNumberOfHW = 3;
 
-// let sortedHW = JSON.parse(localStorage.getItem('homeworks'));
 $(document).ready(() => {
 	checkForHomework();
+	$('#addBtn').click(addHW);
+	$('#removeBtn').click(removeHW);
+	$('#prioritizeBtn').click(prioritize);
+	$('#editBtn').click(editList);
+	$('.stored-hw-item').click((e) => {
+		removeHW(true, e);
+	});
 });
+
+/**
+ * Main function to call functions in order
+ */
+const prioritize = () => {
+	getAllInput(), sortHW(), showPrioritized(), storeHW();
+};
 
 /**
  * Checks whether user has prioritized homeworks
@@ -24,12 +37,16 @@ const checkForHomework = () => {
 		for (let i = 0; i < requiredNumberOfHW; i++) {
 			addHW(false);
 		}
+		$('#userDiv').slideToggle('slow');
+		return false;
 	} else {
 		hwCounter = sortedHW.length;
 		showPrioritized();
 		for (let i = 0; i < hwCounter; i++) {
 			addHW(true, sortedHW[i]);
 		}
+		// $('#sortedDiv').toggle('slow');
+		return true;
 	}
 };
 
@@ -73,7 +90,9 @@ const createCheckBox = (isStored, hwObject) => {
 const createNameInput = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
 	const $nameCell = $('<td class="hw-name-cell">');
-	const $nameInput = $('<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Item">');
+	const $nameInput = $(
+		'<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Item" required>'
+	);
 
 	if (isStored) $nameInput.val(hwObject.name);
 
@@ -120,11 +139,11 @@ const createTypeInput = (isStored, hwObject) => {
 	//*/
 
 	/// Select input
-	const $typeCell = $('<td class="hw-type-cell"></td>')
-	const $typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>')
+	const $typeCell = $('<td class="hw-type-cell"></td>');
+	const $typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>');
 
 	/// Minor in dropdown
-	const $minorOption = $('<option value="Minor">Minor</option>')
+	const $minorOption = $('<option value="Minor">Minor</option>');
 
 	/// Major in dropdown
 	const $majorOption = $('<option value="Major">Major</option>');
@@ -170,7 +189,7 @@ const getDateInput = (index) => {
 	let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-') + 1) + 1);
 	let year = dateString.substring(0, 4);
 
-	let formattedDate = month + '-' + day + '-' + year;
+	let formattedDate = month + '/' + day + '/' + year;
 
 	return formattedDate;
 };
@@ -217,7 +236,11 @@ const addHW = (isStored, hwObject) => {
 /**
  * Removes the selected homework item(s) in the list
  */
-const removeHW = () => {
+const removeHW = (isStored, eventData) => {
+	if (isStored) {
+		$(parent).find(eventData.currentTarget).remove();
+	}
+
 	if (hwCounter < 3) alert('At least 3 homeworks required');
 
 	for (let i = 0; i < hwCounter; i++) {
@@ -234,6 +257,7 @@ const removeHW = () => {
  * Assigns all input values to homework object inside hwValues Array
  */
 const getAllInput = () => {
+	hwValues = [];
 	for (let i = 0; i < hwCounter; i++) {
 		hwValues[i] = {
 			name: getNameInput(i),
@@ -263,28 +287,27 @@ const sortByDate = (array) => {
 };
 
 /**
- * Sorts the homework.
+ * Sort the homeworks.
  */
 const sortHW = () => {
+	(majorHW = []), (minorHW = []);
+
 	/// Counts how many MAJOR and MINOR assignments
 	for (let i = 0; i < hwCounter; i++) {
-		if (hwValues[i].type == 'Major') {
-			majorHW.push(hwValues[i]);
-		} else {
-			minorHW.push(hwValues[i]);
-		}
+		if (hwValues[i].type == 'Major') majorHW.push(hwValues[i]);
+		else minorHW.push(hwValues[i]);
 	}
 
 	/// Sorts MAJOR AND MINOR assignments by due date
 	if (minorHW.length > 0) {
 		sortByDate(minorHW);
-		console.log('Minor Homeworks :: ');
-		console.log(minorHW);
+		// console.log('Minor Homeworks :: ');
+		// console.log(minorHW);
 	}
 	if (majorHW.length > 0) {
 		sortByDate(majorHW);
-		console.log('Major Homeworks :: ');
-		console.log(majorHW);
+		// console.log('Major Homeworks :: ');
+		// console.log(majorHW);
 	}
 
 	/// New array of Major Homeworks + Minor Homeworks
@@ -299,9 +322,6 @@ const sortHW = () => {
 	}
 
 	for (let i = 0; i < hwCounter; i++) {
-		// if (sortedHW[i].type == "Major") {
-		// 	firstMajor = sortedHW[i];
-		// }
 		if (sortedHW[i].type == 'Minor' && firstMajor != undefined) {
 			/*
 			 * If there are more minor than major and
@@ -330,14 +350,17 @@ const showPrioritized = () => {
 	$('#sorted-list > tbody').empty();
 
 	// shows the #sortedDiv when button is clicked
-	$('#sortedDiv:hidden').toggle('slow');
+	$('#sortedDiv:hidden').slideToggle('slow');
 
+	// each homework row
 	for (let i = 0; i < sortedHW.length; i++) {
-		let $row = $('<tr>'),
-			$numCell = $('<td>'),
-			$nameCell = $('<td>'),
-			$dateCell = $('<td>'),
-			$typeCell = $('<td>');
+		let $row = $(
+				`<tr class="stored-hw-item animate__animated animate__fadeInUp" data-rank="${i + 1}">`
+			),
+			$numCell = $('<td class="rank-num">'),
+			$nameCell = $('<td class="stored-hw-name">'),
+			$dateCell = $('<td class="stored-hw-date">'),
+			$typeCell = $('<td class="store-hw-type">');
 
 		$($numCell).html(i + 1);
 		$($nameCell).html(sortedHW[i].name);
@@ -363,23 +386,13 @@ const storeHW = () => {
  * Hides where the user edits homework list.
  */
 const hideList = () => {
-	$('#userDiv:visible').toggle('slow');
+	$('#userDiv:visible').slideToggle('slow');
 };
 
 /**
  * Shows where the user edits the homework list
  */
 const editList = () => {
-	$('#sortedDiv:visible').toggle('slow');
-	$('#userDiv:hidden').toggle('slow');
-};
-
-/**
- * Main function to call functions in order
- */
-const prioritize = () => {
-	// resets arrays
-	(hwValues = []), (majorHW = []), (minorHW = []);
-
-	getAllInput(), sortHW(), showPrioritized(), storeHW();
+	$('#sortedDiv:visible').slideToggle('slow');
+	$('#userDiv:hidden').slideToggle('slow');
 };

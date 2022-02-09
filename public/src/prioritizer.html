@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="vendor/Hover-master/css/hover.css">
   <!-- Local Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/hw-prior.css">
+  <link rel="stylesheet" href="css/prioritizer.css">
 
   <!-- Local Javascript -->
   <script src="js/prioritizer.js" defer></script>
@@ -46,7 +46,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="prioritzer" class="nav-link active">
+        <a href="prioritizer" class="nav-link active">
           <i class="fas fa-calendar-check fa-2x"></i>
           <span class="link-text">Prioritizer</span>
         </a>
@@ -79,9 +79,9 @@
       <!-- Table for Editing Homework -->
       <div id="userDiv">
         <div class="header-buttons my-3">
-          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn" onclick="addHW()">Add
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn">Add
             Homework</button>
-          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn" onclick="removeHW()">Remove
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn">Remove
             Selected</button>
         </div>
 
@@ -103,7 +103,7 @@
         </div>
 
         <div class="footer-buttons my-3">
-          <button type="button" class="btn btn-success hvr-pulse-grow" onclick="prioritize()">Prioritize</button>
+          <button type="button" id="prioritizeBtn" class="btn btn-success hvr-pulse-grow">Prioritize</button>
         </div>
       </div>
 
@@ -127,7 +127,7 @@
         </table>
 
         <div class="footer-buttons my-3">
-          <button type="button" class="btn btn-warning hvr-pulse-grow" onclick="editList()">Edit</button>
+          <button type="button" id="editBtn" class="btn btn-warning hvr-pulse-grow">Edit</button>
         </div>
 
       </div>
