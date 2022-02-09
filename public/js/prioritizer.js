@@ -72,7 +72,7 @@ const getDateToday = () => {
  * @param {*} hwObject The stored homework
  * @returns Checkbox element
  */
-const createCheckBox = (isStored, hwObject) => {
+const createCheckBox = () => {
 	/// Creates -> <input class="hw-select hvr-grow" type="checkbox">
 	const $checkboxCell = $('<th class="hw-select-cell" scope="row"></th>');
 	const $checkbox = $('<input class="hw-select hvr-grow" type="checkbox">');
