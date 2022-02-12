@@ -1,9 +1,5 @@
-let hwList = [],
-	hwValues = [],
-	majorHW = [],
-	minorHW = [],
+let homeworks = [],
 	sortedHW = [];
-let hwCounter;
 const requiredNumberOfHW = 3;
 
 $(document).ready(() => {
@@ -32,7 +28,6 @@ const checkForHomework = () => {
 
 	/// When there is no homeworks found in localStorage
 	if (sortedHW == null) {
-		hwCounter = 0;
 		//// First three homework items
 		for (let i = 0; i < requiredNumberOfHW; i++) {
 			addHW(false);
@@ -40,22 +35,59 @@ const checkForHomework = () => {
 		$('#userDiv').slideToggle('slow');
 		return false;
 	} else {
-		hwCounter = sortedHW.length;
 		showPrioritized();
-		for (let i = 0; i < hwCounter; i++) {
+		for (let i = 0; i < sortedHW.length; i++) {
 			addHW(true, sortedHW[i]);
 		}
-		// $('#sortedDiv').toggle('slow');
 		return true;
 	}
 };
 
+function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
+	let hwItem = $('<tr class="homework-item animate__animated animate__fadeInDown"></tr>');
+	this.element = $(hwItem).append(
+		createCheckBox(isStored, hwObject),
+		createNameInput(isStored, hwObject),
+		createDateInput(isStored, hwObject),
+		createTypeInput(isStored, hwObject)
+	);
+	this.name = hwName;
+	this.dueDate = hwDueDate;
+	this.type = hwType;
+}
+
 /**
- * Reset arrays to initial value
+ * Add a homework item in the list
+ * @param {*} isStored Boolean if there are stored homeworks
+ * @param {*} hwObject The stored homework
  */
-const resetArrays = () => {
-	hwCounter = 0;
-	(hwList = []), (hwValues = []), (majorHW = []), (minorHW = []), (sortedHW = []);
+// eslint-disable-next-line no-unused-vars
+const addHW = (isStored, hwObject) => {
+	const homework = new Homework(undefined, undefined, undefined, isStored, hwObject);
+	homeworks.push(homework);
+	$('#homework-list > tbody').append(homework.element);
+};
+
+/**
+ * Removes the selected homework item(s) in the list
+ */
+const removeHW = (isStored, eventData) => {
+	//TODO change rankings when removing homeworks
+	if (isStored) {
+		const parent = $(eventData.currentTarget).parents('tbody');
+		$(parent).find(eventData.currentTarget).remove();
+	}
+
+	if (homeworks.length < 3) alert('At least 3 homeworks required');
+
+	for (let i = 0; i < homeworks.length; i++) {
+		let tempObj = homeworks[i].element;
+		if ($(tempObj).find('.hw-select-cell').find('.hw-select').is(':checked')) {
+			$(tempObj).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
+			$(tempObj).remove();
+			homeworks.pop();
+		}
+	}
 };
 
 /**
@@ -68,8 +100,6 @@ const getDateToday = () => {
 
 /**
  * Creates a checkbox for the homework
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
  * @returns Checkbox element
  */
 const createCheckBox = () => {
@@ -113,7 +143,7 @@ const createDateInput = (isStored, hwObject) => {
 	const $dateInput = $('<input class="hw-date hvr-grow" type="date" name="dueDate">');
 
 	if (isStored) {
-		const someDate = new Date(hwObject.date);
+		const someDate = new Date(hwObject.dueDate);
 		$dateInput.val(someDate.toISOString().substring(0, 10));
 	} else {
 		//// Sets the initial value to today's date
@@ -164,7 +194,13 @@ const createTypeInput = (isStored, hwObject) => {
  * @returns Name value inside Name Input
  */
 const getNameInput = (index) => {
-	return $(hwList[index]).find('.hw-name').val();
+	let value = '(No Name)';
+	try {
+		value = $(homeworks[index].element).find('.hw-name').val();
+	} catch (error) {
+		console.log(error);
+	}
+	return value;
 };
 
 /**
@@ -175,7 +211,15 @@ const getNameInput = (index) => {
 const getDateInput = (index) => {
 	//TODO Maybe there is a Built-in JS function for formatting dates
 	/// Initial Format YYYY-MM-DD
-	let dateString = $(hwList[index]).find('.hw-date').val();
+	let dateString = '';
+
+	try {
+		dateString = $(homeworks[index].element).find('.hw-date').val();
+	} catch (error) {
+		console.log(error);
+	}
+
+	if (dateString == '') return;
 
 	/// Format to MM-DD-YYYY
 	let month = dateString.substring(
@@ -200,70 +244,29 @@ const getDateInput = (index) => {
  * @returns Option value inside Select Type Input
  */
 const getTypeInput = (index) => {
-	return $(hwList[index]).find('.hw-type').val();
-};
-
-/**
- * Add a homework item in the list
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
- */
-const addHW = (isStored, hwObject) => {
-	/// Creates -> <li class="homework-item my-2"></li>
-	const hwItem = $('<tr class="homework-item animate__animated animate__fadeInDown"></tr>');
-
-	if (isStored) {
-		$(hwItem).append(
-			createCheckBox(isStored, hwObject),
-			createNameInput(isStored, hwObject),
-			createDateInput(isStored, hwObject),
-			createTypeInput(isStored, hwObject)
-		);
-		hwList.push(hwItem);
-	} else {
-		$(hwItem).append(
-			createCheckBox(isStored),
-			createNameInput(isStored),
-			createDateInput(isStored),
-			createTypeInput(isStored)
-		);
-		hwList.unshift(hwItem);
-		hwCounter++;
+	let value = '';
+	try {
+		value = $(homeworks[index].element).find('.hw-type').val();
+	} catch (error) {
+		console.log(error);
 	}
-	$('#homework-list > tbody').prepend(hwItem);
-};
-
-/**
- * Removes the selected homework item(s) in the list
- */
-const removeHW = (isStored, eventData) => {
-	if (isStored) {
-		$(parent).find(eventData.currentTarget).remove();
-	}
-
-	if (hwCounter < 3) alert('At least 3 homeworks required');
-
-	for (let i = 0; i < hwCounter; i++) {
-		if ($(hwList[i]).find('.hw-select-cell').find('.hw-select').is(':checked')) {
-			$(hwList[i]).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
-			$(hwList[i]).remove();
-			hwList.pop();
-			hwCounter--;
-		}
-	}
+	return value;
 };
 
 /**
  * Assigns all input values to homework object inside hwValues Array
  */
 const getAllInput = () => {
-	hwValues = [];
-	for (let i = 0; i < hwCounter; i++) {
-		hwValues[i] = {
-			name: getNameInput(i),
-			date: getDateInput(i),
-			type: getTypeInput(i),
-		};
+	// hwValues = [];
+	for (let i = 0; i < homeworks.length; i++) {
+		homeworks[i].name = getNameInput(i);
+		homeworks[i].dueDate = getDateInput(i);
+		homeworks[i].type = getTypeInput(i);
+		// hwValues[i] = {
+		// 	name: getNameInput(i),
+		// 	date: getDateInput(i),
+		// 	type: getTypeInput(i),
+		// };
 	}
 };
 
@@ -276,7 +279,10 @@ const sortByDate = (array) => {
 	for (let i = 0; i < array.length; i++) {
 		let min = i;
 		for (let j = i + 1; j < array.length; j++) {
-			if (new Date(array[j].date) < new Date(array[i].date)) min = j;
+			// let prev = j - 1;
+			if (new Date(array[j].dueDate) < new Date(array[i].dueDate)) min = j;
+			// else if (new Date(array[j].dueDate).getTime() == new Date(array[prev].dueDate).getTime())
+			// 	min = prev;
 		}
 		if (min != i) {
 			let temp = array[min];
@@ -290,12 +296,13 @@ const sortByDate = (array) => {
  * Sort the homeworks.
  */
 const sortHW = () => {
-	(majorHW = []), (minorHW = []);
+	let majorHW = [],
+		minorHW = [];
 
 	/// Counts how many MAJOR and MINOR assignments
-	for (let i = 0; i < hwCounter; i++) {
-		if (hwValues[i].type == 'Major') majorHW.push(hwValues[i]);
-		else minorHW.push(hwValues[i]);
+	for (let i = 0; i < homeworks.length; i++) {
+		if (homeworks[i].type == 'Major') majorHW.push(homeworks[i]);
+		else minorHW.push(homeworks[i]);
 	}
 
 	/// Sorts MAJOR AND MINOR assignments by due date
@@ -315,13 +322,13 @@ const sortHW = () => {
 
 	/// Prioritization between major and minor homeworks based on quantity and date
 	let firstMajor;
-	for (let i = 0; i < hwCounter; i++) {
+	for (let i = 0; i < sortedHW.length; i++) {
 		if (sortedHW[i].type == 'Major') {
 			firstMajor = sortedHW[i];
 		}
 	}
 
-	for (let i = 0; i < hwCounter; i++) {
+	for (let i = 0; i < homeworks.length; i++) {
 		if (sortedHW[i].type == 'Minor' && firstMajor != undefined) {
 			/*
 			 * If there are more minor than major and
@@ -330,7 +337,7 @@ const sortHW = () => {
 			 */
 			if (
 				minorHW.length > majorHW.length &&
-				new Date(firstMajor.date) - new Date(sortedHW[i].date) >= 345600000
+				new Date(firstMajor.dueDate) - new Date(sortedHW[i].dueDate) >= 345600000
 			) {
 				let temp = sortedHW[i];
 				sortedHW[i] = firstMajor;
@@ -364,7 +371,7 @@ const showPrioritized = () => {
 
 		$($numCell).html(i + 1);
 		$($nameCell).html(sortedHW[i].name);
-		$($dateCell).html(sortedHW[i].date);
+		$($dateCell).html(sortedHW[i].dueDate);
 		$($typeCell).html(sortedHW[i].type);
 
 		$($row).append($numCell, $nameCell, $dateCell, $typeCell);
@@ -377,8 +384,7 @@ const showPrioritized = () => {
  * Stores sorted homework to localStorage.
  */
 const storeHW = () => {
-	let homeworks = JSON.stringify(sortedHW);
-	localStorage.setItem('homeworks', homeworks);
+	localStorage.setItem('homeworks', JSON.stringify(sortedHW));
 	console.log('%c Successfully Stored Homeworks!', 'color:green;');
 };
 
