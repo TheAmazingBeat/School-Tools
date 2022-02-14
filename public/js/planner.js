@@ -94,7 +94,7 @@ const next = () => {
 };
 
 // Returns the number of days in the month
-const numOfDays = (month, year) => {
+const daysInMonth = (month, year) => {
 	let d = new Date(year, month + 1, 0);
 	return d.getDate();
 };
@@ -103,18 +103,11 @@ const loadCalendarDays = () => {
 	$('#calendarDays').html('');
 	let days = 0;
 
-	let tmpDate = new Date(yearNum, monthNum, 1);
+	const tmpDate = new Date(yearNum, monthNum, 1);
 	// Gets how many days in the month
-	let num = numOfDays(monthNum, yearNum);
+	const numOfDays = daysInMonth(monthNum, yearNum);
 	// Gets the first day of the month
-	let dayOfWeek = tmpDate.getDay();
-
-	// console.log('%c loadCalendarDays():', 'color:blue; font-weight:bold;');
-	// console.log({
-	// 	tmpDate,
-	// 	num,
-	// 	dayOfWeek,
-	// });
+	const dayOfWeek = tmpDate.getDay();
 
 	// create day prefixes before first day of the month
 	for (let i = dayOfWeek; i > 0; i--) {
@@ -122,7 +115,7 @@ const loadCalendarDays = () => {
 		days++;
 	}
 	// creates rest of the days in the month
-	for (let i = 0; i < num; i++) {
+	for (let i = 0; i < numOfDays; i++) {
 		createDayCells('real', i);
 		days++;
 	}
@@ -145,80 +138,64 @@ const createDayCells = (type, index) => {
 	let id = '';
 
 	// Base day cell
-	let d = document.createElement('div');
-	$(d).addClass('day animate__animated animate__fadeIn');
-	$(d).css('animation-delay', animateDelay.toString() + 'ms');
-	$(d).attr('data-bs-toggle', 'modal');
-	$(d).attr('data-bs-target', '#dayDetails');
-	$(d).click((e) => {
+	const dayCell = $('<div class="day animate__animated animate__fadeIn"></div>');
+	// $(dayCell).addClass('day animate__animated animate__fadeIn');
+	$(dayCell).css('animation-delay', animateDelay.toString() + 'ms');
+	$(dayCell).attr('data-bs-toggle', 'modal').attr('data-bs-target', '#dayDetails');
+	$(dayCell).click((e) => {
 		formatDayModal(e);
 	});
 
+	// Text inside cell
+	const dayNum = $('<div class="day-num"></div>');
+
 	// Blank cells before the current month
 	if (type == 'blank-begin') {
-		let daysBefore = numOfDays(monthNum - 1, yearNum) - (index - 1);
+		let daysBefore = daysInMonth(monthNum - 1, yearNum) - (index - 1);
 		id = monthNum + '-' + daysBefore + '-' + yearNum;
-		$(d).attr('id', idStem + id);
-		$(d).addClass('blank');
-		$(d).attr('data-date', id);
+		$(dayCell).attr('id', idStem + id);
+		$(dayCell).addClass('blank');
+		$(dayCell).attr('data-date', id);
 
-		// text inside div
-		let n = document.createElement('div');
-		$(n).attr('class', 'day-num');
-		$(n).text(daysBefore);
-		$(d).append(n);
+		$(dayNum).text(daysBefore);
 	}
 
 	// Blank cells after the current month
 	if (type == 'blank-end') {
 		id = monthNum + 2 + '-' + (index + 1) + '-' + yearNum;
-		$(d).attr('id', idStem + id);
-		$(d).addClass('blank');
-		$(d).attr('data-date', id);
+		$(dayCell).attr('id', idStem + id);
+		$(dayCell).addClass('blank');
+		$(dayCell).attr('data-date', id);
 
-		// text inside div
 		let daysAfter = index + 1;
-		let n = document.createElement('div');
-		$(n).attr('class', 'day-num');
-		$(n).text(daysAfter);
-		$(d).append(n);
+		$(dayNum).text(daysAfter);
 	}
 
 	//days in the current month
 	if (type == 'real') {
 		id = monthNum + 1 + '-' + (index + 1) + '-' + yearNum;
-		$(d).attr('id', idStem + id);
-		$(d).attr('data-date', id);
+		$(dayCell).attr('id', idStem + id);
+		$(dayCell).attr('data-date', id);
 
-		// text inside div
-		let dayNum = index + 1;
-		let n = document.createElement('div');
-		$(n).attr('class', 'day-num');
-		$(n).text(dayNum);
-		$(d).append(n);
+		let num = index + 1;
+		$(dayNum).text(num);
 	}
 
-	$('#calendarDays').append(d);
-	animateDelay += 20;
+	$(dayCell).append(dayNum);
+	$('#calendarDays').append(dayCell);
+	animateDelay += 15;
 };
 
 // Day Details when clicked on a day
-// let $modal = $('#dayDetails');
-// $('#dayDetails').on('show.bs.modal', (event) => {
-// 	console.log(event.relatedTarget);
-// 	console.log(event.currentTarget);
-// 	formatDayModal(event);
-// });
-
 const formatDayModal = (event) => {
 	/// Div that triggered the modal
 	let button = event.currentTarget;
 
-	/// Extract info from data-* attributes
+	/// Extract date from div data-date attribute
 	let date = button.getAttribute('data-date');
 
 	/// Update the modal's content.
-	/// Date formatting on modal header
+	//// Date formatting on modal header
 	let formatDate = () => {
 		let someDate = date.toString();
 		let month = someDate.substring(0, someDate.indexOf('-'));
@@ -242,15 +219,16 @@ const addCalendarEvent = () => {};
 let homeworks = JSON.parse(localStorage.getItem('homeworks'));
 // Display Homeworks from Prioritizer
 const displayStoredHW = (selectedDate) => {
-	if (homeworks != null) {
-		$('#schoolWorkList').text('');
-		console.log('Selected Date: ' + selectedDate);
-		/// Analyze/Format objects
-		for (let i = 0; i < homeworks.length; i++) {
-			let schoolWorkItem = document.createElement('li');
-			$(schoolWorkItem).addClass('school-work-item');
-			$(schoolWorkItem).text(homeworks[i].name + ' (' + homeworks[i].type + ' Grade' + ')');
-			if (homeworks[i].dueDate == selectedDate) $('#schoolWorkList').append(schoolWorkItem);
-		}
+	if (homeworks == null) return;
+
+	$('#schoolWorkList').text('');
+	/// Analyze/Format objects
+	for (let i = 0; i < homeworks.length; i++) {
+		const schoolWorkItem = $('<li class="school-work-item"></li>');
+		$(schoolWorkItem).text(`${homeworks[i].name} (${homeworks[i].type} Grade)`);
+
+		//// format dueDate to idSelector
+		const dueDate = homeworks[i].dueDate.split('/').join('-');
+		if (dueDate == selectedDate) $('#schoolWorkList').append(schoolWorkItem);
 	}
 };
