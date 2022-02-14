@@ -30,19 +30,11 @@ $(document).ready(() => {
 
 // Highlight current date
 const highlightToday = () => {
-	let dateString = d.getMonth() + 1 + '-' + d.getDate() + '-' + yearNum;
-	let idStem = 'calendarMonthDayYear_';
-	let selector = '#' + idStem + dateString;
-	console.log("Today's Date DOM Selector: " + selector);
+	const dateString = d.getMonth() + 1 + '-' + d.getDate() + '-' + yearNum;
+	const idStem = 'calendarMonthDayYear_';
+	const selector = `#${idStem}${dateString}`;
+	// console.log("Today's Date DOM Selector: " + selector);
 	$(selector).addClass('today');
-};
-
-const dateLog = () => {
-	console.log('%c Date:', 'color: green; font-weight: bold;');
-	console.log({
-		monthNum,
-		yearNum,
-	});
 };
 
 // Get month from months array
@@ -73,7 +65,6 @@ const previous = () => {
 		$(calendarName).attr('class', '');
 	});
 
-	dateLog();
 	loadCalendarDays();
 	highlightToday();
 };
@@ -98,7 +89,6 @@ const next = () => {
 		$(calendarName).attr('class', '');
 	});
 
-	dateLog();
 	loadCalendarDays();
 	highlightToday();
 };
@@ -160,6 +150,9 @@ const createDayCells = (type, index) => {
 	$(d).css('animation-delay', animateDelay.toString() + 'ms');
 	$(d).attr('data-bs-toggle', 'modal');
 	$(d).attr('data-bs-target', '#dayDetails');
+	$(d).click((e) => {
+		formatDayModal(e);
+	});
 
 	// Blank cells before the current month
 	if (type == 'blank-begin') {
@@ -167,7 +160,7 @@ const createDayCells = (type, index) => {
 		id = monthNum + '-' + daysBefore + '-' + yearNum;
 		$(d).attr('id', idStem + id);
 		$(d).addClass('blank');
-		$(d).attr('data-bs-whatever', id);
+		$(d).attr('data-date', id);
 
 		// text inside div
 		let n = document.createElement('div');
@@ -181,7 +174,7 @@ const createDayCells = (type, index) => {
 		id = monthNum + 2 + '-' + (index + 1) + '-' + yearNum;
 		$(d).attr('id', idStem + id);
 		$(d).addClass('blank');
-		$(d).attr('data-bs-whatever', id);
+		$(d).attr('data-date', id);
 
 		// text inside div
 		let daysAfter = index + 1;
@@ -195,7 +188,7 @@ const createDayCells = (type, index) => {
 	if (type == 'real') {
 		id = monthNum + 1 + '-' + (index + 1) + '-' + yearNum;
 		$(d).attr('id', idStem + id);
-		$(d).attr('data-bs-whatever', id);
+		$(d).attr('data-date', id);
 
 		// text inside div
 		let dayNum = index + 1;
@@ -211,18 +204,18 @@ const createDayCells = (type, index) => {
 
 // Day Details when clicked on a day
 // let $modal = $('#dayDetails');
-$('#dayDetails').on('show.bs.modal', (event) => {
-	console.log(event.relatedTarget);
-	console.log(event.currentTarget);
-	formatDayModal(event);
-});
+// $('#dayDetails').on('show.bs.modal', (event) => {
+// 	console.log(event.relatedTarget);
+// 	console.log(event.currentTarget);
+// 	formatDayModal(event);
+// });
 
 const formatDayModal = (event) => {
 	/// Div that triggered the modal
-	let button = event.relatedTarget;
+	let button = event.currentTarget;
 
-	/// Extract info from data-bs-* attributes
-	let date = button.getAttribute('data-bs-whatever');
+	/// Extract info from data-* attributes
+	let date = button.getAttribute('data-date');
 
 	/// Update the modal's content.
 	/// Date formatting on modal header
@@ -237,15 +230,9 @@ const formatDayModal = (event) => {
 
 		return getTheMonth(month - 1) + ' ' + day + ', ' + year;
 	};
-	$('.modal-title').text(formatDate);
+	$('.modal-title').text(formatDate());
 
 	displayStoredHW(date);
-};
-
-// Add Event
-let dayEvent = {
-	name: '',
-	date: '',
 };
 
 // Add Event Form
