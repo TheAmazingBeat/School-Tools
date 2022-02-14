@@ -193,6 +193,7 @@ const formatDayModal = (event) => {
 
 	/// Extract date from div data-date attribute
 	let date = button.getAttribute('data-date');
+	$('#dayDetails').attr('data-date', date);
 
 	/// Update the modal's content.
 	//// Date formatting on modal header
@@ -218,28 +219,106 @@ const addCalendarEvent = () => {
 	$('#eventForm').show();
 	let eventType = '';
 
-	const basedOnType = (type) => {
+	/**
+	 * Shows the different options for making a calendar event by type.
+	 * @param {*} type Calendar Event Type
+	 */
+	const showBasedOnType = (type) => {
 		if (type == 'homework') {
 			$('#homeworkTypeSelect').show();
 			$('#eventTimeSelect').hide();
-		}
-		else {
+		} else if (type == 'event') {
 			let date = new Date();
 			$('#eventTimeSelect').show();
 			$('#homeworkTypeSelect').hide();
-			$('#eventTime').val(`${date.getHours()}:${date.getMinutes()}`)
+			$('#eventTime').val(`${date.getHours()}:${date.getMinutes()}`);
+		} else {
+			$('#homeworkTypeSelect').hide();
+			$('#eventTimeSelect').hide();
 		}
 	};
 
+	/**
+	 * Event listener for calendar type select dropdown.
+	 */
 	$('#calendarType').change(() => {
 		try {
 			eventType = $('#calendarType').val();
-			basedOnType(eventType);
-			// console.log(eventType);
+			showBasedOnType(eventType);
 		} catch (error) {
 			console.error(error);
 		}
 	});
+
+	const addEvent = () => {
+		const homeworkHandler = () => {
+			// Get input value
+			const hwName = $('input#nameInput').val();
+			const hwDueDate = $('#dayDetails').attr('data-date').split('-').join('/');
+			const hwType = undefined;
+
+			// Check for value of radios
+			if ($('input[name="majorGrade]"').prop('checked')) hwType = 'Major';
+			else if ($('input[name="minorGrade]"').prop('checked')) hwType = 'Minor';
+			else if (
+				!$('input[name="majorGrade]"').prop('checked') &&
+				!$('input[name="minorGrade]"').prop('checked')
+			) {
+				const emptyAlert = $(
+					'<div data-alert="empty-homework-type" class="alert alert-danger" role="alert">Please select the homework type</div>'
+				);
+				if ($('#eventForm').find('[data-alert="empty-homework-type"]').length <= 0)
+					$('#eventForm').append(emptyAlert);
+			}
+
+			if (hwType == undefined) return;
+			const homework = {
+				name: hwName,
+				dueDate: hwDueDate,
+				type: hwType,
+			};
+			console.log(homework)
+			// Append homework to #dayDetails list
+			$('#schoolWorkList').append($(`<li class="school-work-item">${homework.name} (${homework.type} Grade)</li>`));
+			// Store homework in localStorage
+			console.log('homework handled');
+		};
+
+		const calendarEventHandler = () => {
+			// Append event to #dayDetails list
+			// Store event in localStorage
+			console.log('event handled');
+		};
+
+		const emptyHandler = () => {
+			const emptyAlert = $(
+				'<div data-alert="empty-event-type" class="alert alert-danger" role="alert">Please select the event type</div>'
+			);
+			if ($('#eventForm').find('[data-alert="empty-event-type"]').length <= 0)
+				$('#eventForm').append(emptyAlert);
+			//TODO focus on #calendarType
+		};
+
+		switch (eventType) {
+			case 'empty':
+				emptyHandler();
+				break;
+			case 'homework':
+				homeworkHandler();
+				break;
+			case 'event':
+				calendarEventHandler();
+				break;
+			default:
+				emptyHandler();
+				break;
+		}
+
+		$('#eventForm').hide();
+		$('#noContent').hide();
+	};
+
+	$('#addEventBtn').click(addEvent);
 
 	if (eventType == 'empty' || eventType == '') return;
 };
