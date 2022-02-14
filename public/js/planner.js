@@ -22,7 +22,7 @@ let animateDelay = 1500;
 $(document).ready(() => {
 	$('#prevArrow').click(previous);
 	$('#nextArrow').click(next);
-	$('#addEvent').click(addCalendarEvent);
+	$('#addBtn').click(addCalendarEvent);
 	$(calendarName).text(getTheMonth(monthNum) + ' ' + yearNum);
 	loadCalendarDays();
 	highlightToday();
@@ -213,7 +213,36 @@ const formatDayModal = (event) => {
 };
 
 // Add Event Form
-const addCalendarEvent = () => {};
+const addCalendarEvent = () => {
+	$('#addBtn').toggle();
+	$('#eventForm').show();
+	let eventType = '';
+
+	const basedOnType = (type) => {
+		if (type == 'homework') {
+			$('#homeworkTypeSelect').show();
+			$('#eventTimeSelect').hide();
+		}
+		else {
+			let date = new Date();
+			$('#eventTimeSelect').show();
+			$('#homeworkTypeSelect').hide();
+			$('#eventTime').val(`${date.getHours()}:${date.getMinutes()}`)
+		}
+	};
+
+	$('#calendarType').change(() => {
+		try {
+			eventType = $('#calendarType').val();
+			basedOnType(eventType);
+			// console.log(eventType);
+		} catch (error) {
+			console.error(error);
+		}
+	});
+
+	if (eventType == 'empty' || eventType == '') return;
+};
 
 // Stored HW
 let homeworks = JSON.parse(localStorage.getItem('homeworks'));
@@ -229,6 +258,13 @@ const displayStoredHW = (selectedDate) => {
 
 		//// format dueDate to idSelector
 		const dueDate = homeworks[i].dueDate.split('/').join('-');
-		if (dueDate == selectedDate) $('#schoolWorkList').append(schoolWorkItem);
+		if (dueDate == selectedDate) {
+			$('#noContent').hide();
+			$('#schoolWorkDiv').show();
+			$('#schoolWorkList').append(schoolWorkItem);
+		} else {
+			$('#noContent').show();
+			$('#schoolWorkDiv').hide();
+		}
 	}
 };
