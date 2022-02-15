@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/planner.css">
 
   <!-- Local Javascript -->
-  <script src="js/planner.js"></script>
+  <script src="js/planner.js" defer></script>
 
 </head>
 
@@ -82,7 +82,7 @@
       <div class="container-fluid">
         <div id="calendar" class="animate__animated animate__zoomIn animate__faster">
           <div id="calendarHeader" class="row align-items-center animate__animated animate__backInDown">
-            <div id="prevArrow" onclick="previous()" class="col-3 col-2-sm btn arrow">
+            <div id="prevArrow" class="col-3 col-2-sm btn arrow">
               <i class="fas fa-caret-left fa-2x"></i>
             </div>
 
@@ -90,7 +90,7 @@
               <h1 id="monthYear"></h1>
             </div>
 
-            <div id="nextArrow" onclick="next()" class="col-3 col-2-sm btn arrow">
+            <div id="nextArrow" class="col-3 col-2-sm btn arrow">
               <i class="fas fa-caret-right fa-2x"></i>
             </div>
           </div>
@@ -118,22 +118,60 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <div id="schoolWorkDiv">
-                  <h3>School Work due:</h3>
-                  <ul id="schoolWorkList"></ul>
-                </div>
-                <div id="eventsDiv">
-                  <h3>Events:</h3>
-                  <li id="eventsList"></li>
-                  <button id="addEvent" class="btn btn-outline-primary btn-sm" onclick="addCalendarEvent()">Add Event <i
-                      class="fas fa-plus"></i></button>
+                <div class="container">
+                  <div id="noContent" class="mb-3">
+                    <p>Nothing here...</p>
+                  </div>
 
-                  <form action="">
-                    <input type="text" placeholder="Name">
-                    <input type="date">
-                    <button class="btn btn-primary" type="submit">Add</button>
-                  </form>
+                  <div id="schoolWorkDiv" class="mb-3">
+                    <h3>Homework:</h3>
+                    <ul id="schoolWorkList"></ul>
+                  </div>
+
+                  <div id="eventsDiv" class="mb-3">
+                    <h3>Events:</h3>
+                    <li id="eventsList"></li>
+                  </div>
+
+                  <div id="eventForm">
+                    <form>
+                      <div class="row form-floating mb-3">
+                        <select name="calendarType" id="calendarType" class="form-select" required>
+                          <option value="empty">-Select Event Type-</option>
+                          <option value="homework">Homework</option>
+                          <option value="event">Event</option>
+                        </select>
+                        <label class="form-label" for="calendarType">Type</label>
+                      </div>
+
+                      <div class="row form-floating mb-3">
+                        <input type="text" class="form-control" id="nameInput" placeholder="Name" required>
+                        <label class="form-label" for="nameInput">Name</label>
+                      </div>
+
+                      <div class="mb-3" id="homeworkTypeSelect">
+                        <input type="radio" class="form-check-input" name="hwType" value="Minor" id="minorRadio">
+                        <label class="form-label" for="minorInput">Minor Grade</label>
+                        <input type="radio" class="form-check-input" name="hwType" value="Major" id="majorRadio">
+                        <label class="form-label" for="majorInput">Major Grade</label>
+                      </div>
+
+                      <div class="row form-floating mb-3" id="eventTimeSelect">
+                        <input type="time" class="form-control" name="eventTime" id="eventTime" required>
+                        <label class="form-label" for="eventTime">Time</label>
+                      </div>
+
+                      <div class="row mb-3">
+                        <button class="btn btn-primary" id="addEventBtn">Add to Calendar</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <button id="addBtn" class="btn btn-outline-primary my-3">
+                    Add <i class="fas fa-plus"></i>
+                  </button>
                 </div>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
