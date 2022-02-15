@@ -134,41 +134,37 @@
                   </div>
 
                   <div id="eventForm">
-                    <!-- <form action=""> -->
-                    <div class="row form-floating mb-3">
-                      <select name="calendarType" id="calendarType" class="form-select" required>
-                        <option value="empty">-Select Event Type-</option>
-                        <option value="homework">Homework</option>
-                        <option value="event">Event</option>
-                      </select>
-                      <label class="form-label" for="calendarType">Type</label>
-                    </div>
-
-                    <div class="row form-floating mb-3">
-                      <input type="text" class="form-control" id="nameInput" placeholder="Name" required>
-                      <label class="form-label" for="nameInput">Name</label>
-                    </div>
-
-                    <div class="mb-3" id="homeworkTypeSelect">
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" name="minorRadio" id="minorInput">
-                        <label class="form-label" for="minorRadio">Minor Grade</label>
+                    <form>
+                      <div class="row form-floating mb-3">
+                        <select name="calendarType" id="calendarType" class="form-select" required>
+                          <option value="empty">-Select Event Type-</option>
+                          <option value="homework">Homework</option>
+                          <option value="event">Event</option>
+                        </select>
+                        <label class="form-label" for="calendarType">Type</label>
                       </div>
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" name="majorRadio" id="majorInput">
-                        <label class="form-label" for="majorRadio">Major Grade</label>
+
+                      <div class="row form-floating mb-3">
+                        <input type="text" class="form-control" id="nameInput" placeholder="Name" required>
+                        <label class="form-label" for="nameInput">Name</label>
                       </div>
-                    </div>
 
-                    <div class="row form-floating mb-3" id="eventTimeSelect">
-                      <input type="time" class="form-control" name="eventTime" id="eventTime" required>
-                      <label class="form-label" for="eventTime">Time</label>
-                    </div>
+                      <div class="mb-3" id="homeworkTypeSelect">
+                        <input type="radio" class="form-check-input" name="hwType" value="Minor" id="minorRadio">
+                        <label class="form-label" for="minorInput">Minor Grade</label>
+                        <input type="radio" class="form-check-input" name="hwType" value="Major" id="majorRadio">
+                        <label class="form-label" for="majorInput">Major Grade</label>
+                      </div>
 
-                    <div class="row mb-3">
-                      <button class="btn btn-primary" id="addEventBtn">Add to Calendar</button>
-                    </div>
-                    <!-- </form> -->
+                      <div class="row form-floating mb-3" id="eventTimeSelect">
+                        <input type="time" class="form-control" name="eventTime" id="eventTime" required>
+                        <label class="form-label" for="eventTime">Time</label>
+                      </div>
+
+                      <div class="row mb-3">
+                        <button class="btn btn-primary" id="addEventBtn">Add to Calendar</button>
+                      </div>
+                    </form>
                   </div>
 
                   <button id="addBtn" class="btn btn-outline-primary my-3">

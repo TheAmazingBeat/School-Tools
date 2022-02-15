@@ -23,6 +23,8 @@ $(document).ready(() => {
 	$('#prevArrow').click(previous);
 	$('#nextArrow').click(next);
 	$('#addBtn').click(addCalendarEvent);
+	$('#calendarType').val('empty');
+	$('#nameInput').val('');
 	$(calendarName).text(getTheMonth(monthNum) + ' ' + yearNum);
 	loadCalendarDays();
 	highlightToday();
@@ -215,9 +217,9 @@ const formatDayModal = (event) => {
 
 // Add Event Form
 const addCalendarEvent = () => {
-	$('#addBtn').toggle();
-	$('#eventForm').show();
-	let eventType = '';
+	$('#addBtn').slideToggle();
+	$('#eventForm').slideToggle();
+	let eventType = $('#calendarType').val();
 
 	/**
 	 * Shows the different options for making a calendar event by type.
@@ -227,43 +229,39 @@ const addCalendarEvent = () => {
 		if (type == 'homework') {
 			$('#homeworkTypeSelect').show();
 			$('#eventTimeSelect').hide();
+
+			// Remove the alert
+			if ($('#eventForm').find('[data-alert="empty-event-type"]').length > 0)
+				$('[data-alert="empty-event-type"]').remove();
 		} else if (type == 'event') {
 			let date = new Date();
 			$('#eventTimeSelect').show();
 			$('#homeworkTypeSelect').hide();
 			$('#eventTime').val(`${date.getHours()}:${date.getMinutes()}`);
+
+			// Remove the alert
+			if ($('#eventForm').find('[data-alert="empty-event-type"]').length > 0)
+				$('[data-alert="empty-event-type"]').remove();
 		} else {
 			$('#homeworkTypeSelect').hide();
 			$('#eventTimeSelect').hide();
 		}
 	};
 
-	/**
-	 * Event listener for calendar type select dropdown.
-	 */
-	$('#calendarType').change(() => {
-		try {
-			eventType = $('#calendarType').val();
-			showBasedOnType(eventType);
-		} catch (error) {
-			console.error(error);
-		}
-	});
-
-	const addEvent = () => {
+	let firstTime = true;
+	const addEvent = (type) => {
 		const homeworkHandler = () => {
 			// Get input value
 			const hwName = $('input#nameInput').val();
 			const hwDueDate = $('#dayDetails').attr('data-date').split('-').join('/');
-			const hwType = undefined;
+			const hwType = $('input[name="hwType"]:checked').val();
 
 			// Check for value of radios
-			if ($('input[name="majorGrade]"').prop('checked')) hwType = 'Major';
-			else if ($('input[name="minorGrade]"').prop('checked')) hwType = 'Minor';
-			else if (
-				!$('input[name="majorGrade]"').prop('checked') &&
-				!$('input[name="minorGrade]"').prop('checked')
-			) {
+			if ($('input[name="hwType"]:checked').length > 0) {
+				// Remove the alert
+				if ($('#eventForm').find('[data-alert="empty-homework-type"]').length > 0)
+					$('[data-alert="empty-homework-type"]').remove();
+			} else {
 				const emptyAlert = $(
 					'<div data-alert="empty-homework-type" class="alert alert-danger" role="alert">Please select the homework type</div>'
 				);
@@ -271,16 +269,33 @@ const addCalendarEvent = () => {
 					$('#eventForm').append(emptyAlert);
 			}
 
-			if (hwType == undefined) return;
+			if (hwName == '' || hwDueDate == '' || hwType == undefined) return;
+
 			const homework = {
 				name: hwName,
 				dueDate: hwDueDate,
 				type: hwType,
 			};
-			console.log(homework)
+			console.log(homework);
+
 			// Append homework to #dayDetails list
-			$('#schoolWorkList').append($(`<li class="school-work-item">${homework.name} (${homework.type} Grade)</li>`));
+			$('#schoolWorkList').append(
+				$(`<li class="school-work-item">${homework.name} (${homework.type} Grade)</li>`)
+			);
+			if (firstTime) {
+				console.log(firstTime);
+				$('#noContent').slideToggle();
+				$('#schoolWorkDiv').slideToggle();
+				firstTime = false;
+				console.log(firstTime);
+			}
+			$('#noContent').hide();
+			$('#schoolWorkDiv').show();
+
 			// Store homework in localStorage
+			homeworks.push(homework);
+			localStorage.setItem('homeworks', homeworks);
+
 			console.log('homework handled');
 		};
 
@@ -299,7 +314,7 @@ const addCalendarEvent = () => {
 			//TODO focus on #calendarType
 		};
 
-		switch (eventType) {
+		switch (type) {
 			case 'empty':
 				emptyHandler();
 				break;
@@ -314,17 +329,43 @@ const addCalendarEvent = () => {
 				break;
 		}
 
-		$('#eventForm').hide();
-		$('#noContent').hide();
+		// $('#eventForm').hide();
+		// $('#noContent').hide();
 	};
 
-	$('#addEventBtn').click(addEvent);
+	const closeHandler = () => {
+		console.log('Modal was closed.');
+		$('select#calendarType').val('empty');
+		$('input#nameInput').val('');
+		$('input[type=radio]:checked').prop('checked', false);
+		$('#homeworkTypeSelect').hide();
+		$('#eventTimeSelect').hide();
+		$('#addBtn').slideToggle();
+		$('#eventForm').slideToggle();
+	};
 
-	if (eventType == 'empty' || eventType == '') return;
+	/**
+	 * Event listener for calendar type select dropdown.
+	 */
+	$('#calendarType').change(() => {
+		try {
+			eventType = $('#calendarType').val();
+			showBasedOnType(eventType);
+		} catch (error) {
+			console.error(error);
+		}
+	});
+	$('#addEventBtn').click(() => {
+		addEvent(eventType);
+	});
+	$('#dayDetails').on('hide.bs.modal', closeHandler);
+
+	// if (eventType == 'empty' || eventType == '') return;
 };
 
 // Stored HW
 let homeworks = JSON.parse(localStorage.getItem('homeworks'));
+if (homeworks == null) homeworks = [];
 // Display Homeworks from Prioritizer
 const displayStoredHW = (selectedDate) => {
 	if (homeworks == null) return;
