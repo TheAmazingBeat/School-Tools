@@ -213,6 +213,7 @@ const formatDayModal = (event) => {
 	$('.modal-title').text(formatDate());
 
 	displayStoredHW(date);
+	displayPlannerEvents(date);
 };
 
 // Add Event Form
@@ -248,7 +249,6 @@ const addCalendarEvent = () => {
 		}
 	};
 
-	let firstTime = true;
 	const addEvent = (type) => {
 		const homeworkHandler = () => {
 			// Get input value
@@ -271,37 +271,48 @@ const addCalendarEvent = () => {
 
 			if (hwName == '' || hwDueDate == '' || hwType == undefined) return;
 
-			const homework = {
+			const Homework = {
 				name: hwName,
 				dueDate: hwDueDate,
 				type: hwType,
 			};
-			console.log(homework);
+			console.log(Homework);
 
 			// Append homework to #dayDetails list
 			$('#schoolWorkList').append(
-				$(`<li class="school-work-item">${homework.name} (${homework.type} Grade)</li>`)
+				$(`<li class="school-work-item">${Homework.name} (${Homework.type} Grade)</li>`)
 			);
-			if (firstTime) {
-				console.log(firstTime);
-				$('#noContent').slideToggle();
-				$('#schoolWorkDiv').slideToggle();
-				firstTime = false;
-				console.log(firstTime);
-			}
 			$('#noContent').hide();
 			$('#schoolWorkDiv').show();
 
 			// Store homework in localStorage
-			homeworks.push(homework);
-			localStorage.setItem('homeworks', homeworks);
+			homeworks.push(Homework);
+			localStorage.setItem('homeworks', JSON.stringify(homeworks));
 
 			console.log('homework handled');
 		};
 
 		const calendarEventHandler = () => {
+			// Get the input value
+			const eventName = $('input#nameInput').val();
+			const eventDate = $('#dayDetails').attr('data-date').split('-').join('/');
+			const eventTime = $('input#eventTime').val();
+
 			// Append event to #dayDetails list
+			const Event = {
+				name: eventName,
+				date: eventDate,
+				time: eventTime,
+			};
+			$('#eventsList').append(
+				$(`<li class="planner-event-item">${Event.name} at ${Event.time}</li>`)
+			);
+			$('#noContent').hide();
+			$('#eventsDiv').show();
+
 			// Store event in localStorage
+			plannerEvents.push(Event);
+			localStorage.setItem('plannerEvents', JSON.stringify(plannerEvents));
 			console.log('event handled');
 		};
 
@@ -385,6 +396,32 @@ const displayStoredHW = (selectedDate) => {
 		} else {
 			$('#noContent').show();
 			$('#schoolWorkDiv').hide();
+		}
+	}
+};
+
+// Stored Events
+let plannerEvents = JSON.parse(localStorage.getItem('plannerEvents'));
+if (plannerEvents == null) plannerEvents = [];
+// Display Planner Events
+const displayPlannerEvents = (selectedDate) => {
+	if (plannerEvents == null) return;
+
+	$('#eventsList').text('');
+	/// Analyze/Format objects
+	for (let i = 0; i < plannerEvents.length; i++) {
+		const plannerEventItem = $('<li class="planner-event-item"></li>');
+		$(plannerEventItem).text(`${plannerEvents[i].name} at ${plannerEvents[i].date}`);
+
+		//// format dueDate to idSelector
+		const eventDate = plannerEvents[i].date.split('/').join('-');
+		if (eventDate == selectedDate) {
+			$('#noContent').hide();
+			$('#eventsDiv').show();
+			$('#eventsList').append(plannerEventItem);
+		} else {
+			$('#noContent').show();
+			$('#eventsDiv').hide();
 		}
 	}
 };
