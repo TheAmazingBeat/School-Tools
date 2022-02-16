@@ -120,13 +120,17 @@
 
 #dayDetails > .modal-dialog > .modal-content > .modal-body > .container {
 	text-align: left;
-	list-style-type: none;
+	/* list-style-type: none; */
 }
 
-#schoolWorkDiv, #eventForm, #eventsDiv, #homeworkTypeSelect, #eventTimeSelect {
+#schoolWorkDiv,
+#eventForm,
+#eventsDiv,
+#homeworkTypeSelect,
+#eventTimeSelect {
 	display: none;
 }
 
-#noContent{
-   color: darkgray;
+#noContent {
+	color: darkgray;
 }
