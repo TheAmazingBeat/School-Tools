@@ -97,15 +97,15 @@ const createTypeInput = (isStored, hwObject) => {
 	return $typeCell;
 };
 
-let animateDelay = 1500;
 /**
  * Makes days in the calendar
  * @param {String} type blank-begin, blank-end, or real
  * @param {number} index index of day
  * @param {number} monthNum The number of the current month.
  * @param {number} yearNum The number of the current year.
+ * @param {number} animateDelay
  */
-const createDayCells = (type, index, monthNum, yearNum) => {
+const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 	let idStem = 'calendarMonthDayYear_';
 	let id = '';
 
@@ -158,4 +158,41 @@ const createDayCells = (type, index, monthNum, yearNum) => {
 	animateDelay += 15;
 };
 
-export { createCheckBox, createNameInput, createDateInput, createTypeInput, createDayCells };
+//TODO dayCell append pills
+const createEventPills = (date, parentCell) => {
+	let homeworks = getFromLocalStorage('homeworks') ? getFromLocalStorage('homeworks') : [];
+	let plannerEvents = getFromLocalStorage('plannerEvents')
+		? getFromLocalStorage('plannerEvents')
+		: [];
+
+	const createPill = (pillType, name) => {
+		return $(`<div class="${pillType}-pill">${name}</div>`);
+	};
+
+	for (let i in homeworks) {
+		const currentDate = homeworks[i].dueDate.split('/').join('-');
+		if (currentDate == date) {
+			$(parentCell).append(createPill('homework', homeworks[i].name));
+		}
+	}
+
+	for (let i in plannerEvents) {
+		const currentDate = plannerEvents.date.split('/').join('-');
+		if (currentDate == date) {
+			$(parentCell).append(createPill('planner-event', plannerEvents[i].name));
+		}
+	}
+};
+
+const getFromLocalStorage = (key) => {
+	return JSON.parse(localStorage.getItem(key));
+};
+
+export {
+	createCheckBox,
+	createNameInput,
+	createDateInput,
+	createTypeInput,
+	createDayCells,
+	getFromLocalStorage,
+};

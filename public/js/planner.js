@@ -1,4 +1,4 @@
-import { createDayCells } from './Creator.js';
+import { createDayCells, getFromLocalStorage } from './Creator.js';
 
 const months = [
 	'January',
@@ -134,12 +134,12 @@ const loadCalendarDays = () => {
 
 	// create day prefixes before first day of the month
 	for (let i = dayOfWeek; i > 0; i--) {
-		createDayCells('blank-begin', i, monthNum, yearNum);
+		createDayCells('blank-begin', i, monthNum, yearNum, animateDelay);
 		days++;
 	}
 	// creates rest of the days in the month
 	for (let i = 0; i < numOfDays; i++) {
-		createDayCells('real', i, monthNum, yearNum);
+		createDayCells('real', i, monthNum, yearNum, animateDelay);
 		days++;
 	}
 	// create blank days after last day of the month
@@ -148,7 +148,7 @@ const loadCalendarDays = () => {
 	else daysLeft = 35 - days;
 	if (days != 35) {
 		for (let i = 0; i < daysLeft; i++) {
-			createDayCells('blank-end', i, monthNum, yearNum);
+			createDayCells('blank-end', i, monthNum, yearNum, animateDelay);
 		}
 	}
 };
@@ -358,8 +358,8 @@ const addCalendarEvent = () => {
 };
 
 // Stored HW
-let homeworks = JSON.parse(localStorage.getItem('homeworks'));
-if (homeworks == null) homeworks = [];
+let homeworks = getFromLocalStorage('homeworks') ? getFromLocalStorage('homeworks') : [];
+// if (homeworks == null) homeworks = [];
 /**
  * Display Homeworks from Prioritizer
  * @param {String} selectedDate 
@@ -387,8 +387,9 @@ const displayStoredHW = (selectedDate) => {
 };
 
 // Stored Events
-let plannerEvents = JSON.parse(localStorage.getItem('plannerEvents'));
-if (plannerEvents == null) plannerEvents = [];
+let plannerEvents = getFromLocalStorage('plannerEvents') ? getFromLocalStorage('plannerEvents') : [];
+console.log(plannerEvents)
+// if (plannerEvents == null) plannerEvents = [];
 /**
  * Display Planner Events
  * @param {String} selectedDate 
