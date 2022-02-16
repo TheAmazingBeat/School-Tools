@@ -1,3 +1,5 @@
+import { createCheckBox, createNameInput, createDateInput, createTypeInput } from './Creator.js';
+
 let homeworks = [],
 	sortedHW = [];
 const requiredNumberOfHW = 3;
@@ -61,7 +63,6 @@ function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
  * @param {*} isStored Boolean if there are stored homeworks
  * @param {*} hwObject The stored homework
  */
-// eslint-disable-next-line no-unused-vars
 const addHW = (isStored, hwObject) => {
 	const homework = new Homework(undefined, undefined, undefined, isStored, hwObject);
 	homeworks.push(homework);
@@ -91,104 +92,6 @@ const removeHW = (isStored, eventData) => {
 };
 
 /**
- * @returns Today's Date
- */
-const getDateToday = () => {
-	// const today = new Date().toISOString().substring(0, 10);
-	return new Date().toISOString().substring(0, 10);
-};
-
-/**
- * Creates a checkbox for the homework
- * @returns Checkbox element
- */
-const createCheckBox = () => {
-	/// Creates -> <input class="hw-select hvr-grow" type="checkbox">
-	const $checkboxCell = $('<th class="hw-select-cell" scope="row"></th>');
-	const $checkbox = $('<input class="hw-select hvr-grow" type="checkbox">');
-
-	$($checkboxCell).append($checkbox);
-	return $checkboxCell;
-};
-
-/**
- * Creates an input for homework's name
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
- * @returns Name Input element
- */
-const createNameInput = (isStored, hwObject) => {
-	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
-	const $nameCell = $('<td class="hw-name-cell">');
-	const $nameInput = $(
-		'<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Item" required>'
-	);
-
-	if (isStored) $nameInput.val(hwObject.name);
-
-	$nameCell.append($nameInput);
-
-	return $nameCell;
-};
-
-/**
- * Creates an input for homework's due date
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
- * @returns Date Input element
- */
-const createDateInput = (isStored, hwObject) => {
-	/// Creates -> <input class="hw-date" type="date" name="duedate">
-	const $dateCell = $('<td class="hw-date-cell">');
-	const $dateInput = $('<input class="hw-date hvr-grow" type="date" name="dueDate">');
-
-	if (isStored) {
-		const someDate = new Date(hwObject.dueDate);
-		$dateInput.val(someDate.toISOString().substring(0, 10));
-	} else {
-		//// Sets the initial value to today's date
-		$dateInput.val(getDateToday());
-	}
-
-	$dateCell.append($dateInput);
-	return $dateCell;
-};
-
-/**
- * Creates an input for homework's type (minor or major)
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
- * @returns Type Input element
- */
-const createTypeInput = (isStored, hwObject) => {
-	/*// Creates -> 
-	/* 		<select name="type" id="" class="hw-type">
-	/*				<option value="Minor">Minor</option>
-	/* 			<option value="Major">Major</option>
-	/* 		</select>
-	//*/
-
-	/// Select input
-	const $typeCell = $('<td class="hw-type-cell"></td>');
-	const $typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>');
-
-	/// Minor in dropdown
-	const $minorOption = $('<option value="Minor">Minor</option>');
-
-	/// Major in dropdown
-	const $majorOption = $('<option value="Major">Major</option>');
-
-	$($typeInput).append($minorOption, $majorOption);
-
-	if (isStored) {
-		$($typeInput).val(hwObject.type);
-	}
-
-	$($typeCell).append($typeInput);
-	return $typeCell;
-};
-
-/**
  * Getting the value of Homework Name Input
  * @param {*} index The index of the homework
  * @returns Name value inside Name Input
@@ -205,7 +108,7 @@ const getNameInput = (index) => {
 
 /**
  * Getting the value of Homework Due Date Input
- * @param {*} index The index of the homework
+ * @param {int} index The index of the homework
  * @returns Due Date value inside Date Input
  */
 const getDateInput = (index) => {
@@ -240,7 +143,7 @@ const getDateInput = (index) => {
 
 /**
  * Getting the value of Homework Type Input
- * @param {*} index The index of the homework
+ * @param {int} index The index of the homework
  * @returns Option value inside Select Type Input
  */
 const getTypeInput = (index) => {
@@ -258,7 +161,7 @@ const getTypeInput = (index) => {
  */
 const getAllInput = () => {
 	// hwValues = [];
-	for (let i = 0; i < homeworks.length; i++) {
+	for (let i in homeworks) {
 		homeworks[i].name = getNameInput(i);
 		homeworks[i].dueDate = getDateInput(i);
 		homeworks[i].type = getTypeInput(i);
@@ -272,7 +175,7 @@ const getAllInput = () => {
 
 /**
  * Sorts array from closest date to farthest date.
- * @param {*} array Array to sort.
+ * @param {Array} array Array to sort.
  */
 const sortByDate = (array) => {
 	/// Selection Sort

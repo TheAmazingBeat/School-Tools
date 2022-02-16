@@ -1,3 +1,5 @@
+import { createDayCells } from './Creator.js';
+
 const months = [
 	'January',
 	'February',
@@ -30,7 +32,9 @@ $(document).ready(() => {
 	highlightToday();
 });
 
-// Highlight current date
+/**
+ * Highlights the current, present date on the planner.
+ */
 const highlightToday = () => {
 	const dateString = d.getMonth() + 1 + '-' + d.getDate() + '-' + yearNum;
 	const idStem = 'calendarMonthDayYear_';
@@ -39,7 +43,11 @@ const highlightToday = () => {
 	$(selector).addClass('today');
 };
 
-// Get month from months array
+/**
+ * Gets the month from months.
+ * @param {int} num
+ * @returns {String} Name of the month.
+ */
 const getTheMonth = (num) => {
 	if (num < 0) num = 11;
 	else if (num > 11) num = 0;
@@ -47,6 +55,9 @@ const getTheMonth = (num) => {
 	return months[num];
 };
 
+/**
+ * Function that makes the calendar go the previous month.
+ */
 const previous = () => {
 	animateDelay = 0;
 	// Indicates year before
@@ -71,6 +82,9 @@ const previous = () => {
 	highlightToday();
 };
 
+/**
+ * Function that makes the calendar go the next month.
+ */
 const next = () => {
 	animateDelay = 0;
 	// Indicates new year
@@ -95,12 +109,19 @@ const next = () => {
 	highlightToday();
 };
 
-// Returns the number of days in the month
-const daysInMonth = (month, year) => {
+/**
+ * @param {number} month
+ * @param {number} year
+ * @returns {number} the number of days in the month
+ */
+export const daysInMonth = (month, year) => {
 	let d = new Date(year, month + 1, 0);
 	return d.getDate();
 };
 
+/**
+ * Function that calls createDayCells() to render calendar.
+ */
 const loadCalendarDays = () => {
 	$('#calendarDays').html('');
 	let days = 0;
@@ -113,83 +134,30 @@ const loadCalendarDays = () => {
 
 	// create day prefixes before first day of the month
 	for (let i = dayOfWeek; i > 0; i--) {
-		createDayCells('blank-begin', i, tmpDate);
+		createDayCells('blank-begin', i, monthNum, yearNum);
 		days++;
 	}
 	// creates rest of the days in the month
 	for (let i = 0; i < numOfDays; i++) {
-		createDayCells('real', i);
+		createDayCells('real', i, monthNum, yearNum);
 		days++;
 	}
 	// create blank days after last day of the month
 	let daysLeft;
-
 	if (days > 35) daysLeft = 42 - days;
 	else daysLeft = 35 - days;
-
 	if (days != 35) {
 		for (let i = 0; i < daysLeft; i++) {
-			createDayCells('blank-end', i);
+			createDayCells('blank-end', i, monthNum, yearNum);
 		}
 	}
 };
 
-// Makes days in the calendar
-const createDayCells = (type, index) => {
-	let idStem = 'calendarMonthDayYear_';
-	let id = '';
-
-	// Base day cell
-	const dayCell = $('<div class="day animate__animated animate__fadeIn"></div>');
-	// $(dayCell).addClass('day animate__animated animate__fadeIn');
-	$(dayCell).css('animation-delay', animateDelay.toString() + 'ms');
-	$(dayCell).attr('data-bs-toggle', 'modal').attr('data-bs-target', '#dayDetails');
-	$(dayCell).click((e) => {
-		formatDayModal(e);
-	});
-
-	// Text inside cell
-	const dayNum = $('<div class="day-num"></div>');
-
-	// Blank cells before the current month
-	if (type == 'blank-begin') {
-		let daysBefore = daysInMonth(monthNum - 1, yearNum) - (index - 1);
-		id = monthNum + '-' + daysBefore + '-' + yearNum;
-		$(dayCell).attr('id', idStem + id);
-		$(dayCell).addClass('blank');
-		$(dayCell).attr('data-date', id);
-
-		$(dayNum).text(daysBefore);
-	}
-
-	// Blank cells after the current month
-	if (type == 'blank-end') {
-		id = monthNum + 2 + '-' + (index + 1) + '-' + yearNum;
-		$(dayCell).attr('id', idStem + id);
-		$(dayCell).addClass('blank');
-		$(dayCell).attr('data-date', id);
-
-		let daysAfter = index + 1;
-		$(dayNum).text(daysAfter);
-	}
-
-	//days in the current month
-	if (type == 'real') {
-		id = monthNum + 1 + '-' + (index + 1) + '-' + yearNum;
-		$(dayCell).attr('id', idStem + id);
-		$(dayCell).attr('data-date', id);
-
-		let num = index + 1;
-		$(dayNum).text(num);
-	}
-
-	$(dayCell).append(dayNum);
-	$('#calendarDays').append(dayCell);
-	animateDelay += 15;
-};
-
-// Day Details when clicked on a day
-const formatDayModal = (event) => {
+/**
+ * Day Details when clicked on a day
+ * @param {Event} event
+ */
+export const formatDayModal = (event) => {
 	/// Div that triggered the modal
 	let button = event.currentTarget;
 
@@ -216,7 +184,9 @@ const formatDayModal = (event) => {
 	displayPlannerEvents(date);
 };
 
-// Add Event Form
+/**
+ * Displays the Add Calendar Event Form to the modal.
+ */
 const addCalendarEvent = () => {
 	$('#addBtn').slideToggle();
 	$('#eventForm').slideToggle();
@@ -224,14 +194,14 @@ const addCalendarEvent = () => {
 
 	/**
 	 * Shows the different options for making a calendar event by type.
-	 * @param {*} type Calendar Event Type
+	 * @param {String} type Calendar Event Type
 	 */
 	const showBasedOnType = (type) => {
 		if (type == 'homework') {
 			$('#homeworkTypeSelect').show();
 			$('#eventTimeSelect').hide();
 
-			// Remove the alert
+			// Removes the alert
 			if ($('#eventForm').find('[data-alert="empty-event-type"]').length > 0)
 				$('[data-alert="empty-event-type"]').remove();
 		} else if (type == 'event') {
@@ -240,7 +210,7 @@ const addCalendarEvent = () => {
 			$('#homeworkTypeSelect').hide();
 			$('#eventTime').val(`${date.getHours()}:${date.getMinutes()}`);
 
-			// Remove the alert
+			// Removes the alert
 			if ($('#eventForm').find('[data-alert="empty-event-type"]').length > 0)
 				$('[data-alert="empty-event-type"]').remove();
 		} else {
@@ -249,7 +219,14 @@ const addCalendarEvent = () => {
 		}
 	};
 
+	/**
+	 * Contains handlers for adding events in the planner.
+	 * @param {String} type
+	 */
 	const addEvent = (type) => {
+		/**
+		 * Handles homework events.
+		 */
 		const homeworkHandler = () => {
 			// Get input value
 			const hwName = $('input#nameInput').val();
@@ -289,10 +266,13 @@ const addCalendarEvent = () => {
 			homeworks.push(Homework);
 			localStorage.setItem('homeworks', JSON.stringify(homeworks));
 
-			console.log('homework handled');
+			// console.log('homework handled');
 		};
 
-		const calendarEventHandler = () => {
+		/**
+		 * Handles Planner Events.
+		 */
+		const plannerEventsHandler = () => {
 			// Get the input value
 			const eventName = $('input#nameInput').val();
 			const eventDate = $('#dayDetails').attr('data-date').split('-').join('/');
@@ -316,6 +296,9 @@ const addCalendarEvent = () => {
 			console.log('event handled');
 		};
 
+		/**
+		 * Handler when event type is empty
+		 */
 		const emptyHandler = () => {
 			const emptyAlert = $(
 				'<div data-alert="empty-event-type" class="alert alert-danger" role="alert">Please select the event type</div>'
@@ -333,19 +316,19 @@ const addCalendarEvent = () => {
 				homeworkHandler();
 				break;
 			case 'event':
-				calendarEventHandler();
+				plannerEventsHandler();
 				break;
 			default:
 				emptyHandler();
 				break;
 		}
-
-		// $('#eventForm').hide();
-		// $('#noContent').hide();
 	};
 
+	/**
+	 * Emptys any planner event handlers when modal is closed.
+	 */
 	const closeHandler = () => {
-		console.log('Modal was closed.');
+		// console.log('Modal was closed.');
 		$('select#calendarType').val('empty');
 		$('input#nameInput').val('');
 		$('input[type=radio]:checked').prop('checked', false);
@@ -377,7 +360,10 @@ const addCalendarEvent = () => {
 // Stored HW
 let homeworks = JSON.parse(localStorage.getItem('homeworks'));
 if (homeworks == null) homeworks = [];
-// Display Homeworks from Prioritizer
+/**
+ * Display Homeworks from Prioritizer
+ * @param {String} selectedDate 
+ */
 const displayStoredHW = (selectedDate) => {
 	if (homeworks == null) return;
 
@@ -403,7 +389,11 @@ const displayStoredHW = (selectedDate) => {
 // Stored Events
 let plannerEvents = JSON.parse(localStorage.getItem('plannerEvents'));
 if (plannerEvents == null) plannerEvents = [];
-// Display Planner Events
+/**
+ * Display Planner Events
+ * @param {String} selectedDate 
+ * @returns 
+ */
 const displayPlannerEvents = (selectedDate) => {
 	if (plannerEvents == null) return;
 
