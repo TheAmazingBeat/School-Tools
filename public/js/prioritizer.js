@@ -1,4 +1,5 @@
 import { createCheckBox, createNameInput, createDateInput, createTypeInput } from './Creator.js';
+import { getFromLocalStorage } from "./UsefulFunks.js";
 
 let homeworks = [],
 	sortedHW = [];
@@ -26,7 +27,9 @@ const prioritize = () => {
  * Checks whether user has prioritized homeworks
  */
 const checkForHomework = () => {
-	sortedHW = JSON.parse(localStorage.getItem('homeworks'));
+	// sortedHW = JSON.parse(localStorage.getItem('homeworks'));
+	sortedHW = getFromLocalStorage('homeworks');
+	console.log(sortedHW)
 
 	/// When there is no homeworks found in localStorage
 	if (sortedHW == null) {
@@ -60,8 +63,8 @@ function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
 
 /**
  * Add a homework item in the list
- * @param {*} isStored Boolean if there are stored homeworks
- * @param {*} hwObject The stored homework
+ * @param {bool} isStored Boolean if there are stored homeworks
+ * @param {Homework} hwObject The stored homework
  */
 const addHW = (isStored, hwObject) => {
 	const homework = new Homework(undefined, undefined, undefined, isStored, hwObject);
@@ -71,12 +74,15 @@ const addHW = (isStored, hwObject) => {
 
 /**
  * Removes the selected homework item(s) in the list
+ * @param {boolean} isStored Boolean if there are stored homeworks
+ * @param {Event} eventData
  */
 const removeHW = (isStored, eventData) => {
 	//TODO change rankings when removing homeworks
 	if (isStored) {
 		const parent = $(eventData.currentTarget).parents('tbody');
 		$(parent).find(eventData.currentTarget).remove();
+		storeHW();
 	}
 
 	if (homeworks.length < 3) alert('At least 3 homeworks required');
@@ -93,7 +99,7 @@ const removeHW = (isStored, eventData) => {
 
 /**
  * Getting the value of Homework Name Input
- * @param {*} index The index of the homework
+ * @param {number} index The index of the homework
  * @returns Name value inside Name Input
  */
 const getNameInput = (index) => {
@@ -108,7 +114,7 @@ const getNameInput = (index) => {
 
 /**
  * Getting the value of Homework Due Date Input
- * @param {int} index The index of the homework
+ * @param {number} index The index of the homework
  * @returns Due Date value inside Date Input
  */
 const getDateInput = (index) => {
@@ -143,7 +149,7 @@ const getDateInput = (index) => {
 
 /**
  * Getting the value of Homework Type Input
- * @param {int} index The index of the homework
+ * @param {number} index The index of the homework
  * @returns Option value inside Select Type Input
  */
 const getTypeInput = (index) => {

@@ -1,4 +1,5 @@
 import { daysInMonth, formatDayModal } from './planner.js';
+import { getFromLocalStorage } from "./UsefulFunks.js";
 /**
  * @returns Today's Date (formatted)
  */
@@ -130,6 +131,7 @@ const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 		$(dayCell).attr('data-date', id);
 
 		$(dayNum).text(daysBefore);
+		createEventPills(id, dayCell);
 	}
 
 	// Blank cells after the current month
@@ -141,6 +143,7 @@ const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 
 		let daysAfter = index + 1;
 		$(dayNum).text(daysAfter);
+		createEventPills(id, dayCell)
 	}
 
 	//days in the current month
@@ -151,9 +154,10 @@ const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 
 		let num = index + 1;
 		$(dayNum).text(num);
+		createEventPills(id, dayCell);
 	}
 
-	$(dayCell).append(dayNum);
+	$(dayCell).prepend	(dayNum);
 	$('#calendarDays').append(dayCell);
 	animateDelay += 15;
 };
@@ -166,7 +170,7 @@ const createEventPills = (date, parentCell) => {
 		: [];
 
 	const createPill = (pillType, name) => {
-		return $(`<div class="${pillType}-pill">${name}</div>`);
+		return $(`<div class="event-pill ${pillType}-pill">${name}</div>`);
 	};
 
 	for (let i in homeworks) {
@@ -184,15 +188,11 @@ const createEventPills = (date, parentCell) => {
 	}
 };
 
-const getFromLocalStorage = (key) => {
-	return JSON.parse(localStorage.getItem(key));
-};
-
 export {
 	createCheckBox,
 	createNameInput,
 	createDateInput,
 	createTypeInput,
 	createDayCells,
-	getFromLocalStorage,
+	// getFromLocalStorage,
 };

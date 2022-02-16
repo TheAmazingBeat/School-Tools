@@ -1,4 +1,5 @@
-import { createDayCells, getFromLocalStorage } from './Creator.js';
+import { createDayCells } from './Creator.js';
+import { getFromLocalStorage } from './UsefulFunks.js';
 
 const months = [
 	'January',
@@ -359,10 +360,12 @@ const addCalendarEvent = () => {
 
 // Stored HW
 let homeworks = getFromLocalStorage('homeworks') ? getFromLocalStorage('homeworks') : [];
+// let homeworks = JSON.parse(localStorage.getItem('homeworks'));
+// console.log(homeworks)
 // if (homeworks == null) homeworks = [];
 /**
  * Display Homeworks from Prioritizer
- * @param {String} selectedDate 
+ * @param {String} selectedDate
  */
 const displayStoredHW = (selectedDate) => {
 	if (homeworks == null) return;
@@ -388,12 +391,12 @@ const displayStoredHW = (selectedDate) => {
 
 // Stored Events
 let plannerEvents = getFromLocalStorage('plannerEvents') ? getFromLocalStorage('plannerEvents') : [];
-console.log(plannerEvents)
+// let plannerEvents = JSON.parse(localStorage.getItem('plannerEvents'));
+// console.log(plannerEvents)
 // if (plannerEvents == null) plannerEvents = [];
 /**
  * Display Planner Events
- * @param {String} selectedDate 
- * @returns 
+ * @param {String} selectedDate
  */
 const displayPlannerEvents = (selectedDate) => {
 	if (plannerEvents == null) return;

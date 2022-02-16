@@ -89,6 +89,10 @@
 	border: 1px solid gray;
 	cursor: pointer;
 	transition: background 200ms ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
 }
 
 .day:hover,
@@ -123,10 +127,30 @@
 	list-style-type: none;
 }
 
-#schoolWorkDiv, #eventForm, #eventsDiv, #homeworkTypeSelect, #eventTimeSelect {
+#schoolWorkDiv,
+#eventForm,
+#eventsDiv,
+#homeworkTypeSelect,
+#eventTimeSelect {
 	display: none;
 }
 
-#noContent{
-   color: darkgray;
+#noContent {
+	color: darkgray;
+}
+
+.event-pill {
+	width: 95%;
+	border: 1px solid #648cb3;
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 0.2rem 0;
+}
+
+.homework-pill{
+	background-color: #64b3af;
+}
+
+.planner-event-pill{
+	background-color: #6467b3;
 }
