@@ -405,7 +405,7 @@ const displayPlannerEvents = (selectedDate) => {
 	/// Analyze/Format objects
 	for (let i = 0; i < plannerEvents.length; i++) {
 		const plannerEventItem = $('<li class="planner-event-item"></li>');
-		$(plannerEventItem).text(`${plannerEvents[i].name} at ${plannerEvents[i].date}`);
+		$(plannerEventItem).text(`${plannerEvents[i].name}`);
 
 		//// format dueDate to idSelector
 		const eventDate = plannerEvents[i].date.split('/').join('-');

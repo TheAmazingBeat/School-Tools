@@ -1,5 +1,5 @@
 import { daysInMonth, formatDayModal } from './planner.js';
-import { getFromLocalStorage } from "./UsefulFunks.js";
+import { getFromLocalStorage } from './UsefulFunks.js';
 /**
  * @returns Today's Date (formatted)
  */
@@ -143,7 +143,7 @@ const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 
 		let daysAfter = index + 1;
 		$(dayNum).text(daysAfter);
-		createEventPills(id, dayCell)
+		createEventPills(id, dayCell);
 	}
 
 	//days in the current month
@@ -157,33 +157,53 @@ const createDayCells = (type, index, monthNum, yearNum, animateDelay) => {
 		createEventPills(id, dayCell);
 	}
 
-	$(dayCell).prepend	(dayNum);
+	$(dayCell).prepend(dayNum);
 	$('#calendarDays').append(dayCell);
 	animateDelay += 15;
 };
 
-//TODO dayCell append pills
+/**
+ * Creates pills inside day cells for events stored.
+ * @param {number} date
+ * @param {jQueryObject} parentCell
+ */
 const createEventPills = (date, parentCell) => {
 	let homeworks = getFromLocalStorage('homeworks') ? getFromLocalStorage('homeworks') : [];
 	let plannerEvents = getFromLocalStorage('plannerEvents')
 		? getFromLocalStorage('plannerEvents')
 		: [];
+	let pillNumber = 0;
+	let eventsLeft = homeworks.length + plannerEvents.length;
 
 	const createPill = (pillType, name) => {
-		return $(`<div class="event-pill ${pillType}-pill">${name}</div>`);
+		return $(
+			`<div class="event-pill ${pillType}-pill"><span class="event-pill-name">${name}</span></div>`
+		);
 	};
 
 	for (let i in homeworks) {
-		const currentDate = homeworks[i].dueDate.split('/').join('-');
-		if (currentDate == date) {
-			$(parentCell).append(createPill('homework', homeworks[i].name));
+		if (pillNumber < 4) {
+			const currentDate = homeworks[i].dueDate.split('/').join('-');
+			if (currentDate == date) {
+				$(parentCell).append(createPill('homework', homeworks[i].name));
+				pillNumber++;
+				eventsLeft--;
+			}
+		} else {
+			$(parentCell).append(createPill('more-event', `${eventsLeft} More`));
 		}
 	}
 
 	for (let i in plannerEvents) {
-		const currentDate = plannerEvents.date.split('/').join('-');
-		if (currentDate == date) {
-			$(parentCell).append(createPill('planner-event', plannerEvents[i].name));
+		if (pillNumber < 4) {
+			const currentDate = plannerEvents[i].date.split('/').join('-');
+			if (currentDate == date) {
+				$(parentCell).append(createPill('planner-event', plannerEvents[i].name));
+				pillNumber++;
+				eventsLeft--;
+			}
+		} else {
+			$(parentCell).append(createPill('more-event', `${eventsLeft} More`));
 		}
 	}
 };
