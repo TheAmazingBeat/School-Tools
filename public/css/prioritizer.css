@@ -35,4 +35,5 @@ input, select{
 .stored-hw-item:hover td{
 	text-decoration: line-through solid white 0.25rem;
 	background-color: #272727;
+	cursor: pointer;
 }

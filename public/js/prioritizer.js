@@ -1,5 +1,5 @@
 import { createCheckBox, createNameInput, createDateInput, createTypeInput } from './Creator.js';
-import { getFromLocalStorage } from "./UsefulFunks.js";
+import { getFromLocalStorage, storeToLocalStorage } from './UsefulFunks.js';
 
 let homeworks = [],
 	sortedHW = [];
@@ -7,8 +7,12 @@ const requiredNumberOfHW = 3;
 
 $(document).ready(() => {
 	checkForHomework();
-	$('#addBtn').click(addHW);
-	$('#removeBtn').click(removeHW);
+	$('#addHwBtn').click(() => {
+		addHW(false);
+	});
+	$('#removeHwBtn').click(() => {
+		removeHW(false);
+	});
 	$('#prioritizeBtn').click(prioritize);
 	$('#editBtn').click(editList);
 	$('.stored-hw-item').click((e) => {
@@ -20,19 +24,18 @@ $(document).ready(() => {
  * Main function to call functions in order
  */
 const prioritize = () => {
-	getAllInput(), sortHW(), showPrioritized(), storeHW();
+	getAllInput(), sortHW(), showPrioritized(), storeToLocalStorage('homeworks', homeworks);
 };
 
 /**
  * Checks whether user has prioritized homeworks
  */
 const checkForHomework = () => {
-	// sortedHW = JSON.parse(localStorage.getItem('homeworks'));
 	sortedHW = getFromLocalStorage('homeworks');
-	console.log(sortedHW)
+	// console.log(sortedHW);
 
 	/// When there is no homeworks found in localStorage
-	if (sortedHW == null) {
+	if (sortedHW == null || sortedHW.length == 0) {
 		//// First three homework items
 		for (let i = 0; i < requiredNumberOfHW; i++) {
 			addHW(false);
@@ -81,11 +84,21 @@ const removeHW = (isStored, eventData) => {
 	//TODO change rankings when removing homeworks
 	if (isStored) {
 		const parent = $(eventData.currentTarget).parents('tbody');
-		$(parent).find(eventData.currentTarget).remove();
-		storeHW();
+		let children = $(parent).children();
+		for (let i = 0; i < children.length; i++) {
+			console.log(children[i] == eventData.currentTarget);
+			if (children[i] == eventData.currentTarget) {
+				$(parent).find(children[i]).remove();
+				sortedHW.splice(i, 1);
+				homeworks = sortedHW;
+			}
+		}
+		storeToLocalStorage('homeworks', sortedHW);
+		homeworks = sortedHW;
+		showPrioritized();
 	}
 
-	if (homeworks.length < 3) alert('At least 3 homeworks required');
+	// if (homeworks.length < 3) alert('At least 3 homeworks required');
 
 	for (let i = 0; i < homeworks.length; i++) {
 		let tempObj = homeworks[i].element;
@@ -284,17 +297,12 @@ const showPrioritized = () => {
 		$($typeCell).html(sortedHW[i].type);
 
 		$($row).append($numCell, $nameCell, $dateCell, $typeCell);
+		$($row).click((e) => {
+			removeHW(true, e);
+		});
 
 		$('#sorted-list > tbody').append($row);
 	}
-};
-
-/**
- * Stores sorted homework to localStorage.
- */
-const storeHW = () => {
-	localStorage.setItem('homeworks', JSON.stringify(sortedHW));
-	console.log('%c Successfully Stored Homeworks!', 'color:green;');
 };
 
 /**

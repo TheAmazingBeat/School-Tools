@@ -31,7 +31,7 @@ const createNameInput = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
 	const $nameCell = $('<td class="hw-name-cell">');
 	const $nameInput = $(
-		'<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Item" required>'
+		'<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Name" required>'
 	);
 
 	if (isStored) $nameInput.val(hwObject.name);
@@ -183,7 +183,14 @@ const createEventPills = (date, parentCell) => {
 
 	for (let i in homeworks) {
 		if (pillNumber < 4) {
-			const currentDate = homeworks[i].dueDate.split('/').join('-');
+			let currentDate;
+
+			try {
+				currentDate = homeworks[i].dueDate.split('/').join('-');
+			} catch (error) {
+				console.error(error);
+			}
+
 			if (currentDate == date) {
 				$(parentCell).append(createPill('homework', homeworks[i].name));
 				pillNumber++;
@@ -196,7 +203,14 @@ const createEventPills = (date, parentCell) => {
 
 	for (let i in plannerEvents) {
 		if (pillNumber < 4) {
-			const currentDate = plannerEvents[i].date.split('/').join('-');
+			let currentDate;
+
+			try {
+				currentDate = plannerEvents[i].date.split('/').join('-');
+			} catch (error) {
+				console.error(error);
+			}
+
 			if (currentDate == date) {
 				$(parentCell).append(createPill('planner-event', plannerEvents[i].name));
 				pillNumber++;
