@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="css/prioritizer.css">
 
   <!-- Local Javascript -->
-  <script src="js/prioritizer.js" defer></script>
+  <script src="js/prioritizer.js" type="module" defer></script>
 
 </head>
 
@@ -79,9 +79,9 @@
       <!-- Table for Editing Homework -->
       <div id="userDiv">
         <div class="header-buttons my-3">
-          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addBtn">Add
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="addHwBtn">Add
             Homework</button>
-          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeBtn">Remove
+          <button type="button" class="btn btn-primary mx-2 hvr-grow" id="removeHwBtn">Remove
             Selected</button>
         </div>
 
@@ -111,7 +111,7 @@
       <!-- Table for Sorted Homework -->
       <div id="sortedDiv" class="my-3">
 
-        <h3>Prioritized Homework:</h3>
+        <h3>To Do:</h3>
         <table class="table table-dark" id="sorted-list">
           <thead>
             <tr>
@@ -122,7 +122,7 @@
             </tr>
           </thead>
 
-          <tbody>
+          <tbody id="sortedTableBody">
           </tbody>
         </table>
 
