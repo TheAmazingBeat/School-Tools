@@ -181,6 +181,7 @@ const createEventPills = (date, parentCell) => {
 		);
 	};
 
+	// Create pills for homework events
 	for (let i in homeworks) {
 		if (pillNumber < 4) {
 			let currentDate;
@@ -201,6 +202,7 @@ const createEventPills = (date, parentCell) => {
 		}
 	}
 
+	// Create pills for planner events
 	for (let i in plannerEvents) {
 		if (pillNumber < 4) {
 			let currentDate;

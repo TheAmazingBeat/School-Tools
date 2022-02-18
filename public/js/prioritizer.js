@@ -24,7 +24,7 @@ $(document).ready(() => {
  * Main function to call functions in order
  */
 const prioritize = () => {
-	getAllInput(), sortHW(), showPrioritized(), storeToLocalStorage('homeworks', homeworks);
+	sortHW(), showPrioritized(), storeToLocalStorage('homeworks', homeworks);
 };
 
 /**
@@ -43,7 +43,7 @@ const checkForHomework = () => {
 		$('#userDiv').slideToggle('slow');
 		return false;
 	} else {
-		showPrioritized();
+		showPrioritized(true);
 		for (let i = 0; i < sortedHW.length; i++) {
 			addHW(true, sortedHW[i]);
 		}
@@ -51,6 +51,14 @@ const checkForHomework = () => {
 	}
 };
 
+/**
+ * Homework Object
+ * @param {String} hwName
+ * @param {String} hwDueDate
+ * @param {String} hwType
+ * @param {boolean} isStored
+ * @param {jQueryObject} hwObject
+ */
 function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
 	let hwItem = $('<tr class="homework-item animate__animated animate__fadeInDown"></tr>');
 	this.element = $(hwItem).append(
@@ -81,114 +89,109 @@ const addHW = (isStored, hwObject) => {
  * @param {Event} eventData
  */
 const removeHW = (isStored, eventData) => {
-	//TODO change rankings when removing homeworks
 	if (isStored) {
+		// Removes from prioritized list
 		const parent = $(eventData.currentTarget).parents('tbody');
 		let children = $(parent).children();
 		for (let i = 0; i < children.length; i++) {
-			console.log(children[i] == eventData.currentTarget);
 			if (children[i] == eventData.currentTarget) {
 				$(parent).find(children[i]).remove();
 				sortedHW.splice(i, 1);
-				homeworks = sortedHW;
 			}
 		}
 		storeToLocalStorage('homeworks', sortedHW);
-		homeworks = sortedHW;
 		showPrioritized();
-	}
-
-	// if (homeworks.length < 3) alert('At least 3 homeworks required');
-
-	for (let i = 0; i < homeworks.length; i++) {
-		let tempObj = homeworks[i].element;
-		if ($(tempObj).find('.hw-select-cell').find('.hw-select').is(':checked')) {
-			$(tempObj).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
-			$(tempObj).remove();
-			homeworks.pop();
+	} else {
+		// Removes from editing list
+		for (let i = 0; i < homeworks.length; i++) {
+			let tempObj = homeworks[i].element;
+			if ($(tempObj).find('.hw-select-cell').find('.hw-select').is(':checked')) {
+				$(tempObj).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
+				$(tempObj).remove();
+				// Removes from homeworks
+				homeworks.splice(i, 1);
+				// Also removes from sortedHW
+				for (let j = 0; j < sortedHW.length; j++) {
+					if (homeworks[i] == sortedHW[i]) sortedHW.splice(i, 1);
+				}
+			}
 		}
 	}
-};
-
-/**
- * Getting the value of Homework Name Input
- * @param {number} index The index of the homework
- * @returns Name value inside Name Input
- */
-const getNameInput = (index) => {
-	let value = '(No Name)';
-	try {
-		value = $(homeworks[index].element).find('.hw-name').val();
-	} catch (error) {
-		console.log(error);
-	}
-	return value;
-};
-
-/**
- * Getting the value of Homework Due Date Input
- * @param {number} index The index of the homework
- * @returns Due Date value inside Date Input
- */
-const getDateInput = (index) => {
-	//TODO Maybe there is a Built-in JS function for formatting dates
-	/// Initial Format YYYY-MM-DD
-	let dateString = '';
-
-	try {
-		dateString = $(homeworks[index].element).find('.hw-date').val();
-	} catch (error) {
-		console.log(error);
-	}
-
-	if (dateString == '') return;
-
-	/// Format to MM-DD-YYYY
-	let month = dateString.substring(
-		dateString.indexOf('-') + 1,
-		dateString.indexOf('-', dateString.indexOf('-') + 1)
-	);
-	//// Removes ZERO in the first digit of month
-	if (month.substring(0, 1) == '0' && month.length > 1) {
-		month = month.substring(1);
-	}
-	let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-') + 1) + 1);
-	let year = dateString.substring(0, 4);
-
-	let formattedDate = month + '/' + day + '/' + year;
-
-	return formattedDate;
-};
-
-/**
- * Getting the value of Homework Type Input
- * @param {number} index The index of the homework
- * @returns Option value inside Select Type Input
- */
-const getTypeInput = (index) => {
-	let value = '';
-	try {
-		value = $(homeworks[index].element).find('.hw-type').val();
-	} catch (error) {
-		console.log(error);
-	}
-	return value;
 };
 
 /**
  * Assigns all input values to homework object inside hwValues Array
  */
 const getAllInput = () => {
-	// hwValues = [];
+	/**
+	 * Getting the value of Homework Name Input
+	 * @param {number} index The index of the homework
+	 * @returns Name value inside Name Input
+	 */
+	const getNameInput = (index) => {
+		let value = '(No Name)';
+		try {
+			value = $(homeworks[index].element).find('.hw-name').val();
+		} catch (error) {
+			console.log(error);
+		}
+		return value;
+	};
+
+	/**
+	 * Getting the value of Homework Due Date Input
+	 * @param {number} index The index of the homework
+	 * @returns Due Date value inside Date Input
+	 */
+	const getDateInput = (index) => {
+		//TODO Maybe there is a Built-in JS function for formatting dates
+		/// Initial Format YYYY-MM-DD
+		let dateString = '';
+
+		try {
+			dateString = $(homeworks[index].element).find('.hw-date').val();
+		} catch (error) {
+			console.log(error);
+		}
+
+		if (dateString == '') return;
+
+		/// Format to MM-DD-YYYY
+		let month = dateString.substring(
+			dateString.indexOf('-') + 1,
+			dateString.indexOf('-', dateString.indexOf('-') + 1)
+		);
+		//// Removes ZERO in the first digit of month
+		if (month.substring(0, 1) == '0' && month.length > 1) {
+			month = month.substring(1);
+		}
+		let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-') + 1) + 1);
+		let year = dateString.substring(0, 4);
+
+		let formattedDate = month + '/' + day + '/' + year;
+
+		return formattedDate;
+	};
+
+	/**
+	 * Getting the value of Homework Type Input
+	 * @param {number} index The index of the homework
+	 * @returns Option value inside Select Type Input
+	 */
+	const getTypeInput = (index) => {
+		let value = '';
+		try {
+			value = $(homeworks[index].element).find('.hw-type').val();
+		} catch (error) {
+			console.log(error);
+		}
+		return value;
+	};
+
 	for (let i in homeworks) {
 		homeworks[i].name = getNameInput(i);
 		homeworks[i].dueDate = getDateInput(i);
 		homeworks[i].type = getTypeInput(i);
-		// hwValues[i] = {
-		// 	name: getNameInput(i),
-		// 	date: getDateInput(i),
-		// 	type: getTypeInput(i),
-		// };
 	}
 };
 
@@ -201,10 +204,7 @@ const sortByDate = (array) => {
 	for (let i = 0; i < array.length; i++) {
 		let min = i;
 		for (let j = i + 1; j < array.length; j++) {
-			// let prev = j - 1;
 			if (new Date(array[j].dueDate) < new Date(array[i].dueDate)) min = j;
-			// else if (new Date(array[j].dueDate).getTime() == new Date(array[prev].dueDate).getTime())
-			// 	min = prev;
 		}
 		if (min != i) {
 			let temp = array[min];
@@ -218,6 +218,7 @@ const sortByDate = (array) => {
  * Sort the homeworks.
  */
 const sortHW = () => {
+	getAllInput();
 	let majorHW = [],
 		minorHW = [];
 
@@ -272,8 +273,22 @@ const sortHW = () => {
 /**
  * Show sorted homework.
  */
-const showPrioritized = () => {
-	hideList();
+const showPrioritized = (isStored) => {
+	/**
+	 * Hides where the user edits homework list.
+	 */
+	const hideList = () => {
+		$('#userDiv:visible').slideToggle('slow');
+
+		// Prevents the table from having old list
+		$('#homework-list > tbody').empty();
+
+		for (let i = 0; i < sortedHW.length; i++) {
+			$('#homework-list > tbody').append(sortedHW[i].element);
+		}
+	};
+
+	if (!isStored) hideList();
 
 	// prevents the table from having old list
 	$('#sorted-list > tbody').empty();
@@ -303,13 +318,6 @@ const showPrioritized = () => {
 
 		$('#sorted-list > tbody').append($row);
 	}
-};
-
-/**
- * Hides where the user edits homework list.
- */
-const hideList = () => {
-	$('#userDiv:visible').slideToggle('slow');
 };
 
 /**
