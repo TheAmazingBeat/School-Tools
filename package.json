@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/TheAmazingBeat/School-Tools#readme",
   "dependencies": {
+    "axios": "^0.26.0",
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "heroku": "^7.59.2",
