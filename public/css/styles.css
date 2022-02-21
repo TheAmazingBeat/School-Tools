@@ -25,6 +25,10 @@ body {
 main {
     margin-left: 5rem;
     padding: 1rem;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .invisible-div{
@@ -106,6 +110,10 @@ main {
 
 /* Small screens */
 @media screen and (max-width: 600px) {
+    main{
+        align-items: flex-start;
+    }
+
     .navbar {
         bottom: 0;
         width: 100vw;

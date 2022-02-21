@@ -99,6 +99,7 @@ const removeHW = (isStored, eventData) => {
 				sortedHW.splice(i, 1);
 			}
 		}
+		// Refreshes localStorage to update sortedHW
 		storeToLocalStorage('homeworks', sortedHW);
 		showPrioritized();
 	} else {

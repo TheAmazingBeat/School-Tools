@@ -41,6 +41,10 @@
 	--animation-duration: 0.5s !important;
 }
 
+section#planner {
+	width: 95%;
+}
+
 #calendar {
 	margin: auto;
 	width: 100%;
@@ -158,7 +162,7 @@
 	background-color: #6467b3;
 }
 
-.more-event-pill{
+.more-event-pill {
 	border: 0;
 }
 
