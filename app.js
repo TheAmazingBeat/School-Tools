@@ -14,15 +14,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/prioritizer', (req, res) => {
-	res.sendFile(__dirname + '/public/src/prioritizer.html');
+	res.sendFile(__dirname + '/public/pages/prioritizer.html');
 });
 
 app.get('/calculator', (req, res) => {
-	res.sendFile(__dirname + '/public/src/calculator.html');
+	res.sendFile(__dirname + '/public/pages/calculator.html');
 });
 
 app.get('/planner', (req, res) => {
-	res.sendFile(__dirname + '/public/src/planner.html');
+	res.sendFile(__dirname + '/public/pages/planner.html');
 });
 
 const port = 3000;
