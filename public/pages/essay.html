@@ -19,6 +19,7 @@
    <link rel="stylesheet" href="css/styles.css">
 
    <!-- Local Scripts -->
+   <script src="js/essay-counter.js" defer></script>
    <script src="js/navbar.js" defer></script>
 
    <title>Essay Counter - School Tools</title>
@@ -33,7 +34,9 @@
    <main>
       <div class="container">
 
-
+         <p>Characters: <span data-char-count>0</span></p>
+         <p>Limit: <input type="number" name="charLimit" id="charLimit" value="400" min="0"></p>
+         <textarea name="counter" id="" cols="100" rows="10"></textarea>
 
       </div>
    </main>
