@@ -2,3 +2,4 @@
 .vscode
 .replit
 node_modules
+.breakpoints

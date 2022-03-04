@@ -4,6 +4,7 @@ const axios = require('axios');
 const app = express();
 
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/favicon.ico', (req, res) => {
 	res.sendFile(__dirname + '/favicon.ico');
@@ -24,6 +25,10 @@ app.get('/calculator', (req, res) => {
 app.get('/planner', (req, res) => {
 	res.sendFile(__dirname + '/public/pages/planner.html');
 });
+
+app.get('/essay-counter', (req, res) => {
+	res.sendFile(__dirname + '/public/pages/essay.html')
+})
 
 const port = 3000;
 app.listen(process.env.PORT || port, () => {
