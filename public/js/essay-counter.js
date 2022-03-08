@@ -1,16 +1,23 @@
 let charLimit = $('#charLimit').val();
 
-$('textarea').on('keyup', () => {
-	let length = $('textarea').prop('textLength');
-	$('[data-char-count]').html(length);
+$('textarea').on('keyup', (e) => {
+	const charLength = $('textarea').prop('textLength');
+	$('[data-char-count]').html(charLength);
 
-	length >= charLimit
+	charLength >= charLimit
 		? $('[data-char-count]').css('color', 'red')
 		: $('[data-char-count]').css('color', 'white');
+
+	if (e.code == 'Space' || e.code == 'Backspace') {
+		const words = $('textarea').val().trim().split(' ');
+		let wordLength = words.length;
+		if (words[0] == '') wordLength = 0;
+		$('[data-word-count]').html(wordLength);
+	}
 });
 
-$('#charLimit').change(() => {
-	let length = $('textarea').prop('textLength');
+$('#charLimit').on('change', () => {
+	let charLength = $('textarea').prop('textLength');
 
 	charLimit = $('#charLimit').val();
 	if (charLimit < 0) {
@@ -18,7 +25,7 @@ $('#charLimit').change(() => {
 		$('#charLimit').val('0');
 	}
 
-	length >= charLimit
+	charLength >= charLimit
 		? $('[data-char-count]').css('color', 'red')
 		: $('[data-char-count]').css('color', 'white');
 });
