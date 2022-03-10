@@ -27,8 +27,8 @@ app.get('/planner', (req, res) => {
 });
 
 app.get('/essay-counter', (req, res) => {
-	res.sendFile(__dirname + '/public/pages/essay.html')
-})
+	res.sendFile(__dirname + '/public/pages/essay.html');
+});
 
 const port = 3000;
 app.listen(process.env.PORT || port, () => {
@@ -40,17 +40,3 @@ app.listen(process.env.PORT || port, () => {
 //TODO Store Events in a database and display in Planner when page loads (instead of localStorage)
 
 // CANVAS LMS
-const canvas_user_token = '5604~bGH7g0L4oUWTCVag0m4DmZ9FpIokztG3c0OBvHyAZz5v7m2p8Y3N3QVYISecfqsK';
-const course_id = 73509;
-app.get('/poop', (req, res) => {
-	const URL = `https://garlandisd.instructure.com/api/v1/courses/${course_id}/assignments?access_token=${canvas_user_token}`;
-	axios
-		.get(URL)
-		.then((response) => {
-			console.log(response);
-			res.send(response);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-});

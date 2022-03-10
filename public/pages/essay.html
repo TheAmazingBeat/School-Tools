@@ -17,12 +17,13 @@
    <link rel="stylesheet" href="vendor/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
    <!-- Local Stylesheets -->
    <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/essay.css">
 
    <!-- Local Scripts -->
    <script src="js/essay-counter.js" defer></script>
    <script src="js/navbar.js" defer></script>
 
-   <title>Essay Counter - School Tools</title>
+   <title>Writing Counter - School Tools</title>
 </head>
 
 <body>
@@ -36,8 +37,13 @@
 
          <p>Characters: <span data-char-count>0</span></p>
          <p>Words: <span data-word-count>0</span></p>
-         <p>Limit: <input type="number" name="charLimit" id="charLimit" value="400" min="0"></p>
-         <textarea name="counter" id="" cols="100" rows="10"></textarea>
+         <p>
+            <select class="bg-dark" name="limitSelect" id="limitSelect">
+               <option value="Character">Character</option>
+               <option value="Word">Word</option>
+            </select>
+            Limit: <input class="bg-dark" type="number" name="limit" id="limit" value="400" min="0"></p>
+         <textarea class="bg-dark form-control" name="counter" id="counter"></textarea>
 
       </div>
    </main>

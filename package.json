@@ -20,12 +20,12 @@
   "homepage": "https://github.com/TheAmazingBeat/School-Tools#readme",
   "dependencies": {
     "axios": "^0.26.0",
-    "body-parser": "^1.19.1",
-    "express": "^4.17.2",
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
     "sass": "^1.49.7"
   },
   "devDependencies": {
-    "eslint": "^8.8.0",
+    "eslint": "^8.10.0",
     "eslint-plugin-jquery": "^1.5.1",
     "eslint-plugin-node": "^11.1.0",
     "nodemon": "^2.0.15"
