@@ -27,7 +27,7 @@ app.get('/planner', (req, res) => {
 });
 
 app.get('/essay-counter', (req, res) => {
-	res.sendFile(__dirname + '/public/pages/essay.html');
+	res.sendFile(__dirname + '/public/pages/writing-counter.html');
 });
 
 const port = 3000;

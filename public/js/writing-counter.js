@@ -1,9 +1,13 @@
+import { storeToLocalStorage, getFromLocalStorage } from './UsefulFunks.js';
+
 let limit = $('#limit').val();
 let limitType = $('#limitSelect').val();
+const stored = getFromLocalStorage('writingText');
+console.log(`Stored: ${stored}`);
 
-// function checkLimit(length, limit) {
-// 	return length >= limit;
-// }
+if (stored != null) {
+	$('textarea').val(stored);
+}
 
 function changeColor(selector, color) {
 	$(selector).css('color', `${color}`);
@@ -65,4 +69,8 @@ $('#limit').on('change', () => {
 	check();
 
 	console.log(`${limitType} limit = ${limit}`);
+});
+
+$('#saveBtn').click(() => {
+	storeToLocalStorage('writingText', $('textarea').val());
 });
