@@ -1,8 +1,9 @@
 const express = require('express');
-const axios = require('axios');
+// const axios = require('axios');
 
 const app = express();
 
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
@@ -11,7 +12,8 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html');
+	// res.sendFile(__dirname + '/index.html');
+	res.render('index');
 });
 
 app.get('/prioritizer', (req, res) => {

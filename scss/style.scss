@@ -1,0 +1,25 @@
+$bg-dark: #151619;
+$bg-light: #f2f2f2;
+$dark-font: #fff;
+$light-font: #181c1f;
+$primary-font: 'Quicksand', sans-serif;
+$secondary-font: 'Poppins', sans-serif;
+
+:root {
+	font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	&.dark {
+		background-color: $bg-dark;
+		color: $dark-font;
+	}
+}
