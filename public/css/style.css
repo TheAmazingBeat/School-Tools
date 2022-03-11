@@ -10,9 +10,211 @@
   padding: 0;
 }
 
+.dark {
+  background-color: #212529;
+  color: #fff;
+}
+
+.light {
+  background-color: #fff;
+  color: #181c1f;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+}
 body.dark {
   background-color: #151619;
+}
+body.light {
+  background-color: #f2f2f2;
+}
+
+nav {
+  position: fixed;
+  width: 16rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: 200ms all ease-in-out;
+}
+nav.dark a {
   color: #fff;
+}
+nav.dark a.active {
+  color: #000;
+  background-color: #e5e5e5;
+}
+nav.dark a.active:hover {
+  background-color: #e5e5e5;
+}
+nav.dark a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav.dark li.nav-item:last-child a:nth-child(1) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+nav.dark .nav-tooltip {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.3);
+}
+nav.dark button {
+  color: #fff;
+}
+nav.dark button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav.light a {
+  color: #181c1f;
+}
+nav.light a.active {
+  color: #fff;
+  background-color: #181c1f;
+}
+nav.light a.active:hover {
+  background-color: #181c1f;
+}
+nav.light a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+nav.light .nav-tooltip {
+  background-color: #181c1f;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+nav.light li.nav-item:last-child a:nth-child(1) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+nav.light button {
+  color: #181c1f;
+}
+nav.light button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+nav div.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  width: 85%;
+}
+nav div.nav-header h1 {
+  font-size: 1.5rem;
+}
+nav div.nav-header svg.fa-bars:hover {
+  cursor: pointer;
+}
+nav ul.navbar-nav {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  margin: 1rem 0;
+}
+nav ul.navbar-nav li.nav-item {
+  width: 100%;
+  height: 3.125rem;
+  margin: 0.46875rem 0;
+}
+nav ul.navbar-nav li.nav-item a.nav-link {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  transition: 200ms all ease-in-out;
+  border-radius: 10px;
+}
+nav ul.navbar-nav li.nav-item a.nav-link i,
+nav ul.navbar-nav li.nav-item a.nav-link svg {
+  flex: 1;
+}
+nav ul.navbar-nav li.nav-item a.nav-link span.link-text {
+  flex: 2;
+}
+nav ul.navbar-nav li.nav-item span.nav-tooltip {
+  position: absolute;
+  left: calc(100% + 15px);
+  transform: translateY(-42.5px);
+  white-space: nowrap;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+}
+nav ul.navbar-nav hr {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+nav ul.navbar-nav .theme-switcher {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.46875rem 0;
+}
+nav ul.navbar-nav .theme-switcher .light-btn,
+nav ul.navbar-nav .theme-switcher .dark-btn {
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  border-radius: 10px;
+  cursor: pointer;
+}
+nav ul.navbar-nav .theme-switcher .light-btn span,
+nav ul.navbar-nav .theme-switcher .dark-btn span {
+  margin-left: 0.25rem;
+}
+nav ul.navbar-nav .theme-switcher .dark-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+nav ul.navbar-nav .theme-switcher .light-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav ul.navbar-nav .theme-switcher .dark-btn.dark {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav ul.navbar-nav .theme-switcher .dark-btn.dark:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav ul.navbar-nav .theme-switcher .light-btn.light {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+nav ul.navbar-nav .theme-switcher .light-btn.light:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+nav ul.navbar-nav li.nav-item.profile {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+}
+nav ul.navbar-nav li.nav-item.profile a {
+  margin: 0 0.25rem;
+}
+nav ul.navbar-nav li.nav-item.profile a:nth-child(1) {
+  flex: 2;
+}
+nav ul.navbar-nav li.nav-item.profile a:last-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
