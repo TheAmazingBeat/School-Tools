@@ -1,6 +1,6 @@
 let expanded = false;
 let largeViewport = window.innerWidth >= 600 ? true : false;
-let activePage = '';
+// let activePage = '';
 
 function renderNavbar() {
   const logo = $(
