@@ -58,6 +58,19 @@ nav {
   z-index: 1;
   transition: 200ms all ease-in-out;
 
+  &.expanded {
+    width: 16rem;
+
+    span.nav-tooltip {
+      opacity: 0;
+    }
+
+    span.link-text {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
   &.dark {
     a {
       @include theme-color($dark-font);
@@ -180,16 +193,6 @@ nav {
           flex: 2;
         }
       }
-
-      // Tooltip
-      span.nav-tooltip {
-        position: absolute;
-        left: calc(100% + 15px);
-        transform: translateY(-42.5px);
-        white-space: nowrap;
-        border-radius: 5px;
-        padding: 0.5rem 0.75rem;
-      }
     }
 
     hr {
@@ -261,6 +264,16 @@ nav {
         justify-content: center;
         align-items: center;
       }
+    }
+
+    // Tooltip
+    span.nav-tooltip {
+      position: absolute;
+      left: calc(100% + 15px);
+      transform: translateY(-42.5px);
+      white-space: nowrap;
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
     }
   }
 }

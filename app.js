@@ -30,7 +30,7 @@ app.get('/planner', (req, res) => {
   res.sendFile(__dirname + '/public/pages/planner.html');
 });
 
-app.get('/essay-counter', (req, res) => {
+app.get('/writing-counter', (req, res) => {
   res.sendFile(__dirname + '/public/pages/writing-counter.html');
 });
 

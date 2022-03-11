@@ -19,7 +19,7 @@ function renderNavbar() {
     '<li class="nav-item"><a href="planner" id="plannerLink" class="nav-link" title="Planner"><i class="fas fa-calendar-alt fa-2x"></i><span class="link-text">Planner</span></a></li>"'
   );
   const essay = $(
-    '<li class="nav-item"><a href="essay-counter" id="essayLink" class="nav-link" title="Essay Counter"><i class="fas fa-file fa-2x"></i><span class="link-text">Essay Counter</span></a></li>"'
+    '<li class="nav-item"><a href="writing-counter" id="essayLink" class="nav-link" title="Essay Counter"><i class="fas fa-file fa-2x"></i><span class="link-text">Essay Counter</span></a></li>"'
   );
   const theme = $(
     '<li class="nav-item"><a class="nav-link" title="Switch Theme"><i class="fas fa-adjust fa-2x"></i><span class="link-text">Theme</span></a></li>"'

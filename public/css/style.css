@@ -41,6 +41,16 @@ nav {
   z-index: 1;
   transition: 200ms all ease-in-out;
 }
+nav.expanded {
+  width: 16rem;
+}
+nav.expanded span.nav-tooltip {
+  opacity: 0;
+}
+nav.expanded span.link-text {
+  opacity: 1;
+  pointer-events: all;
+}
 nav.dark a {
   color: #fff;
 }
@@ -137,14 +147,6 @@ nav ul.navbar-nav li.nav-item a.nav-link svg {
 nav ul.navbar-nav li.nav-item a.nav-link span.link-text {
   flex: 2;
 }
-nav ul.navbar-nav li.nav-item span.nav-tooltip {
-  position: absolute;
-  left: calc(100% + 15px);
-  transform: translateY(-42.5px);
-  white-space: nowrap;
-  border-radius: 5px;
-  padding: 0.5rem 0.75rem;
-}
 nav ul.navbar-nav hr {
   width: 100%;
   margin: 0.5rem 0;
@@ -207,6 +209,14 @@ nav ul.navbar-nav li.nav-item.profile a:last-child {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+nav ul.navbar-nav span.nav-tooltip {
+  position: absolute;
+  left: calc(100% + 15px);
+  transform: translateY(-42.5px);
+  white-space: nowrap;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
 }
 
 h1 {
