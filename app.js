@@ -11,10 +11,19 @@ app.get('/favicon.ico', (req, res) => {
   res.sendFile(__dirname + '/favicon.ico');
 });
 
+const user = {
+  userName: 'Ice',
+  plannerEvents: [],
+  homeworks: [],
+  completedHW: 4,
+};
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
   res.render('index', {
-    userName: 'Ice',
+    userName: user.userName,
+    completedHW: user.completedHW,
+    events: user.plannerEvents,
+    homeworks: user.homeworks,
   });
 });
 

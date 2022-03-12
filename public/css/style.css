@@ -308,6 +308,9 @@ nav.navbar.light .dark-btn.light {
 body {
   font-family: "Quicksand", sans-serif;
 }
+body a {
+  text-decoration: none;
+}
 body.dark {
   background-color: #151619;
 }
@@ -341,6 +344,39 @@ main {
   main.expanded {
     margin-left: 16rem;
   }
+}
+
+.row {
+  margin: 1rem 0;
+}
+.row .card {
+  border-radius: 10px;
+}
+.row .card .card-body {
+  padding: 1rem;
+}
+.row .card .card-body .card-title,
+.row .card .card-body .card-text {
+  margin: 1rem 0;
+  padding: 0.5rem;
+}
+
+.get-started .get-started-link {
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+}
+.get-started .get-started-link svg {
+  transition: all 200ms ease-in-out;
+}
+.get-started .get-started-link:hover {
+  transform: scale(1.5);
+}
+.get-started .get-started-link:hover svg {
+  transform: translateX(10px);
+}
+
+.dash-assignments {
+  margin-top: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

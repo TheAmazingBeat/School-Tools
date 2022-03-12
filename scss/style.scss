@@ -24,6 +24,10 @@
 }
 
 body {
+  a {
+    text-decoration: none;
+  }
+
   font-family: variables.$primary-font;
   &.dark {
     @include variables.theme-bg(variables.$bg-dark);
@@ -64,4 +68,43 @@ main {
       margin-left: 16rem;
     }
   }
+}
+
+.row {
+  margin: 1rem 0;
+
+  .card {
+    border-radius: 10px;
+
+    .card-body {
+      padding: 1rem;
+
+      .card-title,
+      .card-text {
+        margin: 1rem 0;
+        padding: 0.5rem;
+      }
+    }
+  }
+}
+
+.get-started {
+  .get-started-link {
+    text-decoration: none;
+    transition: all 200ms ease-in-out;
+    svg {
+      transition: all 200ms ease-in-out;
+    }
+    // color: $;
+    &:hover {
+      transform: scale(1.5);
+      svg {
+        transform: translateX(10px);
+      }
+    }
+  }
+}
+
+.dash-assignments {
+  margin-top: 0;
 }
