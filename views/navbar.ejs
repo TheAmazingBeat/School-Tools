@@ -1,92 +1,138 @@
-<nav class="navbar dark">
-   <div class="nav-header">
-      <!-- <i class="logo"></i> -->
-      <h1>School Tools</h1>
-      <button id="menuBtn">
+<nav>
+   <div class="nav-overlay">
+
+   </div>
+
+   <div class="mobile-header dark">
+      <button class="menu-btn dark">
          <i class="fa-solid fa-bars "></i>
       </button>
+      <div>
+         <h2> <%= pageTitle %> </h2>
+      </div>
    </div>
 
 
-   <ul class="navbar-nav">
+   <div class="main-navbar dark">
+
+      <div class="nav-header">
+         <!-- <i class="logo"></i> -->
+         <h1>School Tools</h1>
+         <button class="menu-btn">
+            <i class="fa-solid fa-bars "></i>
+         </button>
+      </div>
+
+
+      <ul class="navbar-nav">
+         <li class="nav-item">
+            <a href="/" class="nav-link active" title="Dashboard">
+               <i class="fa-solid fa-house"></i>
+               <span class="link-text">Dashboard</span>
+            </a>
+            <span class="nav-tooltip">Dashboard</span>
+         </li>
+         <li class="nav-item">
+            <a href="/prioritizer" class="nav-link" title="Prioritizer">
+               <i class="fa-solid fa-list-ol"></i>
+               <span class="link-text">Prioritizer</span>
+            </a>
+            <span class="nav-tooltip">Prioritizer</span>
+         </li>
+         <li class="nav-item">
+            <a href="/planner" class="nav-link" title="Planner">
+               <i class="fa-solid fa-calendar-check "></i>
+               <span class="link-text">Planner</span>
+            </a>
+            <span class="nav-tooltip">Planner</span>
+         </li>
+         <li class="nav-item">
+            <a href="/calculator" class="nav-link" title="Calculator">
+               <i class="fa-solid fa-calculator "></i>
+               <span class="link-text">Calculator</span>
+            </a>
+            <span class="nav-tooltip">Calculator</span>
+         </li>
+         <li class="nav-item">
+            <a href="/writing-counter" class="nav-link" title="Writing Counter">
+               <i class="fa-solid fa-file-text "></i>
+               <span class="link-text">Writing Counter</span>
+            </a>
+            <span class="nav-tooltip">Writing Counter</span>
+         </li>
+
+         <hr>
+
+         <li class="nav-item">
+            <a href="/" class="nav-link" title="Settings">
+               <i class="fa-solid fa-gear "></i>
+               <span class="link-text">Settings</span>
+            </a>
+            <span class="nav-tooltip">Settings</span>
+         </li>
+
+         <!-- Theme Switcher -->
+         <li class="nav-item">
+            <div class="theme-switcher">
+               <button class="light-btn dark">
+                  <i class="fa-solid fa-sun"></i>
+                  <span>Light</span>
+               </button>
+               <button class="dark-btn dark">
+                  <i class="fa-solid fa-moon"></i>
+                  <span>Dark</span>
+               </button>
+            </div>
+            <span class="nav-tooltip">Switch Theme</span>
+         </li>
+
+         <li class="nav-item">
+            <a href="/" class="nav-link" title="Help &amp; Support">
+               <i class="fa-solid fa-question-circle fa-xl"></i>
+               <span class="link-text">Help &amp; Support</span>
+            </a>
+            <span class="nav-tooltip">Help &amp; Support</span>
+         </li>
+
+         <li class="nav-item profile">
+            <a href="/" class="nav-link" title="Profile">
+               <i class="fa-solid fa-circle-user fa-xl"></i>
+               <span class="link-text"><%= userName %> </span>
+            </a>
+            <a href="/" class="nav-link" title="Logout">
+               <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+            </a>
+         </li>
+
+      </ul>
+   </div>
+
+   <ul class="mobile-bottom-nav dark">
       <li class="nav-item">
-         <a href="/" class="nav-link active" title="Dashboard">
+         <a href="/" class="nav-link">
             <i class="fa-solid fa-house"></i>
-            <span class="link-text">Dashboard</span>
          </a>
-         <span class="nav-tooltip">Dashboard</span>
       </li>
       <li class="nav-item">
-         <a href="/prioritizer" class="nav-link" title="Prioritizer">
+         <a href="/prioritizer" class="nav-link">
             <i class="fa-solid fa-list-ol"></i>
-            <span class="link-text">Prioritizer</span>
          </a>
-         <span class="nav-tooltip">Prioritizer</span>
       </li>
       <li class="nav-item">
-         <a href="/planner" class="nav-link" title="Planner">
-            <i class="fa-solid fa-calendar-check "></i>
-            <span class="link-text">Planner</span>
+         <a href="/planner" class="nav-link">
+            <i class="fa-solid fa-calendar-check"></i>
          </a>
-         <span class="nav-tooltip">Planner</span>
       </li>
       <li class="nav-item">
-         <a href="/calculator" class="nav-link" title="Calculator">
-            <i class="fa-solid fa-calculator "></i>
-            <span class="link-text">Calculator</span>
+         <a href="/calculator" class="nav-link">
+            <i class="fa-solid fa-calculator"></i>
          </a>
-         <span class="nav-tooltip">Calculator</span>
       </li>
       <li class="nav-item">
-         <a href="/writing-counter" class="nav-link" title="Writing Counter">
-            <i class="fa-solid fa-file-text "></i>
-            <span class="link-text">Writing Counter</span>
-         </a>
-         <span class="nav-tooltip">Writing Counter</span>
-      </li>
-
-      <hr>
-
-      <li class="nav-item">
-         <a href="/" class="nav-link" title="Settings">
-            <i class="fa-solid fa-gear "></i>
-            <span class="link-text">Settings</span>
-         </a>
-         <span class="nav-tooltip">Settings</span>
-      </li>
-
-      <!-- Theme Switcher -->
-      <li class="nav-item">
-         <div class="theme-switcher">
-            <button class="light-btn dark">
-               <i class="fa-solid fa-sun"></i>
-               <span>Light</span>
-            </button>
-            <button class="dark-btn dark">
-               <i class="fa-solid fa-moon"></i>
-               <span>Dark</span>
-            </button>
-         </div>
-         <span class="nav-tooltip">Switch Theme</span>
-      </li>
-
-      <li class="nav-item">
-         <a href="/" class="nav-link" title="Help &amp; Support">
-            <i class="fa-solid fa-question-circle fa-xl"></i>
-            <span class="link-text">Help &amp; Support</span>
-         </a>
-         <span class="nav-tooltip">Help &amp; Support</span>
-      </li>
-
-      <li class="nav-item profile">
-         <a href="/" class="nav-link" title="Profile">
-            <i class="fa-solid fa-circle-user fa-xl"></i>
-            <span class="link-text"><%= userName %> </span>
-         </a>
-         <a href="/" class="nav-link" title="Logout">
-            <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+         <a href="/writing-counter" class="nav-link">
+            <i class="fa-solid fa-file-text"></i>
          </a>
       </li>
-
    </ul>
+
 </nav>

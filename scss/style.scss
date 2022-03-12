@@ -56,10 +56,10 @@ h6 {
 
 main {
   @include breakpoints.for-phone-only() {
-    margin: 3.125rem 5rem;
+    margin: 5.75rem 0.5rem;
   }
   @include breakpoints.for-tablet-portrait-up() {
-    margin: 4.75rem 5rem;
+    margin: 4.75rem 0 4.75rem 5rem;
   }
   // margin-left: 5rem;
   transition: all variables.$animationDuration ease;
@@ -106,5 +106,7 @@ main {
 }
 
 .dash-assignments {
-  margin-top: 0;
+  @include breakpoints.for-desktop-up {
+    margin-top: 0;
+  }
 }

@@ -1,6 +1,15 @@
-$('#menuBtn').click(() => {
-  $('.navbar').toggleClass('expanded');
+$('.menu-btn').click(() => {
+  expand();
+});
+
+$('.nav-overlay').click(() => {
+  expand();
+});
+
+function expand() {
+  $('.main-navbar').toggleClass('expanded');
   $('main').toggleClass('expanded');
+  $('.nav-overlay').toggleClass('expanded-overlay');
 
   if ($('.expanded').length > 0) {
     $('.light-btn')
@@ -12,7 +21,7 @@ $('#menuBtn').click(() => {
       .css('width', '7rem !important')
       .css('opacity', '1 !important');
   }
-});
+}
 
 $('.light-btn').click(() => {
   if ($('.expanded').length == 0) {

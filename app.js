@@ -20,6 +20,7 @@ const user = {
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
   res.render('index', {
+    pageTitle: 'Dashboard',
     userName: user.userName,
     completedHW: user.completedHW,
     events: user.plannerEvents,

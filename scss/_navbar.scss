@@ -4,20 +4,134 @@
 $animationDuration: variables.$animationDuration;
 $animationStyle: variables.$animationStyle;
 
-nav.navbar {
+nav {
+  .menu-btn {
+    border: 0;
+    background: none;
+  }
+
+  &.dark {
+    .menu-btn {
+      @include variables.theme-bg(variables.$dark-one);
+    }
+  }
+
+  &.light {
+    .menu-btn {
+      @include variables.theme-bg(variables.$light-one);
+    }
+  }
+
+  .nav-overlay {
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all variables.$animationDuration variables.$animationStyle;
+
+    &.expanded-overlay {
+      opacity: 0.5 !important;
+      z-index: 3 !important;
+      pointer-events: all !important;
+    }
+  }
+}
+
+div.mobile-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: 0px 3px 10px 0px rgba(10, 10, 10, 0.5);
+
+  button.menu-btn {
+    width: 3.125rem;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  @include breakpoints.for-phone-only {
+    width: 100vw;
+    height: 3.125rem;
+    display: flex;
+    align-items: center;
+  }
+
+  @include breakpoints.for-tablet-portrait-up {
+    display: none;
+  }
+}
+
+ul.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px -2px 15px 0px rgba(10, 10, 10, 0.3);
+
+  @include breakpoints.for-phone-only {
+    width: 100vw;
+    height: 3.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &.dark {
+    @include variables.theme-bg($theme-bg: variables.$dark-two);
+
+    a {
+      @include variables.theme-color(variables.$dark-font);
+    }
+  }
+
+  &.light {
+    @include variables.theme-bg($theme-bg: variables.$light-two);
+    a {
+      @include variables.theme-color(variables.$light-font);
+    }
+  }
+
+  li.nav-item {
+    list-style: none;
+  }
+}
+
+div.main-navbar {
   position: fixed;
   top: 0;
   width: 5rem;
   height: 100vh;
   left: 0;
-  z-index: 99;
   padding: 0.25rem 0.75rem;
   transition: $animationDuration all $animationStyle;
+
+  @include breakpoints.for-phone-only {
+    // display: none;
+    width: 0%;
+    padding: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    svg {
+      opacity: 0;
+    }
+  }
 
   @include breakpoints.for-tablet-landscape-up() {
     top: 0;
     width: 5rem;
     height: 100vh;
+    z-index: 99;
   }
 
   // Navigation Bar Header
@@ -25,9 +139,16 @@ nav.navbar {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 5%;
+    height: 10%;
     position: relative;
     margin: 0.25rem 0;
+
+    @include breakpoints.for-phone-only {
+      width: 0%;
+      height: 5%;
+      margin-top: 0.25rem;
+      margin-bottom: 1rem;
+    }
 
     h1 {
       opacity: 0;
@@ -37,7 +158,7 @@ nav.navbar {
       white-space: nowrap;
     }
 
-    button#menuBtn {
+    button.menu-btn {
       border: 0;
       transition: all $animationDuration $animationStyle;
       position: absolute;
@@ -49,11 +170,20 @@ nav.navbar {
   // Navigation Tabs
   ul.navbar-nav {
     width: 100%;
-    height: 95%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     list-style: none;
+
+    @include breakpoints.for-phone-only {
+      height: 92.5%;
+      width: 0%;
+    }
+
+    @include breakpoints.for-tablet-portrait-up {
+      width: 100%;
+    }
 
     svg {
       min-width: 3.5rem;
@@ -64,7 +194,7 @@ nav.navbar {
     li.nav-item {
       width: 100%;
       height: 3.125rem;
-      margin: 0.46875rem 0;
+      margin: 0.2rem 0;
       position: relative;
 
       a.nav-link {
@@ -185,6 +315,26 @@ nav.navbar {
   &.expanded {
     width: 16rem;
 
+    @include breakpoints.for-phone-only {
+      // width: 0rem;
+      padding: 0.25rem 0.75rem;
+      pointer-events: all;
+      z-index: 99;
+      // display: block !important;
+
+      svg {
+        opacity: 1 !important;
+      }
+
+      div.nav-header {
+        width: 100% !important;
+      }
+
+      ul.navbar-nav {
+        width: 100% !important;
+      }
+    }
+
     div.nav-header {
       justify-content: space-between;
 
@@ -192,7 +342,7 @@ nav.navbar {
         opacity: 1 !important;
       }
 
-      button#menuBtn {
+      button.menu-btn {
         right: 0 !important;
         transform: translateX(0%) !important;
       }
@@ -248,10 +398,6 @@ nav.navbar {
 
   // Dark Theme
   &.dark {
-    #menuBtn {
-      @include variables.theme-bg(variables.$dark-one);
-    }
-
     a {
       @include variables.theme-color(variables.$dark-font);
 
@@ -297,10 +443,6 @@ nav.navbar {
 
   // Light Theme
   &.light {
-    #menuBtn {
-      @include variables.theme-bg(variables.$light-one);
-    }
-
     a {
       @include variables.theme-color(variables.$light-font);
 
@@ -325,8 +467,6 @@ nav.navbar {
 
     li.nav-item:last-child {
       background-color: rgba($color: #000, $alpha: 0.1);
-      // a:nth-child(1) {
-      // }
     }
 
     button {
