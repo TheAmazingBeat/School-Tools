@@ -1,44 +1,19 @@
-:root {
-  font-size: 16px;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.dark {
-  background-color: #212529;
-  color: #fff;
-}
-
-.light {
-  background-color: #fff;
-  color: #181c1f;
-}
-
-body {
-  font-family: "Quicksand", sans-serif;
-}
-body.dark {
-  background-color: #151619;
-}
-body.light {
-  background-color: #f2f2f2;
-}
-
 nav.navbar {
   position: fixed;
   top: 0;
-  left: 0;
   width: 5rem;
   height: 100vh;
+  left: 0;
   z-index: 99;
   padding: 0.25rem 0.75rem;
   transition: 500ms all ease;
+}
+@media (min-width: 900px) {
+  nav.navbar {
+    top: 0;
+    width: 5rem;
+    height: 100vh;
+  }
 }
 nav.navbar div.nav-header {
   display: flex;
@@ -204,13 +179,13 @@ nav.navbar.expanded span.link-text {
   opacity: 1 !important;
   pointer-events: all;
 }
-nav.navbar.expanded .light-btn,
-nav.navbar.expanded .dark-btn {
+nav.navbar.expanded div.theme-switcher .light-btn,
+nav.navbar.expanded div.theme-switcher .dark-btn {
   width: 7rem !important;
   opacity: 1 !important;
 }
-nav.navbar.expanded .light-btn span,
-nav.navbar.expanded .dark-btn span {
+nav.navbar.expanded div.theme-switcher .light-btn span,
+nav.navbar.expanded div.theme-switcher .dark-btn span {
   opacity: 1 !important;
   display: inline !important;
 }
@@ -308,6 +283,38 @@ nav.navbar.light .dark-btn.light {
   display: none;
 }
 
+:root {
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.dark {
+  background-color: #212529;
+  color: #fff;
+}
+
+.light {
+  background-color: #fff;
+  color: #181c1f;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+}
+body.dark {
+  background-color: #151619;
+}
+body.light {
+  background-color: #f2f2f2;
+}
+
 h1,
 h2,
 h3,
@@ -317,20 +324,23 @@ h6 {
   font-family: "Poppins", sans-serif;
 }
 
-h1 {
-  font-size: 2.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
 main {
-  margin-left: 5rem;
   transition: all 500ms ease;
 }
-main.expanded {
-  margin-left: 16rem;
+@media (max-width: 599px) {
+  main {
+    margin: 3.125rem 5rem;
+  }
+}
+@media (min-width: 600px) {
+  main {
+    margin: 4.75rem 5rem;
+  }
+}
+@media (min-width: 1200px) {
+  main.expanded {
+    margin-left: 16rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

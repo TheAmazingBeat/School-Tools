@@ -1,0 +1,20 @@
+$bg-dark: #151619;
+$dark-one: #212529;
+$bg-light: #f2f2f2;
+$light-one: #fff;
+$dark-font: #fff;
+$light-font: #181c1f;
+
+@mixin theme-bg($theme-bg: $dark-one) {
+  background-color: $theme-bg;
+}
+
+@mixin theme-color($theme-color) {
+  color: $theme-color;
+}
+
+$primary-font: 'Quicksand', sans-serif;
+$secondary-font: 'Poppins', sans-serif;
+
+$animationDuration: 500ms;
+$animationStyle: ease;
