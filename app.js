@@ -15,7 +15,7 @@ const user = {
   userName: 'Ice',
   plannerEvents: [],
   homeworks: [],
-  completedHW: 4,
+  completedHW: 0,
 };
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
@@ -43,6 +43,13 @@ app.get('/planner', (req, res) => {
 app.get('/writing-counter', (req, res) => {
   res.sendFile(__dirname + '/public/pages/writing-counter.html');
 });
+
+app.get('/snake', (req,res)=>{
+  res.render('snake', {
+    pageTitle: 'Snake',
+    userName: user.userName
+  })
+})
 
 const port = 3000;
 app.listen(process.env.PORT || port, () => {
