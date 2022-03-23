@@ -35,6 +35,10 @@ select:focus-visible {
   outline: none;
 }
 
+.name-input {
+  margin-left: 0.5rem;
+}
+
 .options {
   height: 0;
   opacity: 0;
@@ -48,17 +52,14 @@ select:focus-visible {
   margin: 1rem 0;
   pointer-events: all;
 }
-
-.hw-name {
-  margin-left: 0.5rem;
+.options .type-input {
+  padding-right: 0 !important;
 }
-
-div.hw-select {
+.options div.hw-select {
   position: relative;
   width: 100%;
 }
-
-select.hw-type {
+.options select.hw-type {
   width: 100%;
   z-index: 1;
 }

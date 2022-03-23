@@ -1,5 +1,6 @@
 import { daysInMonth, formatDayModal } from './planner.js';
 import { getFromLocalStorage } from './UsefulFunks.js';
+
 /**
  * @returns Today's Date (formatted)
  */
@@ -12,14 +13,14 @@ const getDateToday = () => {
  * Creates a checkbox for the homework.
  * @returns Checkbox element
  */
-const createCheckBox = () => {
-	/// Creates -> <input class="hw-select hvr-grow" type="checkbox">
-	const $checkboxCell = $('<th class="hw-select-cell" scope="row"></th>');
-	const $checkbox = $('<input class="hw-select hvr-grow" type="checkbox">');
+// const createCheckBox = () => {
+// 	/// Creates -> <input class="hw-select hvr-grow" type="checkbox">
+// 	const $checkboxCell = $('<th class="hw-select-cell" scope="row"></th>');
+// 	const $checkbox = $('<input class="hw-select hvr-grow" type="checkbox">');
 
-	$($checkboxCell).append($checkbox);
-	return $checkboxCell;
-};
+// 	$($checkboxCell).append($checkbox);
+// 	return $checkboxCell;
+// };
 
 /**
  * Creates an input for homework's name
@@ -29,16 +30,29 @@ const createCheckBox = () => {
  */
 const createNameInput = (isStored, hwObject) => {
 	/// Creates -> <input class="hw-name" type="text" placeholder="Name">
-	const $nameCell = $('<td class="hw-name-cell">');
-	const $nameInput = $(
-		'<input class="hw-name hvr-grow" type="text" name="homeworkName" placeholder="Homework Name" required>'
+	// const nameCell = $('<td class="hw-name-cell">');
+	const nameRow = $('<div class="row name-input"></div>')
+	const nameInput = $(
+		'<input class="hw-name" type="text" name="homeworkName" placeholder="Homework Name" required>'
 	);
 
-	if (isStored) $nameInput.val(hwObject.name);
+	if (isStored) nameInput.val(hwObject.name);
 
-	$nameCell.append($nameInput);
+	/// Focus Event Handler
+	$(nameInput).focusin((e)=>{
+		const parent = $(e.currentTarget).parents('.homework-item')
+		$(parent).find('.options').addClass('visible')
+	})
+	$(nameInput).blur((e) => {
+    const parent = $(e.currentTarget).parents('.homework-item');
+    $(parent).find('.options').removeClass('visible');
+  });
 
-	return $nameCell;
+	// nameCell.append(nameInput);
+	nameRow.append(nameInput)
+
+	// return nameCell;
+	return nameRow;
 };
 
 /**
@@ -48,20 +62,34 @@ const createNameInput = (isStored, hwObject) => {
  * @returns Date Input element
  */
 const createDateInput = (isStored, hwObject) => {
-	/// Creates -> <input class="hw-date" type="date" name="duedate">
-	const $dateCell = $('<td class="hw-date-cell">');
-	const $dateInput = $('<input class="hw-date hvr-grow" type="date" name="dueDate">');
+  /// Creates -> <input class="hw-date" type="date" name="duedate">
+  // const dateCell = $('<td class="hw-date-cell">');
+  const dateColumn = $('<div class="col-6 date-input"></div>');
+  const label = $('<label for="dueDate">Due Date:</label>');
+  const dateInput = $('<input class="hw-date" type="date" name="dueDate">');
 
-	if (isStored) {
-		const someDate = new Date(hwObject.dueDate);
-		$dateInput.val(someDate.toISOString().substring(0, 10));
-	} else {
-		//// Sets the initial value to today's date
-		$dateInput.val(getDateToday());
-	}
+  if (isStored) {
+    const someDate = new Date(hwObject.dueDate);
+    dateInput.val(someDate.toISOString().substring(0, 10));
+  } else {
+    //// Sets the initial value to today's date
+    dateInput.val(getDateToday());
+  }
 
-	$dateCell.append($dateInput);
-	return $dateCell;
+  /// Focus Event Handler
+  $(dateInput).focusin((e) => {
+    const parent = $(e.currentTarget).parents('.homework-item');
+    $(parent).find('.options').addClass('visible');
+  });
+  $(dateInput).blur((e) => {
+    const parent = $(e.currentTarget).parents('.homework-item');
+    $(parent).find('.options').removeClass('visible');
+  });
+
+  // dateCell.append(dateInput);
+  // return dateCell;
+  $(dateColumn).append(label, dateInput);
+  return dateColumn;
 };
 
 /**
@@ -79,24 +107,44 @@ const createTypeInput = (isStored, hwObject) => {
 	//*/
 
 	/// Select input
-	const $typeCell = $('<td class="hw-type-cell"></td>');
-	const $typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>');
+	// const typeCell = $('<td class="hw-type-cell"></td>');
+	const typeColumn = $('<div class="col-6 type-input"></div>')
+	const label = $('<label for="homeworkType">Type:</label>')
+	const typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>');
 
 	/// Minor in dropdown
-	const $minorOption = $('<option value="Minor">Minor</option>');
+	const minorOption = $('<option value="Minor">Minor</option>');
 
 	/// Major in dropdown
-	const $majorOption = $('<option value="Major">Major</option>');
+	const majorOption = $('<option value="Major">Major</option>');
 
-	$($typeInput).append($minorOption, $majorOption);
+	$(typeInput).append(minorOption, majorOption);
+
+	$(typeInput).focusin((e) => {
+    const parent = $(e.currentTarget).parents('.homework-item');
+    $(parent).find('.options').addClass('visible');
+  });
+  $(typeInput).blur((e) => {
+    const parent = $(e.currentTarget).parents('.homework-item');
+    $(parent).find('.options').removeClass('visible');
+  });
 
 	if (isStored) {
-		$($typeInput).val(hwObject.type);
+		$(typeInput).val(hwObject.type);
 	}
 
-	$($typeCell).append($typeInput);
-	return $typeCell;
+	// $(typeCell).append(typeInput);
+	// return typeCell;
+	$(typeColumn).append(label, typeInput);
+	return typeColumn
 };
+
+const createDateType = (isStored, hwObject) => {
+	const dateTypeRow = $('<div class="row options"></div>')
+
+	$(dateTypeRow).append(createDateInput(isStored, hwObject), createTypeInput(isStored, hwObject))
+	return dateTypeRow;
+}
 
 /**
  * Makes days in the calendar
@@ -225,10 +273,10 @@ const createEventPills = (date, parentCell) => {
 };
 
 export {
-	createCheckBox,
 	createNameInput,
 	createDateInput,
 	createTypeInput,
 	createDayCells,
+	createDateType
 	// getFromLocalStorage,
 };

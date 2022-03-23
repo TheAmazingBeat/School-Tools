@@ -41,7 +41,7 @@ body {
     select {
       border-bottom: 1px solid v.$dark-font;
 
-      option{
+      option {
         color: v.$light-font;
       }
     }
@@ -80,31 +80,35 @@ select {
   }
 }
 
-.options{
+.name-input {
+  margin-left: 0.5rem;
+}
+
+.options {
   height: 0;
   opacity: 0;
   margin: 0;
   pointer-events: none;
-  transition:all v.$animationDuration ease-in-out;
+  transition: all v.$animationDuration ease-in-out;
 
-  &.visible{
+  &.visible {
     height: 3rem;
     opacity: 1;
     margin: 1rem 0;
     pointer-events: all;
   }
-}
 
-.hw-name {
-  margin-left: 0.5rem;
-}
+  .type-input{
+    padding-right: 0 !important;
+  }
 
-div.hw-select{
-  position: relative;
-  width: 100%;
-}
+  div.hw-select {
+    position: relative;
+    width: 100%;
+  }
 
-select.hw-type {
-  width: 100%;  
-  z-index: 1;
+  select.hw-type {
+    width: 100%;
+    z-index: 1;
+  }
 }

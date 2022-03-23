@@ -1,7 +1,21 @@
-$('.hw-name').focusin(()=>{
+$('.hw-name').focus(()=>{
    $('.options').addClass('visible');
+
+   $('.hw-date').focusin(()=>{
+      $('.options').addClass('visible');
+   })
+   $('.hw-type').focusin(()=>{
+      $('.options').addClass('visible');
+   })
 })
 
-$('.hw-name').focusout(()=>{
+$('.hw-name').blur(()=>{
    $('.options').removeClass('visible');
+
+   $('.hw-date').blur(() => {
+     $('.options').removeClass('visible');
+   });
+   $('.hw-type').blur(() => {
+     $('.options').removeClass('visible');
+   });
 })
