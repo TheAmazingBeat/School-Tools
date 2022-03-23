@@ -8,8 +8,6 @@ canvas {
 }
 
 main {
-  margin: 0;
-  padding: 0;
   display: grid;
   height: 100vh;
   place-items: center;

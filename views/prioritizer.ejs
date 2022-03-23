@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="vendor/Hover-master/css/hover.css">
 
 <link rel="stylesheet" href="css/prioritizer.css">
+
+<script src="js/prioritizerTwo.js" defer></script>
 </head>
 
 <body class="dark">
@@ -15,6 +17,8 @@
   <main>
     <div class="container">
       <div class="list-container">
+        <button class="btn btn-success my-3" id="prioritizeBtn">Prioritize</button>
+
         <ol class="homework-list">
           <li class="homework-item">
 
@@ -22,7 +26,7 @@
               <input class="hw-name" type="text" name="homeworkName" placeholder="Homework Name" required>
             </div>
 
-            <div class="row">
+            <div class="row options">
               <div class="col-6">
                 <label for="dueDate">Due Date:</label>
                 <input class="hw-date" type="date" name="dueDate">
@@ -41,7 +45,7 @@
           </li>
         </ol>
 
-        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+        <button class="btn btn-primary my-3" id="addHwBtn"><i class="fa-solid fa-plus"></i></button>
 
       </div>
     </div>

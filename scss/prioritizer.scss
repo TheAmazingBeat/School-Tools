@@ -40,6 +40,10 @@ body {
     input,
     select {
       border-bottom: 1px solid v.$dark-font;
+
+      option{
+        color: v.$light-font;
+      }
     }
   }
   &.light {
@@ -66,7 +70,7 @@ div.list-container {
 
 input,
 select {
-  background: none;
+  background: transparent;
   border: 0;
   padding: 0 !important;
   width: 100%;
@@ -76,10 +80,31 @@ select {
   }
 }
 
+.options{
+  height: 0;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+  transition:all v.$animationDuration ease-in-out;
+
+  &.visible{
+    height: 3rem;
+    opacity: 1;
+    margin: 1rem 0;
+    pointer-events: all;
+  }
+}
+
 .hw-name {
   margin-left: 0.5rem;
 }
 
-.hw-type {
+div.hw-select{
+  position: relative;
   width: 100%;
+}
+
+select.hw-type {
+  width: 100%;  
+  z-index: 1;
 }
