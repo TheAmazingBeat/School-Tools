@@ -1,0 +1,85 @@
+@use 'variables' as v;
+@use 'breakpoints' as bp;
+
+// .hw-name,
+// .hw-date,
+// .hw-type {
+//   background: #2d2d2d;
+//   color: white;
+// }
+
+// input,
+// select {
+//   border: none;
+//   border-radius: 5px;
+//   padding: 0.5rem 1rem;
+// }
+
+// .hw-select {
+//   width: 1rem;
+//   height: 1rem;
+// }
+
+// #sortedDiv,
+// #userDiv {
+//   display: none;
+// }
+
+// .stored-hw-item td {
+//   transition: all 250ms ease-in-out;
+// }
+
+// .stored-hw-item:hover td {
+//   text-decoration: line-through solid white 0.25rem;
+//   background-color: #272727;
+//   cursor: pointer;
+// }
+
+body {
+  &.dark {
+    input,
+    select {
+      border-bottom: 1px solid v.$dark-font;
+    }
+  }
+  &.light {
+    input,
+    select {
+      border-bottom: 1px solid v.$light-font;
+    }
+  }
+}
+
+div.list-container {
+  width: 100%;
+  display: grid;
+  place-items: center;
+
+  ol {
+    padding: 0;
+
+    label {
+      font-size: 12px;
+    }
+  }
+}
+
+input,
+select {
+  background: none;
+  border: 0;
+  padding: 0 !important;
+  width: 100%;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.hw-name {
+  margin-left: 0.5rem;
+}
+
+.hw-type {
+  width: 100%;
+}

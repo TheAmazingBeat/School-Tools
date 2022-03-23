@@ -443,8 +443,16 @@ body a {
 body.dark {
   background-color: #151619;
 }
+body.dark input,
+body.dark select {
+  color: #fff;
+}
 body.light {
   background-color: #f2f2f2;
+}
+body.light input,
+body.light select {
+  color: #181c1f;
 }
 
 h1,

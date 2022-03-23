@@ -29,7 +29,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/prioritizer', (req, res) => {
-  res.sendFile(__dirname + '/public/pages/prioritizer.html');
+  // res.sendFile(__dirname + '/public/pages/prioritizer.html');
+  res.render('prioritizer', {
+    pageTitle: 'Prioritizer',
+    userName: user.userName,
+  });
 });
 
 app.get('/calculator', (req, res) => {

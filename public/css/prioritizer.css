@@ -1,37 +1,42 @@
-
-
-.homework-list {
-  list-style-type: none;
+body.dark input,
+body.dark select {
+  border-bottom: 1px solid #fff;
+}
+body.light input,
+body.light select {
+  border-bottom: 1px solid #181c1f;
 }
 
-.hw-name, 
-.hw-date, 
+div.list-container {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+div.list-container ol {
+  padding: 0;
+}
+div.list-container ol label {
+  font-size: 12px;
+}
+
+input,
+select {
+  background: none;
+  border: 0;
+  padding: 0 !important;
+  width: 100%;
+}
+input:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
+.hw-name {
+  margin-left: 0.5rem;
+}
+
 .hw-type {
-  background: #2d2d2d;
-  color: white;
+  width: 100%;
 }
 
-input, select{
-	border: none;
-	border-radius: 5px;
-	padding: 0.5rem 1rem;
-}
-
-.hw-select{
-	width: 1rem;
-	height: 1rem;
-}
-
-#sortedDiv, #userDiv {
-  display: none;
-}
-
-.stored-hw-item td{
-	transition: all 250ms ease-in-out;
-}
-
-.stored-hw-item:hover td{
-	text-decoration: line-through solid white 0.25rem;
-	background-color: #272727;
-	cursor: pointer;
-}
+/*# sourceMappingURL=prioritizer.css.map */

@@ -1,0 +1,52 @@
+<%- include('head') %>
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="vendor/animate.css-4.1.1/animate.css">
+<!-- Hover.css -->
+<link rel="stylesheet" href="vendor/Hover-master/css/hover.css">
+
+<link rel="stylesheet" href="css/prioritizer.css">
+</head>
+
+<body class="dark">
+
+  <%- include('navbar') %>
+
+  <main>
+    <div class="container">
+      <div class="list-container">
+        <ol class="homework-list">
+          <li class="homework-item">
+
+            <div class="row">
+              <input class="hw-name" type="text" name="homeworkName" placeholder="Homework Name" required>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <label for="dueDate">Due Date:</label>
+                <input class="hw-date" type="date" name="dueDate">
+              </div>
+              <div class="col-6">
+                <label for="homeworkType">Type:</label>
+                <div class="hw-select">
+                  <select class="hw-type" name="homeworkType">
+                    <option value="Minor">Minor</option>
+                    <option value="Major">Major</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </li>
+        </ol>
+
+        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+
+</html>

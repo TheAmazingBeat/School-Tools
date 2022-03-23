@@ -1,4 +1,4 @@
-@use 'variables';
+@use 'variables' as v;
 @use 'navbar';
 @use 'breakpoints';
 
@@ -15,12 +15,12 @@
 }
 
 .dark {
-  @include variables.theme-bg(variables.$dark-one);
-  @include variables.theme-color(variables.$dark-font);
+  @include v.theme-bg(v.$dark-one);
+  @include v.theme-color(v.$dark-font);
 }
 .light {
-  @include variables.theme-bg(variables.$light-one);
-  @include variables.theme-color(variables.$light-font);
+  @include v.theme-bg(v.$light-one);
+  @include v.theme-color(v.$light-font);
 }
 
 body {
@@ -28,12 +28,20 @@ body {
     text-decoration: none;
   }
 
-  font-family: variables.$primary-font;
+  font-family: v.$primary-font;
   &.dark {
-    @include variables.theme-bg(variables.$bg-dark);
+    @include v.theme-bg(v.$bg-dark);
+    input,
+    select {
+      @include v.theme-color(v.$dark-font);
+    }
   }
   &.light {
-    @include variables.theme-bg(variables.$bg-light);
+    @include v.theme-bg(v.$bg-light);
+    input,
+    select {
+      @include v.theme-color(v.$light-font);
+    }
   }
 }
 
@@ -43,16 +51,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: variables.$secondary-font;
+  font-family: v.$secondary-font;
 }
-
-// h1 {
-//   font-size: 2.5rem;
-// }
-
-// h2 {
-//   font-size: 2rem;
-// }
 
 main {
   @include breakpoints.for-phone-only() {
@@ -62,7 +62,7 @@ main {
     margin: 4.75rem 0 4.75rem 5rem;
   }
   // margin-left: 5rem;
-  transition: all variables.$animationDuration ease;
+  transition: all v.$animationDuration ease;
   &.expanded {
     @include breakpoints.for-desktop-up() {
       margin-left: 16rem;
