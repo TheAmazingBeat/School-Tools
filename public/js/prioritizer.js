@@ -25,6 +25,8 @@ $(document).ready(() => {
  */
 function prioritize() {
   sortHW(), storeToLocalStorage('homeworks', sortedHW);
+  $('.homework-list').css('list-style-type', 'decimal');
+  window.location.reload();
 }
 
 /**
@@ -40,7 +42,7 @@ function checkForHomework() {
     for (let i = 0; i < requiredNumberOfHW; i++) {
       addHW(false);
     }
-    $('#userDiv').slideToggle('slow');
+    // $('#userDiv').slideToggle('slow');
     return false;
   } else {
     showPrioritized(true);
@@ -90,6 +92,7 @@ function addHW(isStored, hwObject) {
   homeworks.push(homework);
   // $('#homework-list > tbody').append(homework.element);
   $('.homework-list').append(homework.element);
+  if (!isStored) $('.homework-list').css('list-style-type', 'disc');
 }
 
 /**
@@ -268,14 +271,13 @@ function sortHW() {
   for (let i = 0; i < homeworks.length; i++) {
     if (sortedHW[i].type == 'Minor' && firstMajor != undefined) {
       /*
-       * If there are more minor than major and
        * the major is due in 4 days then the minor comes first
        * 4 days = 345600000 milliseconds
        */
       if (
-        minorHW.length > majorHW.length &&
+        // minorHW.length > majorHW.length &&
         new Date(firstMajor.dueDate) - new Date(sortedHW[i].dueDate) >=
-          345600000
+        345600000
       ) {
         let temp = sortedHW[i];
         sortedHW[i] = firstMajor;
@@ -289,6 +291,7 @@ function sortHW() {
  * Show sorted homework.
  */
 function showPrioritized(isStored) {
+  $('.homework-list').css('list-style-type', 'decimal');
   /**
    * Hides where the user edits homework list.
    */

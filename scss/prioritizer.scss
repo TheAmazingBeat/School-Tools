@@ -63,6 +63,10 @@ div.list-container {
     list-style-type: disc;
     padding: 0;
 
+    @include bp.for-phone-only{
+      width: 80%;
+    }
+
     label {
       font-size: 12px;
     }

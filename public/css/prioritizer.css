@@ -20,6 +20,11 @@ div.list-container .homework-list {
   list-style-type: disc;
   padding: 0;
 }
+@media (max-width: 599px) {
+  div.list-container .homework-list {
+    width: 80%;
+  }
+}
 div.list-container .homework-list label {
   font-size: 12px;
 }
