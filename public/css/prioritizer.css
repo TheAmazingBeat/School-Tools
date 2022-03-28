@@ -16,10 +16,11 @@ div.list-container {
   display: grid;
   place-items: center;
 }
-div.list-container ol {
+div.list-container .homework-list {
+  list-style-type: disc;
   padding: 0;
 }
-div.list-container ol label {
+div.list-container .homework-list label {
   font-size: 12px;
 }
 

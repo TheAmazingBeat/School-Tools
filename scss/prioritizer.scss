@@ -59,7 +59,8 @@ div.list-container {
   display: grid;
   place-items: center;
 
-  ol {
+  .homework-list {
+    list-style-type: disc;
     padding: 0;
 
     label {

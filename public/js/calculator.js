@@ -1,11 +1,11 @@
 //global scope vars
-let currentNum = '',
-	previousNum = '',
-	operator = '',
-	functional = '';
-let answer = 0;
-let numPressed = false,
-	opPressed = false;
+// let currentNum = '',
+//   previousNum = '',
+//   operator = '',
+//   functional = '';
+// let answer = 0;
+// let numPressed = false,
+//   opPressed = false;
 
 const elt = document.querySelector('#calculator');
 const calculator = Desmos.GraphingCalculator(elt);
