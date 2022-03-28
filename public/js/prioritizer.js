@@ -24,7 +24,7 @@ $(document).ready(() => {
  * Main function to call functions in order
  */
 const prioritize = () => {
-	sortHW(), storeToLocalStorage('homeworks', homeworks);
+	sortHW(), storeToLocalStorage('homeworks', sortedHW);
 };
 
 /**
@@ -208,9 +208,11 @@ const sortByDate = (array) => {
 	/// Selection Sort
 	for (let i = 0; i < array.length; i++) {
 		let min = i;
+
 		for (let j = i + 1; j < array.length; j++) {
 			if (new Date(array[j].dueDate) < new Date(array[i].dueDate)) min = j;
 		}
+
 		if (min != i) {
 			let temp = array[min];
 			array[min] = array[i];
@@ -222,7 +224,7 @@ const sortByDate = (array) => {
 /**
  * Sort the homeworks.
  */
-const sortHW = () => {
+function sortHW(){
 	getAllInput();
 	let majorHW = [],
 		minorHW = [];
@@ -273,8 +275,6 @@ const sortHW = () => {
 			}
 		}
 	}
-
-	console.log(homeworks);
 };
 
 /**
