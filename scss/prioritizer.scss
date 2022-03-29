@@ -63,12 +63,23 @@ div.list-container {
     list-style-type: disc;
     padding: 0;
 
-    @include bp.for-phone-only{
+    @include bp.for-phone-only {
       width: 80%;
     }
 
     label {
       font-size: 12px;
+    }
+  }
+
+  .prior-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      margin: 1rem;
     }
   }
 }
@@ -87,6 +98,27 @@ select {
 
 .name-input {
   margin-left: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 100%;
+    color: var(--bs-red);
+    opacity: 0;
+    pointer-events: none;
+    transition: all calc(v.$animationDuration + 200ms) ease-in-out;
+    cursor: pointer;
+
+    &.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
 }
 
 .options {
@@ -98,12 +130,12 @@ select {
 
   &.visible {
     height: 3rem;
-    opacity: 1;
     margin: 1rem 0;
+    opacity: 1;
     pointer-events: all;
   }
 
-  .type-input{
+  .type-input {
     padding-right: 0 !important;
   }
 

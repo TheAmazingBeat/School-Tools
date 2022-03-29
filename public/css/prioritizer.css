@@ -28,6 +28,15 @@ div.list-container .homework-list {
 div.list-container .homework-list label {
   font-size: 12px;
 }
+div.list-container .prior-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+div.list-container .prior-btns button {
+  margin: 1rem;
+}
 
 input,
 select {
@@ -43,6 +52,25 @@ select:focus-visible {
 
 .name-input {
   margin-left: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.name-input svg {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  left: 100%;
+  color: var(--bs-red);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 700ms ease-in-out;
+  cursor: pointer;
+}
+.name-input svg.visible {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .options {
@@ -54,8 +82,8 @@ select:focus-visible {
 }
 .options.visible {
   height: 3rem;
-  opacity: 1;
   margin: 1rem 0;
+  opacity: 1;
   pointer-events: all;
 }
 .options .type-input {

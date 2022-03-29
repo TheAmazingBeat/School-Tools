@@ -35,6 +35,7 @@ const createNameInput = (isStored, hwObject) => {
   const nameInput = $(
     '<input class="hw-name" type="text" name="homeworkName" placeholder="Homework Name" required>'
   );
+  const trashIcon = $('<i class="fa-solid fa-trash-can"></i>');
 
   if (isStored) nameInput.val(hwObject.name);
 
@@ -42,14 +43,16 @@ const createNameInput = (isStored, hwObject) => {
   $(nameInput).focusin((e) => {
     const parent = $(e.currentTarget).parents('.homework-item');
     $(parent).find('.options').addClass('visible');
+    $(parent).find('.name-input').find('svg').addClass('visible');
   });
   $(nameInput).blur((e) => {
     const parent = $(e.currentTarget).parents('.homework-item');
     $(parent).find('.options').removeClass('visible');
+    $(parent).find('svg').removeClass('visible');
   });
 
   // nameCell.append(nameInput);
-  nameRow.append(nameInput);
+  nameRow.append(nameInput, trashIcon);
 
   // return nameCell;
   return nameRow;
