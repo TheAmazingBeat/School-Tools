@@ -22,11 +22,6 @@ function getDateToday() {
 // 	return $checkboxCell;
 // };
 
-const showCheckBox = (show, checkBox) => {
-	if (show) $(checkBox).addClass('visible');
-	else $(checkBox).removeClass('visible');
-};
-
 /**
  * Creates an input for homework's name
  * @param {bool} isStored Boolean if there are stored homeworks
@@ -44,30 +39,6 @@ function createNameInput(isStored, hwObject) {
 	const trashIcon = $('<i class="fa-solid fa-trash-can"></i>');
 
 	if (isStored) nameInput.val(hwObject.name);
-
-	/// Focus Event Handler
-	// $(nameInput).focusin((e) => {
-	// 	showCheckBox(true, checkBox);
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').addClass('visible');
-	// 	$(parent).find('.name-input').find('svg').addClass('visible');
-	// });
-	// $(nameInput).blur((e) => {
-	// 	showCheckBox(false, checkBox);
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').removeClass('visible');
-	// 	$(parent).find('svg').removeClass('visible');
-	// });
-
-	/// Hover Event Handler
-	// $(nameRow).hover(
-	// 	() => {
-	// 		showCheckBox(true);
-	// 	},
-	// 	() => {
-	// 		showCheckBox(false);
-	// 	}
-	// );
 
 	// nameCell.append(nameInput);
 	nameRow.append(checkBox, nameInput, trashIcon);
@@ -96,21 +67,6 @@ function createDateInput(isStored, hwObject) {
 		//// Sets the initial value to today's date
 		dateInput.val(getDateToday());
 	}
-
-	/// Focus Event Handler
-	// $(dateInput).focusin((e) => {
-	// 	showCheckBox(true);
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').addClass('visible');
-	// });
-	// $(dateInput).blur((e) => {
-	// 	showCheckBox(false);
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').removeClass('visible');
-	// });
-
-	// dateCell.append(dateInput);
-	// return dateCell;
 	$(dateColumn).append(label, dateInput);
 	return dateColumn;
 }
@@ -133,7 +89,7 @@ function createTypeInput(isStored, hwObject) {
 	// const typeCell = $('<td class="hw-type-cell"></td>');
 	const typeColumn = $('<div class="col-6 type-input"></div>');
 	const label = $('<label for="homeworkType">Type:</label>');
-	const typeInput = $('<select class="hw-type hvr-grow" name="homeworkType"></select>');
+	const typeInput = $('<select class="hw-type" name="homeworkType"></select>');
 
 	/// Minor in dropdown
 	const minorOption = $('<option value="Minor">Minor</option>');
@@ -143,15 +99,6 @@ function createTypeInput(isStored, hwObject) {
 
 	$(typeInput).append(minorOption, majorOption);
 
-  /// Focus Event Handler
-	// $(typeInput).focusin((e) => {
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').addClass('visible');
-	// });
-	// $(typeInput).blur((e) => {
-	// 	const parent = $(e.currentTarget).parents('.homework-item');
-	// 	$(parent).find('.options').removeClass('visible');
-	// });
 
 	if (isStored) {
 		$(typeInput).val(hwObject.type);

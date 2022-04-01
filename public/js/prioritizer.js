@@ -10,37 +10,28 @@ $(document).ready(() => {
   $('#addHwBtn').click(() => {
     addHW(false);
   });
-  // $('#removeHwBtn').click(() => {
-  // 	removeHW(false);
-  // });
   $('#prioritizeBtn').click(prioritize);
   // $('#editBtn').click(editList);
-  $('.fa-trash-can').click((e) => {
-    removeHW(true, e);
-  });
 
   // Checks if homework item is focused
   let prevTarget = null;
   $(document).click((e) => {
-    let parent = null;
+    const parentOne = $(e.target).parents('.homework-item');
+    const parentTwo = $(prevTarget).parents('.homework-item');
 
-    if (e.target != prevTarget) {
-      parent = $(prevTarget).parents('.homework-item');
-
-      $(parent).find('.options').removeClass('visible');
-      $(parent).find('.name-input').find('.hw-check').removeClass('visible');
-      $(parent)
+    if (e.target != prevTarget && parentOne[0] != parentTwo[0]) {
+      $(parentTwo).find('.options').removeClass('visible');
+      $(parentTwo).find('.name-input').find('.hw-check').removeClass('visible');
+      $(parentTwo)
         .find('.name-input')
         .find('.fa-trash-can')
         .removeClass('visible');
     }
 
     if (!$(e.target).closest('.homework-item').length && homeworkClicked) {
-      parent = $(e.target).parents('.homework-item');
-
-      $(parent).find('.options').removeClass('visible');
-      $(parent).find('.name-input').find('.hw-check').removeClass('visible');
-      $(parent)
+      $(parentOne).find('.options').removeClass('visible');
+      $(parentOne).find('.name-input').find('.hw-check').removeClass('visible');
+      $(parentOne)
         .find('.name-input')
         .find('.fa-trash-can')
         .removeClass('visible');
@@ -125,7 +116,7 @@ function addHW(isStored, hwObject) {
   // $('#homework-list > tbody').append(homework.element);
   $('.homework-list').append(homework.element);
 
-  // TODO focus on element --> show options div
+	/// Focus Event Handler
   $(homework.element).focusin((e) => {
     homeworkClicked = true;
     $(e.currentTarget).find('.options').addClass('visible');
