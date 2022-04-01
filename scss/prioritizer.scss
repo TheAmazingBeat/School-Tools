@@ -1,6 +1,16 @@
 @use 'variables' as v;
 @use 'breakpoints' as bp;
 
+@mixin visible{
+  opacity: 1;
+  pointer-events: all;
+}
+
+@mixin done{
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
 // .hw-name,
 // .hw-date,
 // .hw-type {
@@ -36,116 +46,139 @@
 // }
 
 body {
-  &.dark {
-    input,
-    select {
-      border-bottom: 1px solid v.$dark-font;
+	&.dark {
+		input,
+		select {
+			border-bottom: 1px solid v.$dark-font;
 
-      option {
-        color: v.$light-font;
-      }
-    }
-  }
-  &.light {
-    input,
-    select {
-      border-bottom: 1px solid v.$light-font;
-    }
-  }
+			option {
+				color: v.$light-font;
+			}
+		}
+	}
+	&.light {
+		input,
+		select {
+			border-bottom: 1px solid v.$light-font;
+		}
+	}
 }
 
 div.list-container {
-  width: 100%;
-  display: grid;
-  place-items: center;
+	width: 100%;
+	display: grid;
+	place-items: center;
 
-  .homework-list {
-    list-style-type: disc;
-    padding: 0;
+	.homework-list {
+		list-style-type: disc;
+		padding: 0;
 
-    @include bp.for-phone-only {
-      width: 80%;
-    }
+		.homework-item {
+			position: relative;
+		}
 
-    label {
-      font-size: 12px;
-    }
-  }
+		@include bp.for-phone-only {
+			width: 80%;
+		}
 
-  .prior-btns {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+		label {
+			font-size: 12px;
+		}
+	}
 
-    button {
-      margin: 1rem;
-    }
-  }
+	.prior-btns {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+
+		button {
+			margin: 1rem;
+		}
+	}
 }
 
-input,
-select {
-  background: transparent;
-  border: 0;
-  padding: 0 !important;
-  width: 100%;
+.hw-name,
+.hw-date,
+.hw-type {
+	background: transparent;
+	border: 0;
+	padding: 0 !important;
+	width: 100%;
 
-  &:focus-visible {
-    outline: none;
-  }
+	&:focus-visible {
+		outline: none;
+	}
 }
 
 .name-input {
-  margin-left: 0.5rem;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+	margin-left: 0.5rem;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 
-  svg {
-    width: 1rem;
-    height: 1rem;
-    position: absolute;
-    left: 100%;
-    color: var(--bs-red);
-    opacity: 0;
-    pointer-events: none;
-    transition: all calc(v.$animationDuration + 200ms) ease-in-out;
-    cursor: pointer;
+	.hw-check {
+		width: 1.5rem;
+		height: 1.5rem;
+		position: absolute;
+		left: -35px;
+		cursor: pointer;
+		opacity: 0;
+		pointer-events: none;
+		transition: all v.$animationDuration v.$animationStyle;
 
     &.visible {
-      opacity: 1;
-      pointer-events: all;
+			@include visible;
+		}
+
+    &:hover{
+      @include visible;
     }
-  }
+	}
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+		position: absolute;
+		left: 100%;
+		color: var(--bs-red);
+		opacity: 0;
+		pointer-events: none;
+		transition: all calc(v.$animationDuration + 200ms) ease-in-out;
+		cursor: pointer;
+
+		&.visible {
+			@include visible;
+		}
+	}
 }
 
 .options {
-  height: 0;
-  opacity: 0;
-  margin: 0;
-  pointer-events: none;
-  transition: all v.$animationDuration ease-in-out;
+	height: 0;
+	opacity: 0;
+	margin: 0;
+	pointer-events: none;
+	transition: all v.$animationDuration ease-in-out;
 
-  &.visible {
-    height: 3rem;
-    margin: 1rem 0;
-    opacity: 1;
-    pointer-events: all;
-  }
+	&.visible {
+		height: 3rem;
+		margin: 1rem 0;
+		opacity: 1;
+		pointer-events: all;
+	}
 
-  .type-input {
-    padding-right: 0 !important;
-  }
+	.type-input {
+		padding-right: 0 !important;
+	}
 
-  div.hw-select {
-    position: relative;
-    width: 100%;
-  }
+	div.hw-select {
+		position: relative;
+		width: 100%;
+	}
 
-  select.hw-type {
-    width: 100%;
-    z-index: 1;
-  }
+	select.hw-type {
+		width: 100%;
+		z-index: 1;
+	}
 }

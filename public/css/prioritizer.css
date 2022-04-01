@@ -20,6 +20,9 @@ div.list-container .homework-list {
   list-style-type: disc;
   padding: 0;
 }
+div.list-container .homework-list .homework-item {
+  position: relative;
+}
 @media (max-width: 599px) {
   div.list-container .homework-list {
     width: 80%;
@@ -38,15 +41,17 @@ div.list-container .prior-btns button {
   margin: 1rem;
 }
 
-input,
-select {
+.hw-name,
+.hw-date,
+.hw-type {
   background: transparent;
   border: 0;
   padding: 0 !important;
   width: 100%;
 }
-input:focus-visible,
-select:focus-visible {
+.hw-name:focus-visible,
+.hw-date:focus-visible,
+.hw-type:focus-visible {
   outline: none;
 }
 
@@ -56,6 +61,24 @@ select:focus-visible {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.name-input .hw-check {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  left: -35px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 500ms ease;
+}
+.name-input .hw-check.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.name-input .hw-check:hover {
+  opacity: 1;
+  pointer-events: all;
 }
 .name-input svg {
   width: 1rem;
