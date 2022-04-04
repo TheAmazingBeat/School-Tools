@@ -36,7 +36,7 @@ function createNameInput(isStored, hwObject) {
 	const nameInput = $(
 		'<input class="hw-name" type="text" name="homeworkName" placeholder="Homework Name" required>'
 	);
-	const trashIcon = $('<i class="fa-solid fa-trash-can"></i>');
+	const trashIcon = $('<svg class="fa-solid fa-trash-can"></svg>');
 
 	if (isStored) nameInput.val(hwObject.name);
 
