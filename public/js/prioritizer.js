@@ -14,9 +14,8 @@ jQuery(() => {
   $('#prioritizeBtn').on('click', prioritize);
 
   $(document).on('click', (e) => {
-    // console.log(e.target.nodeName);
-    if ($(e.target).parents('svg.fa-trash-can')) removeHW(e.target);
-    else if ($(e.target).hasClass('fa-trash-can')) removeHW(e.target)
+    if ($(e.target).parents('svg.fa-trash-can').length > 0) removeHW(e.target);
+    else if ($(e.target).hasClass('fa-trash-can')) removeHW(e.target);
     else homeworkClickHandler(e);
   });
   $('.homework-item').on('mouseenter', (e) => {
@@ -50,10 +49,8 @@ function checkForHomework() {
     for (let i = 0; i < requiredNumberOfHW; i++) {
       addHW(false);
     }
-    // $('#userDiv').slideToggle('slow');
     return false;
   } else {
-    // showPrioritized(true);
     for (let i = 0; i < sortedHW.length; i++) {
       addHW(true, sortedHW[i]);
     }
@@ -169,7 +166,24 @@ function addHW(isStored, hwObject) {
  * @param {Event} eventData
  */
 function removeHW(target) {
-  console.log(target)
+  console.log(homeworks);
+  const hwItem = $(target).parents('.homework-item');
+  console.log(hwItem);
+  $(hwItem).animate(
+    {
+      left: '100%',
+      opacity: 0,
+    },
+    500,
+    'swing',
+    () => {
+      $(hwItem).remove();
+      for (let i = 0; i < homeworks.length; i++) {
+        if (homeworks[i].element == hwItem[0]) homeworks.splice(i, 1);
+      }
+      console.log(homeworks);
+    }
+  );
   // 	console.log('clicked trash');
   // 	// if (isStored) {
   // 	// 	// Removes from prioritized list
