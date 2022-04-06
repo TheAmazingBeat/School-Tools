@@ -18,12 +18,6 @@ jQuery(() => {
     else if ($(e.target).hasClass('fa-trash-can')) removeHW(e.target);
     else homeworkClickHandler(e);
   });
-  $('.homework-item').on('mouseenter', (e) => {
-    homeworkHoverHandler(e);
-  });
-  $('.homework-item').on('mouseleave', (e) => {
-    homeworkHoverHandler(e);
-  });
 });
 
 /**
@@ -158,6 +152,15 @@ function addHW(isStored, hwObject) {
   });
 
   if (!isStored) $('.homework-list').css('list-style-type', 'disc');
+
+  $(homework.element).on('mouseenter', (e) => {
+		homeworkHoverHandler(e);
+  });
+  $(homework.element).on('mouseleave', (e) => {
+		homeworkHoverHandler(e);
+  });
+
+  // console.log(homeworks);
 }
 
 /**
@@ -166,9 +169,7 @@ function addHW(isStored, hwObject) {
  * @param {Event} eventData
  */
 function removeHW(target) {
-  console.log(homeworks);
   const hwItem = $(target).parents('.homework-item');
-  console.log(hwItem);
   $(hwItem).animate(
     {
       left: '100%',
@@ -179,9 +180,11 @@ function removeHW(target) {
     () => {
       $(hwItem).remove();
       for (let i = 0; i < homeworks.length; i++) {
-        if (homeworks[i].element == hwItem[0]) homeworks.splice(i, 1);
+        if (homeworks[i].element[0] == hwItem[0]) homeworks.splice(i, 1);
+        if(sortedHW[i].element[0] == hwItem[0]) sortedHW.splice(i, 1)
       }
-      console.log(homeworks);
+      storeToLocalStorage('homeworks', sortedHW)
+      // console.log(homeworks);
     }
   );
   // 	console.log('clicked trash');
