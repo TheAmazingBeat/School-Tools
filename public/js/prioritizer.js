@@ -24,9 +24,11 @@ jQuery(() => {
  * Main function to call functions in order
  */
 function prioritize() {
-  sortHW(), storeToLocalStorage('homeworks', sortedHW);
+  sortHW(getAllInput);
+  storeToLocalStorage('homeworks', sortedHW);
+  // console.log(sortedHW);
   $('.homework-list').css('list-style-type', 'decimal');
-  window.location.reload(); //Temporary
+  // window.location.reload(); //Temporary
 }
 
 /**
@@ -48,6 +50,8 @@ function checkForHomework() {
     for (let i = 0; i < sortedHW.length; i++) {
       addHW(true, sortedHW[i]);
     }
+    console.log('%cHomework ::', 'color:green;');
+    console.table(homeworks);
     return true;
   }
 }
@@ -65,7 +69,7 @@ function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
   this.element = $(hwItem).append(
     createNameInput(isStored, hwObject),
     createDateType(isStored, hwObject)
-  );
+  )[0];
   this.name = hwName;
   this.dueDate = hwDueDate;
   this.type = hwType;
@@ -130,34 +134,39 @@ function homeworkHoverHandler(e) {
  * @param {Homework} hwObject The stored homework
  */
 function addHW(isStored, hwObject) {
-  const homework = new Homework(
-    undefined,
-    undefined,
-    undefined,
-    isStored,
-    hwObject
-  );
+  let objName, objDate, objType;
+  if (isStored) {
+    if (hwObject) objName = hwObject.name;
+    if (hwObject) objDate = hwObject.dueDate;
+    if (hwObject) objType = hwObject.type;
+  }
+
+  const homework = new Homework(objName, objDate, objType, isStored, hwObject);
   homeworks.push(homework);
   $('.homework-list').append(homework.element);
 
   /// Focus Event Handler
   $(homework.element).on('focusin', (e) => {
     homeworkClicked = true;
-    $(e.currentTarget).find('.options').addClass('visible');
-    $(e.currentTarget)
-      .find('.name-input')
-      .find('.hw-check')
-      .addClass('visible');
-    $(e.currentTarget).find('.name-input').find('svg').addClass('visible');
+    const options = $(e.currentTarget).find('.options');
+    const checkbox = $(e.currentTarget).find('.name-input').find('.hw-check');
+    const trashcan = $(e.currentTarget).find('.name-input').find('svg');
+
+    $(options).addClass('visible');
+    $(checkbox).addClass('visible');
+    $(checkbox).on('click', () => {
+      if ($(checkbox).prop('checked')) checkedHandler(homework, removeHW);
+    });
+    $(trashcan).addClass('visible');
   });
 
   if (!isStored) $('.homework-list').css('list-style-type', 'disc');
 
   $(homework.element).on('mouseenter', (e) => {
-		homeworkHoverHandler(e);
+    homeworkHoverHandler(e);
   });
   $(homework.element).on('mouseleave', (e) => {
-		homeworkHoverHandler(e);
+    homeworkHoverHandler(e);
   });
 
   // console.log(homeworks);
@@ -165,11 +174,13 @@ function addHW(isStored, hwObject) {
 
 /**
  * Removes the selected homework item(s) in the list
- * @param {boolean} isStored Boolean if there are stored homeworks
- * @param {Event} eventData
+ * @param {jQueryObject} target DOM Element to be removed
  */
 function removeHW(target) {
-  const hwItem = $(target).parents('.homework-item');
+  const hwItem =
+    $(target).parents('.homework-item').length > 0
+      ? $(target).parents('.homework-item')
+      : $(target);
   $(hwItem).animate(
     {
       left: '100%',
@@ -178,45 +189,30 @@ function removeHW(target) {
     500,
     'swing',
     () => {
-      $(hwItem).remove();
       for (let i = 0; i < homeworks.length; i++) {
-        if (homeworks[i].element[0] == hwItem[0]) homeworks.splice(i, 1);
-        if(sortedHW[i].element[0] == hwItem[0]) sortedHW.splice(i, 1)
+        if (homeworks[i].element == hwItem[0]) {
+          if (
+            homeworks[i].name == sortedHW[i].name &&
+            homeworks[i].dueDate == sortedHW[i].dueDate &&
+            homeworks[i].type == sortedHW[i].type
+          ) {
+            sortedHW.splice(i, 1);
+          }
+          homeworks.splice(i, 1);
+        }
       }
-      storeToLocalStorage('homeworks', sortedHW)
-      // console.log(homeworks);
+      $(hwItem).remove();
+      storeToLocalStorage('homeworks', sortedHW);
+      console.log(homeworks);
+      console.log(sortedHW);
     }
   );
-  // 	console.log('clicked trash');
-  // 	// if (isStored) {
-  // 	// 	// Removes from prioritized list
-  // 	// 	const parent = $(eventData.currentTarget).parents('tbody');
-  // 	// 	let children = $(parent).children();
-  // 	// 	for (let i = 0; i < children.length; i++) {
-  // 	// 		if (children[i] == eventData.currentTarget) {
-  // 	// 			$(parent).find(children[i]).remove();
-  // 	// 			sortedHW.splice(i, 1);
-  // 	// 		}
-  // 	// 	}
-  // 	// 	// Refreshes localStorage to update sortedHW
-  // 	// 	storeToLocalStorage('homeworks', sortedHW);
-  // 	// 	showPrioritized();
-  // 	// } else {
-  // 	// 	// Removes from editing list
-  // 	// 	for (let i = 0; i < homeworks.length; i++) {
-  // 	// 		let tempObj = homeworks[i].element;
-  // 	// 		if ($(tempObj).find('.hw-select-cell').find('.hw-select').is(':checked')) {
-  // 	// 			$(tempObj).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
-  // 	// 			$(tempObj).remove();
-  // 	// 			// Removes from homeworks
-  // 	// 			homeworks.splice(i, 1);
-  // 	// 			// Also removes from sortedHW
-  // 	// 			for (let j = 0; j < sortedHW.length; j++) {
-  // 	// 				if (homeworks[i] == sortedHW[i]) sortedHW.splice(i, 1);
-  // 	// 			}
-  // 	// 		}
-  // 	// 	}
-  // 	// }
+}
+
+function checkedHandler(object, remove) {
+  $(object.element).addClass('checked');
+  console.log(`${object.element.className} was clicked`);
+  remove(object.element);
 }
 
 /**
@@ -321,8 +317,8 @@ function sortByDate(array) {
 /**
  * Sort the homeworks.
  */
-function sortHW() {
-  getAllInput();
+function sortHW(getValues) {
+  getValues();
   let majorHW = [],
     minorHW = [];
 
@@ -372,4 +368,7 @@ function sortHW() {
       }
     }
   }
+
+  // console.log('Sorted HW ::');
+  // console.log(sortedHW);
 }
