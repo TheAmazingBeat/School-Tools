@@ -16,17 +16,20 @@ div.list-container {
   display: grid;
   place-items: center;
 }
+div.list-container form {
+  width: 100%;
+}
+@media (max-width: 599px) {
+  div.list-container form {
+    width: 80%;
+  }
+}
 div.list-container .homework-list {
   list-style-type: disc;
   padding: 0;
 }
 div.list-container .homework-list .homework-item {
   position: relative;
-}
-@media (max-width: 599px) {
-  div.list-container .homework-list {
-    width: 80%;
-  }
 }
 div.list-container .homework-list label {
   font-size: 12px;
@@ -39,6 +42,20 @@ div.list-container .prior-btns {
 }
 div.list-container .prior-btns button {
   margin: 1rem;
+}
+div.list-container .done-homework-list {
+  width: 100%;
+  padding: 0;
+  list-style-type: disc;
+}
+div.list-container .done-homework-list .homework-item {
+  opacity: 0.2;
+  text-decoration: line-through;
+}
+@media (max-width: 599px) {
+  div.list-container .done-homework-list {
+    width: 80%;
+  }
 }
 
 .hw-name,
