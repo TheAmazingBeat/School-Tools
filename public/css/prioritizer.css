@@ -54,6 +54,11 @@ div.list-container .prior-btns button {
 .hw-type:focus-visible {
   outline: none;
 }
+.hw-name.empty,
+.hw-date.empty,
+.hw-type.empty {
+  border-bottom: 1px solid red;
+}
 
 .name-input {
   margin: 1rem 0.5rem;
