@@ -2,7 +2,8 @@ import { createNameInput, createDateType } from './Creator.js';
 import { getFromLocalStorage, storeToLocalStorage } from './UsefulFunks.js';
 
 let homeworks = [],
-  sortedHW = [];
+  sortedHW = [],
+  doneHW = [];
 const requiredNumberOfHW = 1;
 let homeworkClicked = false;
 
@@ -210,8 +211,14 @@ function removeHW(target) {
 }
 
 function checkedHandler(object, remove) {
+  if (object.name == undefined) {
+    console.log($(object.element).find('#doneCheck').prop('checked', false));
+    // alert('Homework has no name');
+    return;
+  }
   $(object.element).addClass('checked');
-  console.log(`${object.element.className} was clicked`);
+  doneHW.push(object.element);
+  console.log(doneHW);
   remove(object.element);
 }
 
