@@ -58,7 +58,7 @@ div.list-container {
   .prior-btns {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 
     button {
@@ -67,17 +67,17 @@ div.list-container {
   }
 
   .done-homework-list {
-		width: 100%;
-		padding: 0;
-		list-style-type: disc;
-		
+    width: 100%;
+    padding: 0;
+    list-style-type: disc;
+
     .homework-item {
       opacity: 0.2;
       text-decoration: line-through;
       // pointer-events: none;
     }
 
-		@include bp.for-phone-only {
+    @include bp.for-phone-only {
       width: 80%;
     }
   }
@@ -169,5 +169,12 @@ div.list-container {
   select.hw-type {
     width: 100%;
     z-index: 1;
+  }
+
+  .checked {
+    .name-input,
+    .options {
+      opacity: 0.2;
+    }
   }
 }

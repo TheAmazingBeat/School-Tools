@@ -37,7 +37,7 @@ div.list-container .homework-list label {
 div.list-container .prior-btns {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 div.list-container .prior-btns button {
@@ -141,6 +141,10 @@ div.list-container .done-homework-list .homework-item {
 .options select.hw-type {
   width: 100%;
   z-index: 1;
+}
+.options .checked .name-input,
+.options .checked .options {
+  opacity: 0.2;
 }
 
 /*# sourceMappingURL=prioritizer.css.map */

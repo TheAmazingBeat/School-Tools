@@ -15,14 +15,16 @@ jQuery(() => {
   checkForHomework();
 
   $('#addHwBtn').on('click', () => {
-    addHW(false);
+    addHomework(false);
   });
 
   $('#prioritizeBtn').on('click', prioritize);
 
   $(document).on('click', (e) => {
-    if ($(e.target).parents('svg.fa-trash-can').length > 0) removeHW(e.target);
-    else if ($(e.target).hasClass('fa-trash-can')) removeHW(e.target);
+    if ($(e.target).parents('svg.fa-trash-can').length > 0)
+      removeHomework(e.target, false);
+    else if ($(e.target).hasClass('fa-trash-can'))
+      removeHomework(e.target, false);
     else homeworkClickHandler(e);
   });
 });
@@ -31,7 +33,7 @@ jQuery(() => {
  * Main function to call functions in order
  */
 function prioritize() {
-  sortHW(getAllInput);
+  sortHomework(getAllInput);
   storeToLocalStorage('homeworks', sortedHW);
 }
 
@@ -41,14 +43,14 @@ function prioritize() {
 function checkForHomework() {
   sortedHW = getFromLocalStorage('homeworks');
   doneHW = getFromLocalStorage('doneHomework');
-  console.log('%cSorted Homework ::', 'color:green;');
+  console.info('%cSorted Homework ::', 'color:green;');
   console.table(sortedHW);
-  console.log('%cDone Homework ::', 'color:blue;');
+  console.info('%cDone Homework ::', 'color:blue;');
   console.table(doneHW);
 
-	if (doneHW != null) {
+  if (doneHW != null) {
     for (let i in doneHW) {
-      addHW(true, doneHW[i], true);
+      addHomework(true, doneHW[i], true);
     }
   } else doneHW = [];
 
@@ -56,14 +58,14 @@ function checkForHomework() {
   if (sortedHW == null || sortedHW.length == 0) {
     //// Required Homework Items
     for (let i = 0; i < requiredNumberOfHW; i++) {
-      addHW(false);
+      addHomework(false);
     }
     return false;
   } else {
     $('.homework-list').css('list-style-type', 'decimal');
 
     for (let i = 0; i < sortedHW.length; i++) {
-      addHW(true, sortedHW[i], false);
+      addHomework(true, sortedHW[i], false);
     }
 
     console.log('%cHomework ::', 'color:green;');
@@ -82,6 +84,7 @@ function checkForHomework() {
  */
 function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
   let hwItem = $('<li class="homework-item"></li>');
+
   this.element = $(hwItem).append(
     createNameInput(isStored, hwObject),
     createDateType(isStored, hwObject)
@@ -89,6 +92,44 @@ function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
   this.name = hwName;
   this.dueDate = hwDueDate;
   this.type = hwType;
+
+  this.getName = () => {
+    return $(this.element).find('.hw-name').val();
+  };
+
+  this.getDate = () => {
+    return $(this.element).find('.hw-date').val();
+  };
+
+  this.getType = () => {
+    return $(this.element).find('.hw-type').val();
+  };
+
+  this.updateName = () => {
+    this.name = $(this.element).find('.hw-name').val();
+    return this.name;
+  };
+  this.updateDate = () => {
+    this.dueDate = $(this.element).find('.hw-date').val();
+
+    /// Format to MM-DD-YYYY
+    let month = this.dueDate.substring(
+      this.dueDate.indexOf('-') + 1,
+      this.dueDate.indexOf('-', this.dueDate.indexOf('-') + 1)
+    );
+    let day = this.dueDate.substring(
+      this.dueDate.indexOf('-', this.dueDate.indexOf('-') + 1) + 1
+    );
+    let year = this.dueDate.substring(0, 4);
+
+    let formattedDate = month + '/' + day + '/' + year;
+
+    this.dueDate = formattedDate;
+    return this.dueDate;
+  };
+  this.updateType = () => {
+    this.type = $(this.element).find('.hw-type').val();
+  };
 }
 
 /**
@@ -97,7 +138,7 @@ function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
  * @param {Homework} hwObject The stored homework
  * @param {boolean} done
  */
-function addHW(isStored, hwObject, done) {
+function addHomework(isStored, hwObject, done) {
   let objName, objDate, objType;
   if (isStored) {
     if (hwObject) objName = hwObject.name;
@@ -113,7 +154,7 @@ function addHW(isStored, hwObject, done) {
   } else {
     $(homework.element).addClass('done');
     $(homework.element).find('.hw-check').prop('checked', true);
-    $('.done-homework-list').append(homework.element);
+    $('.done-homework-list').prepend(homework.element);
   }
 
   /// Focus Event Handler
@@ -127,7 +168,9 @@ function addHW(isStored, hwObject, done) {
     $(checkbox).addClass('visible');
     $(checkbox).on('click', () => {
       if ($(checkbox).prop('checked'))
-        homeworkCheckedHandler(homework, removeHW);
+        homeworkCheckedHandler(homework, removeHomework);
+      console.log(debugCounter);
+      console.log(doneHW);
     });
     $(trashcan).addClass('visible');
   });
@@ -148,7 +191,7 @@ function addHW(isStored, hwObject, done) {
  * Removes the selected homework item(s) in the list
  * @param {jQueryObject} target DOM Element to be removed
  */
-function removeHW(target, done) {
+function removeHomework(target, done) {
   const hwItem =
     $(target).parents('.homework-item').length > 0
       ? $(target).parents('.homework-item')
@@ -158,31 +201,39 @@ function removeHW(target, done) {
     {
       left: '100%',
       opacity: 0,
+      'pointer-events': 'none',
     },
     500,
     'swing',
     () => {
+      // if matches sortedHW, remove from sortedHW
       for (let i = 0; i < homeworks.length; i++) {
-        if (homeworks[i].element == hwItem[0]) {
-          if ((homeworks[i].name != undefined) &&
-            homeworks[i].name == sortedHW[i].name &&
-            homeworks[i].dueDate == sortedHW[i].dueDate &&
-            homeworks[i].type == sortedHW[i].type
-          ) {
-            sortedHW.splice(i, 1);
-          }
-          homeworks.splice(i, 1);
-        }
+        if (homeworks[i].element != hwItem[i]) break;
+
+        if (sortedHW == null || sortedHW.length == 0) break;
+
+        if (homeworks[i].name == undefined || homeworks[i].name.length == 0)
+          break;
+
+        if (
+          homeworks[i].name == sortedHW[i].name &&
+          homeworks[i].dueDate == sortedHW[i].dueDate &&
+          homeworks[i].type == sortedHW[i].type
+        )
+          sortedHW.splice(i, 1);
+
+        homeworks.splice(i, 1);
       }
-      if (!done){
-				$(hwItem).remove();
-			} else{
-				$(hwItem).css('opacity', 0.2)
-			}
+
+      if (!done) {
+        $(hwItem).remove();
+      } else {
+        $(hwItem).css('opacity', 0.2);
+      }
       storeToLocalStorage('homeworks', sortedHW);
 
-      // console.log(homeworks);
-      // console.log(sortedHW);
+      console.log(homeworks);
+      console.log(sortedHW);
     }
   );
 }
@@ -240,40 +291,46 @@ function homeworkHoverHandler(e) {
   }
 }
 
+let debugCounter = 0;
 function homeworkCheckedHandler(object, remove) {
-  if (object.name == undefined) {
-		$(object.element).find('#doneCheck').prop('checked', false);
-    validateName($(object.element).find('.hw-name'));
-    return;
-  }
-	$(object.element).find('#doneCheck').prop('checked', true);
-  $(object.element).addClass('checked');
-  storeDoneHW(object);
-  console.log(doneHW);
+  debugCounter++;
+  object.updateName();
 
-  remove(object.element, true);
+  if (object.name == undefined || object.name.length == 0) {
+    $(object.element).find('#doneCheck').prop('checked', false);
+    validateName($(object.element).find('.hw-name'));
+  }
+
+  if (validateName($(object.element).find('.hw-name'))) {
+    $(object.element).addClass('checked');
+    storeDoneHomework(object).then(remove(object.element, true));
+  }
+  // console.log(doneHW);
 }
 
 function validateName(object) {
   const value = $(object).val();
-  if (value.length > 0){
-		$(object).removeClass('empty')
-		return true;
-	} 
+  if (value.length > 0) {
+    $(object).removeClass('empty');
+    return true;
+  }
 
   if ($('.empty-alert').length <= 0)
     $('.list-container').prepend(createEmptyAlert);
 
   $(object).addClass('empty');
-	
 
   return false;
 }
 
-function storeDoneHW(object) {
+async function storeDoneHomework(object) {
+  object.updateName();
+  object.updateDate();
+  object.updateType();
   doneHW.push(object);
-  $('.done-homework-list').append(object.element);
-  storeToLocalStorage('doneHomework', doneHW);
+  $('.done-homework-list').prepend(object.element);
+  return true;
+  // storeToLocalStorage('doneHomework', doneHW);
 }
 
 /**
@@ -297,63 +354,11 @@ function getAllInput() {
     return value;
   };
 
-  /**
-   * Getting the value of Homework Due Date Input
-   * @param {number} index The index of the homework
-   * @returns Due Date value inside Date Input
-   */
-  const getDateInput = (index) => {
-    //TODO Maybe there is a Built-in JS function for formatting dates
-    /// Initial Format YYYY-MM-DD
-    let dateString = '';
-
-    try {
-      dateString = $(homeworks[index].element).find('.hw-date').val();
-    } catch (error) {
-      console.log(error);
-    }
-
-    if (dateString == '') return;
-
-    /// Format to MM-DD-YYYY
-    let month = dateString.substring(
-      dateString.indexOf('-') + 1,
-      dateString.indexOf('-', dateString.indexOf('-') + 1)
-    );
-    //// Removes ZERO in the first digit of month
-    if (month.substring(0, 1) == '0' && month.length > 1) {
-      month = month.substring(1);
-    }
-    let day = dateString.substring(
-      dateString.indexOf('-', dateString.indexOf('-') + 1) + 1
-    );
-    let year = dateString.substring(0, 4);
-
-    let formattedDate = month + '/' + day + '/' + year;
-
-    return formattedDate;
-  };
-
-  /**
-   * Getting the value of Homework Type Input
-   * @param {number} index The index of the homework
-   * @returns Option value inside Select Type Input
-   */
-  const getTypeInput = (index) => {
-    let value = '';
-    try {
-      value = $(homeworks[index].element).find('.hw-type').val();
-    } catch (error) {
-      console.log(error);
-    }
-    return value;
-  };
-
   for (let i in homeworks) {
     if (!getNameInput(i)) return false;
-    homeworks[i].name = getNameInput(i);
-    homeworks[i].dueDate = getDateInput(i);
-    homeworks[i].type = getTypeInput(i);
+    homeworks[i].updateName();
+    homeworks[i].updateDate();
+    homeworks[i].updateType();
   }
   return true;
 }
@@ -382,9 +387,10 @@ function sortByDate(array) {
 /**
  * Sort the homeworks.
  */
-function sortHW(getValues) {
+function sortHomework(getValues) {
   if (!getValues()) return;
   else getValues();
+
   let majorHW = [],
     minorHW = [];
 
