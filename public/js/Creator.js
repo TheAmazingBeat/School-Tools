@@ -134,7 +134,7 @@ function createDayCells(type, index, monthNum, yearNum, animateDelay) {
 	$(dayCell)
 		.attr('data-bs-toggle', 'modal')
 		.attr('data-bs-target', '#dayDetails');
-	$(dayCell).click((e) => {
+	$(dayCell).on('click', (e) => {
 		formatDayModal(e);
 	});
 
@@ -265,5 +265,5 @@ export {
 	createTypeInput,
 	createDayCells,
 	createDateType,
-  createEmptyAlert
+	createEmptyAlert,
 };
