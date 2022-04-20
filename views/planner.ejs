@@ -1,0 +1,115 @@
+<%- include('head') %> 
+<link rel="stylesheet" href="css/planner.css">
+<script src="js/planner.js" type="module" defer></script>
+</head>
+
+<body class="<%= theme %>">
+  <%- include('navbar') %> 
+  <main>
+    <section id="planner">
+      <div class="container-fluid">
+        <div id="calendar" class="animate__animated animate__zoomIn animate__faster">
+          <div id="calendarHeader" class="row align-items-center animate__animated animate__backInDown">
+            <div id="prevArrow" class="col-3 col-2-sm btn arrow">
+              <i class="fa-solid fa-caret-left fa-2x"></i>
+            </div>
+
+            <div class="col-6 col-8-sm">
+              <h1 id="monthYear"></h1>
+            </div>
+
+            <div id="nextArrow" class="col-3 col-2-sm btn arrow">
+              <!-- <i class="fas fa-caret-right fa-2x"></i> -->
+              <i class="fa-solid fa-caret-right fa-2x"></i>
+            </div>
+          </div>
+
+          <div id="calendar-body">
+            <div id="weekdays" class="animate__animated animate__zoomIn animate__delay-1s">
+              <div class="weekday">SUN</div>
+              <div class="weekday">MON</div>
+              <div class="weekday">TUE</div>
+              <div class="weekday">WED</div>
+              <div class="weekday">THU</div>
+              <div class="weekday">FRI</div>
+              <div class="weekday">SAT</div>
+            </div>
+
+            <div id="calendarDays"></div>
+          </div>
+        </div>
+
+        <div id="dayDetails" class="modal fade" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Date</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <div id="noContent" class="mb-3">
+                    <p>Nothing here...</p>
+                  </div>
+
+                  <div id="schoolWorkDiv" class="mb-3">
+                    <h3>Homework:</h3>
+                    <ul id="schoolWorkList"></ul>
+                  </div>
+
+                  <div id="eventsDiv" class="mb-3">
+                    <h3>Events:</h3>
+                    <ul id="eventsList"></ul>
+                  </div>
+
+                  <div id="eventForm">
+                    <form>
+                      <div class="row form-floating mb-3">
+                        <select name="calendarType" id="calendarType" class="form-select" required>
+                          <option value="empty">-Select Event Type-</option>
+                          <option value="homework">Homework</option>
+                          <option value="event">Event</option>
+                        </select>
+                        <label class="form-label" for="calendarType">Type</label>
+                      </div>
+
+                      <div class="row form-floating mb-3">
+                        <input type="text" class="form-control" id="nameInput" placeholder="Name" required>
+                        <label class="form-label" for="nameInput">Name</label>
+                      </div>
+
+                      <div class="mb-3" id="homeworkTypeSelect">
+                        <input type="radio" class="form-check-input" name="hwType" value="Minor" id="minorRadio">
+                        <label class="form-label" for="minorInput">Minor Grade</label>
+                        <input type="radio" class="form-check-input" name="hwType" value="Major" id="majorRadio">
+                        <label class="form-label" for="majorInput">Major Grade</label>
+                      </div>
+
+                      <div class="row form-floating mb-3" id="eventTimeSelect">
+                        <input type="time" class="form-control" name="eventTime" id="eventTime" required>
+                        <label class="form-label" for="eventTime">Time</label>
+                      </div>
+
+                      <div class="row mb-3">
+                        <button class="btn btn-primary" id="addEventBtn">Add to Calendar</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <button id="addBtn" class="btn btn-outline-primary my-3">
+                    Add <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>

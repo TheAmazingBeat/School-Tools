@@ -12,12 +12,12 @@
     font-size: 1.25rem;
   }
 }
+
 /* Tablet and smaller */
 @media only screen and (max-device-width: 768px) {
   main {
     padding: 0;
   }
-
   .container-fluid {
     padding: 0px !important;
   }
@@ -30,11 +30,13 @@
     border-radius: 0px !important;
   }
 }
+
 @media only screen and (min-device-width: 1920px) {
   .day {
     height: 160px !important;
   }
 }
+
 :root {
   --animation-duration: 0.5s !important;
 }
@@ -49,32 +51,37 @@ section#planner {
   background: #333333;
   border-radius: 5px;
   text-align: center;
-}
-#calendar #calendarHeader {
-  padding: 15px 10px;
-}
-#calendar #calendarHeader #monthYear {
-  color: white;
-}
-#calendar #calendarHeader .arrow {
-  color: white;
-}
-#calendar #calendarHeader .arrow:hover {
-  color: aquamarine;
-}
-#calendar #weekdays {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-#calendar #weekdays .weekday {
-  padding: 10px;
-  background: darkgray;
-  color: black;
-  border: 1px solid gray;
-}
-#calendar #calendarDays {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  #calendarHeader {
+    padding: 15px 10px;
+
+    #monthYear {
+      color: white;
+    }
+
+    .arrow {
+      color: white;
+      &:hover {
+        color: aquamarine;
+      }
+    }
+  }
+
+  #weekdays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    .weekday {
+      padding: 10px;
+      background: darkgray;
+      color: black;
+      border: 1px solid gray;
+    }
+  }
+
+  #calendarDays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
 }
 
 .day {
@@ -89,21 +96,28 @@ section#planner {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-}
-.day.blank {
-  background: #ececec;
-}
-.day.blank .day-num {
-  color: #5a5a5a;
-}
-.day.today {
-  background: #8ec8ff;
-}
-.day:hover, .day:focus, .day:active {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-.day .day-num {
-  margin: 5px;
+
+  &.blank {
+    background: #ececec;
+
+    .day-num {
+      color: #5a5a5a;
+    }
+  }
+
+  &.today {
+    background: #8ec8ff;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgb(255, 255, 255, 0.8);
+  }
+
+  .day-num {
+    margin: 5px;
+  }
 }
 
 /* Modal Styles */
@@ -137,18 +151,20 @@ section#planner {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-.event-pill.homework-pill {
-  background-color: #64b3af;
-}
-.event-pill.planner-event-pill {
-  background-color: #6467b3;
-}
-.event-pill.more-event-pill {
-  border: 0;
-}
-.event-pill .event-pill-name {
-  margin: 0 0.25rem;
-}
 
-/*# sourceMappingURL=planner.css.map */
+  &.homework-pill {
+    background-color: #64b3af;
+  }
+
+  &.planner-event-pill {
+    background-color: #6467b3;
+  }
+
+  &.more-event-pill {
+    border: 0;
+  }
+
+  .event-pill-name {
+    margin: 0 0.25rem;
+  }
+}

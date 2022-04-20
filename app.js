@@ -16,6 +16,7 @@ const user = {
   plannerEvents: [],
   homeworks: [],
   completedHW: 0,
+  theme: 'dark'
 };
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
@@ -41,19 +42,24 @@ app.get('/calculator', (req, res) => {
 });
 
 app.get('/planner', (req, res) => {
-  res.sendFile(__dirname + '/public/pages/planner.html');
+  // res.sendFile(__dirname + '/public/pages/planner.html');
+  res.render('planner', {
+    pageTitle: 'Planner',
+    userName: user.userName,
+    theme: user.theme
+  });
 });
 
 app.get('/writing-counter', (req, res) => {
   res.sendFile(__dirname + '/public/pages/writing-counter.html');
 });
 
-app.get('/snake', (req,res)=>{
+app.get('/snake', (req, res) => {
   res.render('snake', {
     pageTitle: 'Snake',
-    userName: user.userName
-  })
-})
+    userName: user.userName,
+  });
+});
 
 const port = 3000;
 app.listen(process.env.PORT || port, () => {
