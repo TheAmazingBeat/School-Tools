@@ -3,8 +3,8 @@
 
    </div>
 
-   <div class="mobile-header dark">
-      <button class="menu-btn dark">
+   <div class="mobile-header" data-theme="">
+      <button class="menu-btn" data-theme="">
          <i class="fa-solid fa-bars "></i>
       </button>
       <div>
@@ -13,7 +13,7 @@
    </div>
 
 
-   <div class="main-navbar dark">
+   <div class="main-navbar" data-theme="">
 
       <div class="nav-header">
          <!-- <i class="logo"></i> -->
@@ -73,7 +73,7 @@
 
          <hr>
 
-         <li class="nav-item">
+         <!-- <li class="nav-item">
             <a href="/" class="nav-link <% if (pageTitle == 'Settings') { %>
              active
             <% } %>" title="Settings">
@@ -81,16 +81,16 @@
                <span class="link-text">Settings</span>
             </a>
             <span class="nav-tooltip">Settings</span>
-         </li>
+         </li> -->
 
          <!-- Theme Switcher -->
          <li class="nav-item">
             <div class="theme-switcher">
-               <button class="light-btn dark">
+               <button class="light-btn" data-theme="">
                   <i class="fa-solid fa-sun"></i>
                   <span>Light</span>
                </button>
-               <button class="dark-btn dark">
+               <button class="dark-btn" data-theme="">
                   <i class="fa-solid fa-moon"></i>
                   <span>Dark</span>
                </button>
@@ -98,7 +98,7 @@
             <span class="nav-tooltip">Switch Theme</span>
          </li>
 
-         <li class="nav-item">
+         <!-- <li class="nav-item">
             <a href="/" class="nav-link <% if (pageTitle == 'Writing Counter') { %>
              active
             <% } %>" title="Help &amp; Support">
@@ -106,7 +106,7 @@
                <span class="link-text">Help &amp; Support</span>
             </a>
             <span class="nav-tooltip">Help &amp; Support</span>
-         </li>
+         </li> -->
 
          <li class="nav-item profile">
             <a href="/" class="nav-link <% if (pageTitle == 'Profile') { %>
@@ -123,7 +123,7 @@
       </ul>
    </div>
 
-   <ul class="mobile-bottom-nav dark">
+   <ul class="mobile-bottom-nav" data-theme="">
       <li class="nav-item">
          <a href="/" class="nav-link">
             <i class="fa-solid fa-house"></i>

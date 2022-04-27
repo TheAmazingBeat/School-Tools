@@ -1,7 +1,7 @@
 <%- include('head') %>
 </head>
 
-<body class="dark">
+<body class="" data-theme="">
 
    <%- include('navbar') %>
 
@@ -17,12 +17,12 @@
 
          <div class="row">
             <div class="col-sm-12">
-               <div class="card dark get-started">
+               <div class="card get-started" data-theme="">
                   <div class="card-body">
                      <h2 class="card-title">Get Started</h2>
                      <div class="card-text">
                         <ol>
-                           <li>
+                           <!-- <li>
                               <a href="/" class="get-started-link">
                                  Integrate account with an LMS
                                  <i class="fa-solid fa-arrow-right"></i>
@@ -34,7 +34,7 @@
                                  Integrate your calendars
                                  <i class="fa-solid fa-arrow-right"></i>
                               </a>
-                           </li>
+                           </li> -->
 
                            <li>
                               <a href="/prioritizer" class="get-started-link">
@@ -61,7 +61,7 @@
          <div class="row">
             <div class="col-sm-12 col-lg-6">
                <div class="dash-events">
-                  <div class="card dark">
+                  <div class="card" data-theme="">
                      <div class="card-body">
                         <h2 class="card-title">Upcoming Events</h2>
                         <% if (events.length > 0){ %>
@@ -83,14 +83,14 @@
 
             <div class="col-sm-12 col-lg-6">
                <div class="row dash-assignments">
-                  <div class="card dark">
+                  <div class="card" data-theme="">
                      <div class="card-body">
                         <h2 class="card-title">Completed Assignments: <span><%= completedHW %></span></h2>
                      </div>
                   </div>
                </div>
                <div class="row">
-                  <div class="card dark">
+                  <div class="card" data-theme="">
                      <div class="card-body">
                         <h2 class="card-title">Next Assignment</h2>
                         <% if (homeworks.length > 0){ %>

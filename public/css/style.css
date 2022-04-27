@@ -225,6 +225,7 @@ div.main-navbar ul.navbar-nav .theme-switcher .dark-btn span {
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.dark {
   width: 100%;
   opacity: 1;
+  pointer-events: all;
   background-color: rgba(255, 255, 255, 0.05);
 }
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.dark:hover {
@@ -233,8 +234,12 @@ div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.dark:hover {
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.light {
   width: 0%;
   opacity: 0;
+  pointer-events: none;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.light {
+  width: 100%;
+  opacity: 1;
+  pointer-events: all;
   background-color: rgba(0, 0, 0, 0.05);
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.light:hover {
@@ -243,6 +248,10 @@ div.main-navbar ul.navbar-nav .theme-switcher .light-btn.light:hover {
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.dark {
   width: 0%;
   opacity: 0;
+  pointer-events: none;
+}
+div.main-navbar ul.navbar-nav .theme-switcher .light-btn.dark:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 div.main-navbar ul.navbar-nav li.nav-item.profile {
   display: flex;
@@ -302,7 +311,7 @@ div.main-navbar.expanded div.nav-header h1 {
 }
 div.main-navbar.expanded div.nav-header button.menu-btn {
   right: 0 !important;
-  transform: translateX(0%) !important;
+  transform: translateX(-50%) !important;
 }
 div.main-navbar.expanded a.nav-link {
   justify-content: flex-start !important;
@@ -318,6 +327,7 @@ div.main-navbar.expanded div.theme-switcher .light-btn,
 div.main-navbar.expanded div.theme-switcher .dark-btn {
   width: 7rem !important;
   opacity: 1 !important;
+  pointer-events: all !important;
 }
 div.main-navbar.expanded div.theme-switcher .light-btn span,
 div.main-navbar.expanded div.theme-switcher .dark-btn span {
@@ -368,9 +378,6 @@ div.main-navbar.dark .nav-tooltip {
 }
 div.main-navbar.dark button {
   color: #fff;
-}
-div.main-navbar.dark button:hover {
-  background-color: rgba(255, 255, 255, 0.05);
 }
 div.main-navbar.dark .light-btn.dark {
   display: none;

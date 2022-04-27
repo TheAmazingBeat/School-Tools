@@ -16,7 +16,6 @@ const user = {
   plannerEvents: [],
   homeworks: [],
   completedHW: 0,
-  theme: 'dark'
 };
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
@@ -46,7 +45,6 @@ app.get('/planner', (req, res) => {
   res.render('planner', {
     pageTitle: 'Planner',
     userName: user.userName,
-    theme: user.theme
   });
 });
 

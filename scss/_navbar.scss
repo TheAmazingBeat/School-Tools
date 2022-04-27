@@ -252,6 +252,7 @@ div.main-navbar {
       .dark-btn.dark {
         width: 100%;
         opacity: 1;
+        pointer-events: all;
         background-color: rgba($color: #fff, $alpha: 0.05);
         &:hover {
           background-color: rgba($color: #fff, $alpha: 0.05);
@@ -260,9 +261,13 @@ div.main-navbar {
       .dark-btn.light {
         width: 0%;
         opacity: 0;
+        pointer-events: none;
       }
 
       .light-btn.light {
+        width: 100%;
+        opacity: 1;
+        pointer-events: all;
         background-color: rgba($color: #000, $alpha: 0.05);
         &:hover {
           background-color: rgba($color: #000, $alpha: 0.05);
@@ -271,6 +276,10 @@ div.main-navbar {
       .light-btn.dark {
         width: 0%;
         opacity: 0;
+        pointer-events: none;
+        &:hover {
+          background-color: rgba($color: #fff, $alpha: 0.05);
+        }
       }
     }
 
@@ -344,7 +353,7 @@ div.main-navbar {
 
       button.menu-btn {
         right: 0 !important;
-        transform: translateX(0%) !important;
+        transform: translateX(-50%) !important;
       }
     }
 
@@ -366,6 +375,7 @@ div.main-navbar {
       .dark-btn {
         width: 7rem !important;
         opacity: 1 !important;
+        pointer-events: all !important;
         span {
           opacity: 1 !important;
           display: inline !important;
@@ -428,9 +438,6 @@ div.main-navbar {
 
     button {
       @include variables.theme-color(variables.$dark-font);
-      &:hover {
-        background-color: rgba($color: #fff, $alpha: 0.05);
-      }
     }
 
     .light-btn.dark {
