@@ -37,7 +37,11 @@ app.get('/prioritizer', (req, res) => {
 });
 
 app.get('/calculator', (req, res) => {
-  res.sendFile(__dirname + '/public/pages/calculator.html');
+  // res.sendFile(__dirname + '/public/pages/calculator.html');
+  res.render('calculator', {
+		pageTitle: 'Calculator',
+		userName: user.userName,
+  });
 });
 
 app.get('/planner', (req, res) => {
@@ -49,7 +53,11 @@ app.get('/planner', (req, res) => {
 });
 
 app.get('/writing-counter', (req, res) => {
-  res.sendFile(__dirname + '/public/pages/writing-counter.html');
+  // res.sendFile(__dirname + '/public/pages/writing-counter.html');
+  res.render('writing-counter', {
+		pageTitle: 'Writing Counter',
+		userName: user.userName,
+  });
 });
 
 app.get('/snake', (req, res) => {

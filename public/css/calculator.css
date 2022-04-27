@@ -1,138 +1,133 @@
 .container {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #calcBase {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	margin: auto;
-	background-color: grey;
-	border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: auto;
+  background-color: grey;
+  border-radius: 15px;
 }
 
 #calcScreen {
-	margin: 20px auto 5px;
-	width: 90%;
-	height: 20%;
-	border-radius: 15px;
-	background-color: darkgray;
-	text-align: right;
+  margin: 20px auto 5px;
+  width: 90%;
+  height: 20%;
+  border-radius: 15px;
+  background-color: darkgray;
+  text-align: right;
 }
 
 #screenText {
-	margin-right: 5px;
-	color: black;
+  margin-right: 5px;
+  color: black;
 }
 
 #calcBody {
-	margin: 5px auto 20px;
-	border-radius: 15px;
-	width: 90%;
-	height: 70%;
-	background-color: darkgray;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-areas:
-		'num num num op'
-		'num num num op'
-		'num num num op'
-		'num num num op'
-		'bot bot bot op';
+  margin: 5px auto 20px;
+  border-radius: 15px;
+  width: 90%;
+  height: 70%;
+  background-color: darkgray;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "num num num op" "num num num op" "num num num op" "num num num op" "bot bot bot op";
 }
 
 .numbers-functions {
-	grid-area: num;
-	display: grid;
-	grid-template-columns: 33.33% 33.33% 33.33%;
+  grid-area: num;
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
 .operators {
-	grid-area: op;
-	display: grid;
-	grid-template-columns: 1fr;
+  grid-area: op;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .btm-row {
-	grid-area: bot;
-	display: grid;
-	grid-template-columns: 2fr 1fr;
+  grid-area: bot;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 
 .btn {
-	background: #39b54a;
-	border-radius: 0px;
-	border: 0.25px grey solid;
+  background: #39b54a;
+  border-radius: 0px;
+  border: 0.25px grey solid;
 }
 
 .btn:hover {
-	background: #bcf7ac;
+  background: #bcf7ac;
 }
 
 .function-btn {
-	background: #009245;
+  background: #009245;
 }
 
 .operator-btn {
-	background: #22b573;
+  background: #22b573;
 }
 
 #top-left-btn {
-	border-top-left-radius: 15px;
+  border-top-left-radius: 15px;
 }
 
 #top-right-btn {
-	border-top-right-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 #btm-left-btn {
-	border-bottom-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 #btm-right-btn {
-	border-bottom-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 767px) {
-	#calculator {
-		width: 90vw;
-		height: 80vh;
-	}
+  #calculator {
+    width: 90vw;
+    height: 80vh;
+  }
 
-	#calcBase {
-		height: 450px;
-		width: 300px;
-	}
+  #calcBase {
+    height: 450px;
+    width: 300px;
+  }
 
-	#screenText {
-		font-size: 3.5rem;
-	}
+  #screenText {
+    font-size: 3.5rem;
+  }
 
-	.btn-text {
-		font-size: 2rem;
-	}
+  .btn-text {
+    font-size: 2rem;
+  }
 }
-
 @media screen and (min-device-width: 768px) {
-	#calcBase {
-		height: 600px;
-		width: 400px;
-		margin: auto;
-	}
+  #calcBase {
+    height: 600px;
+    width: 400px;
+    margin: auto;
+  }
 
-	#screenText {
-		font-size: 4.5rem;
-	}
+  #screenText {
+    font-size: 4.5rem;
+  }
 
-	.btn-text {
-		font-size: 2.5rem;
-	}
+  .btn-text {
+    font-size: 2.5rem;
+  }
 }
-
 @media screen and (min-device-width: 1300px) {
-	#calculator {
-		width: 95vw;
-		height: 85vh;
-	}
+  #calculator {
+    width: 95vw;
+    height: 85vh;
+  }
 }
+
+/*# sourceMappingURL=calculator.css.map */

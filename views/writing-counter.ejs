@@ -1,0 +1,36 @@
+<%- include('head') %>
+<link rel="stylesheet" href="css/writing-counter.css">
+<script src="js/writing-counter.js" type="module" defer></script>
+</head>
+
+<body class="" data-theme="">
+   <%- include('navbar') %>
+   <main>
+      <div class="container">
+
+         <div class="row">
+            <p>Characters: <span data-char-count>0</span></p>
+            <p>Words: <span data-word-count>0</span></p>
+
+         </div>
+
+         <div class="row">
+            <p>
+               <select class="bg-dark" name="limitSelect" id="limitSelect">
+                  <option value="Character">Character</option>
+                  <option value="Word">Word</option>
+               </select>
+               Limit: <input class="bg-dark" type="number" name="limit" id="limit" value="400" min="0">
+            </p>
+         </div>
+
+         <div class="row">
+            <textarea class="bg-dark form-control my-2" name="counter" id="counter"></textarea>
+            <button class="btn btn-primary my-2" id="saveBtn">Save</button>
+         </div>
+
+      </div>
+   </main>
+</body>
+
+</html>

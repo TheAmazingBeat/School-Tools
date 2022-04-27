@@ -1,20 +1,22 @@
 textarea {
-	resize: none;
-	height: 75vh;
-	color: white !important;
+  resize: none;
+  height: 75vh;
+  color: white !important;
 }
 
 .form-control:focus {
-	color: white !important;
+  color: white !important;
 }
 
 .bg-dark {
-	color: white !important;
+  color: white !important;
 }
 
 @media screen and (max-width: 768px) {
-	textarea {
-		width: 95%;
-		height: 60vh;
-	}
+  textarea {
+    width: 95%;
+    height: 60vh;
+  }
 }
+
+/*# sourceMappingURL=writing-counter.css.map */
