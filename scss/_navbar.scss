@@ -431,7 +431,7 @@ div.main-navbar {
     }
 
     .nav-tooltip {
-      background-color: rgba($color: #fff, $alpha: 0.1);
+      background-color: variables.$dark-two;
       @include variables.theme-color(variables.$dark-font);
       box-shadow: 0px 5px 10px rgba(92, 92, 92, 0.3);
     }
@@ -467,7 +467,7 @@ div.main-navbar {
     }
 
     .nav-tooltip {
-      background-color: rgba($color: #000000, $alpha: 0.1);
+      background-color: variables.$light-three;
       @include variables.theme-color(variables.$light-font);
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     }

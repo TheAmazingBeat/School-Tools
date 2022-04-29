@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../../scss/writing-counter.scss"],"names":[],"mappings":"AAAA;EACC;EACA;EACA;;;AAGD;EACC;;;AAGD;EACC;;;AAGD;EACC;IACC;IACA","file":"writing-counter.css"}
+{"version":3,"sourceRoot":"","sources":["../../scss/writing-counter.scss","../../scss/_variables.scss","../../scss/_breakpoints.scss"],"names":[],"mappings":"AAIC;EACC;EACA;EACA;EACA;;AAKE;AAAA;EAEE;;AAEA;AAAA;EACE,OCTK;;ADcT;AAAA;EAEE;;;AAKN;EACC;EACA;EACA;;AE3BC;EFwBF;IAME;;;AAGD;EACC;EACA;;AAED;EACC;EACA;;;AAIF;EACC;EACA;EACA;;;AAID;EACC","file":"writing-counter.css"}

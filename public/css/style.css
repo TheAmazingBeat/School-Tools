@@ -372,7 +372,7 @@ div.main-navbar.dark li.nav-item:last-child {
   background-color: rgba(255, 255, 255, 0.1);
 }
 div.main-navbar.dark .nav-tooltip {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #373a3e;
   color: #fff;
   box-shadow: 0px 5px 10px rgba(92, 92, 92, 0.3);
 }
@@ -399,7 +399,7 @@ div.main-navbar.light a:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 div.main-navbar.light .nav-tooltip {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f2;
   color: #181c1f;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }

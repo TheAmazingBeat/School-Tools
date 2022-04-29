@@ -71,6 +71,6 @@ $('#limit').on('change', () => {
 	console.log(`${limitType} limit = ${limit}`);
 });
 
-$('#saveBtn').click(() => {
+$('#saveBtn').on('click', () => {
 	storeToLocalStorage('writingText', $('textarea').val());
 });
