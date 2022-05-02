@@ -1,3 +1,11 @@
+body{
+  &.dark{
+    select{
+      color: black;
+    }
+  }
+}
+
 /* Phone */
 @media only screen and (max-device-width: 375px) {
   #calendarHeader {
@@ -41,9 +49,9 @@
   --animation-duration: 0.5s !important;
 }
 
-section#planner {
-  width: 95%;
-}
+// section#planner {
+//   width: 95%;
+// }
 
 #calendar {
   margin: auto;
