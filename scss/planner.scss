@@ -1,0 +1,178 @@
+body{
+  &.dark{
+    select{
+      color: black;
+    }
+  }
+}
+
+/* Phone */
+@media only screen and (max-device-width: 375px) {
+  #calendarHeader {
+    padding: 10px 5px !important;
+  }
+
+  .weekday {
+    padding: 10px 0px !important;
+  }
+
+  #monthYear {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet and smaller */
+@media only screen and (max-device-width: 768px) {
+  main {
+    padding: 0;
+  }
+  .container-fluid {
+    padding: 0px !important;
+  }
+
+  .invisible-div {
+    display: none;
+  }
+
+  #calendar {
+    border-radius: 0px !important;
+  }
+}
+
+@media only screen and (min-device-width: 1920px) {
+  .day {
+    height: 160px !important;
+  }
+}
+
+:root {
+  --animation-duration: 0.5s !important;
+}
+
+// section#planner {
+//   width: 95%;
+// }
+
+#calendar {
+  margin: auto;
+  width: 100%;
+  background: #333333;
+  border-radius: 5px;
+  text-align: center;
+
+  #calendarHeader {
+    padding: 15px 10px;
+
+    #monthYear {
+      color: white;
+    }
+
+    .arrow {
+      color: white;
+      &:hover {
+        color: aquamarine;
+      }
+    }
+  }
+
+  #weekdays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    .weekday {
+      padding: 10px;
+      background: darkgray;
+      color: black;
+      border: 1px solid gray;
+    }
+  }
+
+  #calendarDays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+.day {
+  width: 100%;
+  height: 125px;
+  background: white;
+  color: black;
+  border: 1px solid #d3d3d3;
+  cursor: pointer;
+  transition: background 200ms ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  &.blank {
+    background: #ececec;
+
+    .day-num {
+      color: #5a5a5a;
+    }
+  }
+
+  &.today {
+    background: #8ec8ff;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgb(255, 255, 255, 0.8);
+  }
+
+  .day-num {
+    margin: 5px;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  color: black;
+}
+
+#dayDetails > .modal-dialog > .modal-content > .modal-body > .container {
+  text-align: left;
+  list-style-type: none;
+}
+
+#schoolWorkDiv,
+#eventForm,
+#eventsDiv,
+#homeworkTypeSelect,
+#eventTimeSelect {
+  display: none;
+}
+
+#noContent {
+  color: darkgray;
+}
+
+.event-pill {
+  width: 95%;
+  border: 1px solid #648cb3;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0.2rem 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &.homework-pill {
+    background-color: #64b3af;
+  }
+
+  &.planner-event-pill {
+    background-color: #6467b3;
+  }
+
+  &.more-event-pill {
+    border: 0;
+  }
+
+  .event-pill-name {
+    margin: 0 0.25rem;
+  }
+}

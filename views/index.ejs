@@ -1,0 +1,116 @@
+<%- include('head') %>
+</head>
+
+<body class="" data-theme="">
+
+   <%- include('navbar') %>
+
+   <main class="">
+      <div class="container">
+
+         <div class="row">
+            <div class="greeting">
+               <h1>Welcome Back, <%= userName %>! </h1>
+
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="card get-started" data-theme="">
+                  <div class="card-body">
+                     <h2 class="card-title">Get Started</h2>
+                     <div class="card-text">
+                        <ol>
+                           <!-- <li>
+                              <a href="/" class="get-started-link">
+                                 Integrate account with an LMS
+                                 <i class="fa-solid fa-arrow-right"></i>
+                              </a>
+                           </li>
+
+                           <li>
+                              <a href="/" class="get-started-link">
+                                 Integrate your calendars
+                                 <i class="fa-solid fa-arrow-right"></i>
+                              </a>
+                           </li> -->
+
+                           <li>
+                              <a href="/prioritizer" class="get-started-link">
+                                 Add your assignments
+                                 <i class="fa-solid fa-arrow-right"></i>
+                              </a>
+                           </li>
+
+                           <li>
+                              <a href="/planner" class="get-started-link">
+                                 Add your events
+                                 <i class="fa-solid fa-arrow-right"></i>
+                              </a>
+                           </li>
+                        </ol>
+
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-12 col-lg-6">
+               <div class="dash-events">
+                  <div class="card" data-theme="">
+                     <div class="card-body">
+                        <h2 class="card-title">Upcoming Events</h2>
+                        <% if (events.length > 0){ %>
+                        <ol>
+                           <% for( let i = 0; i < events.length; i++ ) { %>
+                           <li><% events[i].name %> </li>
+                           <% } %>
+                        </ol>
+                        <% } else{ %>
+                        <p class="card-text">There are no events</p>
+                        <% } %>
+                        <a href="/planner" class="btn btn-primary">Go to planner <i class="fa-solid fa-arrow-right"></i></a>
+                     </div>
+                  </div>
+               </div>
+
+
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+               <div class="row dash-assignments">
+                  <div class="card" data-theme="">
+                     <div class="card-body">
+                        <h2 class="card-title">Completed Assignments: <span><%= completedHW %></span></h2>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="card" data-theme="">
+                     <div class="card-body">
+                        <h2 class="card-title">Next Assignment</h2>
+                        <% if (homeworks.length > 0){ %>
+                        <ol>
+                           <% for( let i = 0; i < homeworks.length; i++ ) { %>
+                           <li><% homeworks[i].name %> </li>
+                           <% } %>
+                        </ol>
+                        <% } else{ %>
+                        <p class="card-text">All done!</p>
+                        <% } %>
+                        <a href="/prioritizer" class="btn btn-primary">Go to Prioritizer <i class="fa-solid fa-arrow-right"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </main>
+
+</body>
+
+</html>

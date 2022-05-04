@@ -1,39 +1,150 @@
-:root{
-	font-size: 18px;
+body.dark input,
+body.dark select {
+  border-bottom: 1px solid #fff;
+}
+body.dark input option,
+body.dark select option {
+  color: #181c1f;
+}
+body.light input,
+body.light select {
+  border-bottom: 1px solid #181c1f;
 }
 
-.homework-list {
-  list-style-type: none;
+div.list-container {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+div.list-container form {
+  width: 100%;
+}
+@media (max-width: 599px) {
+  div.list-container form {
+    width: 80%;
+  }
+}
+div.list-container .homework-list {
+  list-style-type: disc;
+  padding: 0;
+}
+div.list-container .homework-list .homework-item {
+  position: relative;
+}
+div.list-container .homework-list label {
+  font-size: 12px;
+}
+div.list-container .prior-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+div.list-container .prior-btns button {
+  margin: 1rem;
+}
+div.list-container .done-homework-list {
+  width: 100%;
+  padding: 0;
+  list-style-type: disc;
+}
+div.list-container .done-homework-list .homework-item {
+  opacity: 0.2;
+  text-decoration: line-through;
+}
+@media (max-width: 599px) {
+  div.list-container .done-homework-list {
+    width: 80%;
+  }
 }
 
-.hw-name, 
-.hw-date, 
+.hw-name,
+.hw-date,
 .hw-type {
-  background: #2d2d2d;
-  color: white;
+  background: transparent;
+  border: 0;
+  padding: 0 !important;
+  width: 100%;
+}
+.hw-name:focus-visible,
+.hw-date:focus-visible,
+.hw-type:focus-visible {
+  outline: none;
+}
+.hw-name.empty,
+.hw-date.empty,
+.hw-type.empty {
+  border-bottom: 1px solid red;
 }
 
-input, select{
-	border: none;
-	border-radius: 5px;
-	padding: 0.5rem 1rem;
+.name-input {
+  margin: 1rem 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.name-input .hw-check {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  left: -35px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 500ms ease;
+}
+.name-input .hw-check.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.name-input .hw-check:hover {
+  opacity: 1;
+  pointer-events: all;
+}
+.name-input svg {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  left: 100%;
+  color: var(--bs-red);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 700ms ease-in-out;
+  cursor: pointer;
+}
+.name-input svg.visible {
+  opacity: 1;
+  pointer-events: all;
 }
 
-.hw-select{
-	width: 1rem;
-	height: 1rem;
+.options {
+  height: 0;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+  transition: all 500ms ease-in-out;
+}
+.options.visible {
+  height: 3rem;
+  margin: 1rem 0;
+  opacity: 1;
+  pointer-events: all;
+}
+.options .type-input {
+  padding-right: 0 !important;
+}
+.options div.hw-select {
+  position: relative;
+  width: 100%;
+}
+.options select.hw-type {
+  width: 100%;
+  z-index: 1;
+}
+.options .checked .name-input,
+.options .checked .options {
+  opacity: 0.2;
 }
 
-#sortedDiv, #userDiv {
-  display: none;
-}
-
-.stored-hw-item td{
-	transition: all 250ms ease-in-out;
-}
-
-.stored-hw-item:hover td{
-	text-decoration: line-through solid white 0.25rem;
-	background-color: #272727;
-	cursor: pointer;
-}
+/*# sourceMappingURL=prioritizer.css.map */

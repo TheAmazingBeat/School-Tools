@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap JS -->
+   <script src="vendor/bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
+   <!-- jQuery -->
+   <script src="vendor/jquery-3.5.1.min.js"></script>
+   <!-- Font Awesome -->
+   <script src="https://kit.fontawesome.com/d6a4ed92eb.js" crossorigin="anonymous"></script>
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="vendor/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css">
+   <!-- Local Stylesheets -->
+   <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/writing-counter.css">
+
+   <!-- Local Scripts -->
+   <script src="js/navbar.js" defer></script>
+   <script src="js/writing-counter.js" type="module" defer></script>
+
+   <title>Writing Counter - School Tools</title>
+</head>
+
+<body>
+   <!-- NAVIGATION BAR -->
+   <!-- inspired by Fireship.io -->
+   <nav class="navbar">
+
+   </nav>
+   <main>
+      <div class="container">
+
+         <div class="row">
+            <p>Characters: <span data-char-count>0</span></p>
+            <p>Words: <span data-word-count>0</span></p>
+
+         </div>
+
+         <div class="row">
+            <p>
+               <select class="bg-dark" name="limitSelect" id="limitSelect">
+                  <option value="Character">Character</option>
+                  <option value="Word">Word</option>
+               </select>
+               Limit: <input class="bg-dark" type="number" name="limit" id="limit" value="400" min="0">
+            </p>
+         </div>
+
+         <div class="row">
+            <textarea class="bg-dark form-control my-2" name="counter" id="counter"></textarea>
+            <button class="btn btn-primary my-2" id="saveBtn">Save</button>
+         </div>
+
+      </div>
+   </main>
+
+
+</body>
+
+</html>

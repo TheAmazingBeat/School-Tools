@@ -1,130 +1,119 @@
+body.dark select {
+  color: black;
+}
+
 /* Phone */
 @media only screen and (max-device-width: 375px) {
-	#calendarHeader {
-		padding: 10px 5px !important;
-	}
+  #calendarHeader {
+    padding: 10px 5px !important;
+  }
 
-	.weekday {
-		padding: 10px 0px !important;
-	}
+  .weekday {
+    padding: 10px 0px !important;
+  }
 
-	#monthYear {
-		font-size: 1.25rem;
-	}
+  #monthYear {
+    font-size: 1.25rem;
+  }
 }
-
 /* Tablet and smaller */
 @media only screen and (max-device-width: 768px) {
-	main {
-		padding: 0;
-	}
-	.container-fluid {
-		padding: 0px !important;
-	}
+  main {
+    padding: 0;
+  }
 
-	.invisible-div {
-		display: none;
-	}
+  .container-fluid {
+    padding: 0px !important;
+  }
 
-	#calendar {
-		border-radius: 0px !important;
-	}
+  .invisible-div {
+    display: none;
+  }
+
+  #calendar {
+    border-radius: 0px !important;
+  }
 }
-
 @media only screen and (min-device-width: 1920px) {
-	.day {
-		height: 160px !important;
-	}
+  .day {
+    height: 160px !important;
+  }
 }
-
 :root {
-	--animation-duration: 0.5s !important;
+  --animation-duration: 0.5s !important;
 }
 
 #calendar {
-	margin: auto;
-	width: 100%;
-	background: #333333;
-	border-radius: 5px;
+  margin: auto;
+  width: 100%;
+  background: #333333;
+  border-radius: 5px;
+  text-align: center;
 }
-
-#monthYear {
-	color: white;
+#calendar #calendarHeader {
+  padding: 15px 10px;
 }
-
-.arrow {
-	color: white;
+#calendar #calendarHeader #monthYear {
+  color: white;
 }
-
-.arrow:hover {
-	color: aquamarine;
+#calendar #calendarHeader .arrow {
+  color: white;
 }
-
-#calendarHeader {
-	padding: 15px 10px;
+#calendar #calendarHeader .arrow:hover {
+  color: aquamarine;
 }
-
-#weekdays {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+#calendar #weekdays {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
-
-.weekday {
-	padding: 10px;
-	background: darkgray;
-	color: black;
-	border: 1px solid gray;
+#calendar #weekdays .weekday {
+  padding: 10px;
+  background: darkgray;
+  color: black;
+  border: 1px solid gray;
 }
-
-#calendarDays {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+#calendar #calendarDays {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .day {
-	width: 100%;
-	height: 125px;
-	background: white;
-	color: black;
-	border: 1px solid #d3d3d3;
-	cursor: pointer;
-	transition: background 200ms ease;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
+  width: 100%;
+  height: 125px;
+  background: white;
+  color: black;
+  border: 1px solid #d3d3d3;
+  cursor: pointer;
+  transition: background 200ms ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
-
-.day:hover,
-.day:focus,
-.day:active {
-	background: rgb(255, 255, 255, 0.8);
+.day.blank {
+  background: #ececec;
 }
-
-.day-num {
-	margin: 5px;
+.day.blank .day-num {
+  color: #5a5a5a;
 }
-
-.blank {
-	background: #ececec;
+.day.today {
+  background: #8ec8ff;
 }
-
-.blank > .day-num {
-	color: #5a5a5a;
+.day:hover, .day:focus, .day:active {
+  background-color: rgba(255, 255, 255, 0.8);
 }
-
-.today {
-	background: #8ec8ff;
+.day .day-num {
+  margin: 5px;
 }
 
 /* Modal Styles */
 .modal {
-	color: black;
+  color: black;
 }
 
 #dayDetails > .modal-dialog > .modal-content > .modal-body > .container {
-	text-align: left;
-	list-style-type: none;
+  text-align: left;
+  list-style-type: none;
 }
 
 #schoolWorkDiv,
@@ -132,36 +121,34 @@
 #eventsDiv,
 #homeworkTypeSelect,
 #eventTimeSelect {
-	display: none;
+  display: none;
 }
 
 #noContent {
-	color: darkgray;
+  color: darkgray;
 }
 
 .event-pill {
-	width: 95%;
-	border: 1px solid #648cb3;
-	border-radius: 5px;
-	overflow: hidden;
-	margin: 0.2rem 0;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+  width: 95%;
+  border: 1px solid #648cb3;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0.2rem 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.event-pill.homework-pill {
+  background-color: #64b3af;
+}
+.event-pill.planner-event-pill {
+  background-color: #6467b3;
+}
+.event-pill.more-event-pill {
+  border: 0;
+}
+.event-pill .event-pill-name {
+  margin: 0 0.25rem;
 }
 
-.homework-pill {
-	background-color: #64b3af;
-}
-
-.planner-event-pill {
-	background-color: #6467b3;
-}
-
-.more-event-pill{
-	border: 0;
-}
-
-.event-pill-name {
-	margin: 0 0.25rem;
-}
+/*# sourceMappingURL=planner.css.map */
