@@ -2,8 +2,14 @@ nav .menu-btn {
   border: 0;
   background: none;
 }
+nav.dark a {
+  background-color: #fff;
+}
 nav.dark .menu-btn {
   background-color: #212529;
+}
+nav.light a {
+  background-color: #181c1f;
 }
 nav.light .menu-btn {
   background-color: #fff;
@@ -54,6 +60,7 @@ div.mobile-header h2 {
 }
 
 ul.mobile-bottom-nav {
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -176,6 +183,7 @@ div.main-navbar ul.navbar-nav li.nav-item {
   position: relative;
 }
 div.main-navbar ul.navbar-nav li.nav-item a.nav-link {
+  color: inherit;
   width: 100%;
   height: 100%;
   display: flex;
@@ -214,7 +222,7 @@ div.main-navbar ul.navbar-nav .theme-switcher .dark-btn {
   border-radius: 10px;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: none;
   transition: all 300ms ease;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn span,
@@ -223,29 +231,33 @@ div.main-navbar ul.navbar-nav .theme-switcher .dark-btn span {
   opacity: 0;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.dark {
+  display: flex;
   width: 100%;
   opacity: 1;
   pointer-events: all;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #2c3034;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.dark:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #373a3e;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .dark-btn.light {
+  display: none;
   width: 0%;
   opacity: 0;
   pointer-events: none;
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.light {
+  display: flex;
   width: 100%;
   opacity: 1;
   pointer-events: all;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.light:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 div.main-navbar ul.navbar-nav .theme-switcher .light-btn.dark {
+  display: none;
   width: 0%;
   opacity: 0;
   pointer-events: none;
@@ -325,6 +337,7 @@ div.main-navbar.expanded span.link-text {
 }
 div.main-navbar.expanded div.theme-switcher .light-btn,
 div.main-navbar.expanded div.theme-switcher .dark-btn {
+  display: flex;
   width: 7rem !important;
   opacity: 1 !important;
   pointer-events: all !important;
@@ -359,7 +372,7 @@ div.main-navbar.dark a {
   color: #fff;
 }
 div.main-navbar.dark a.active {
-  color: #000;
+  color: #000 !important;
   background-color: #e5e5e5;
 }
 div.main-navbar.dark a.active:hover {
@@ -389,7 +402,7 @@ div.main-navbar.light a {
   color: #181c1f;
 }
 div.main-navbar.light a.active {
-  color: #fff;
+  color: #fff !important;
   background-color: #181c1f;
 }
 div.main-navbar.light a.active:hover {
@@ -450,12 +463,18 @@ body a {
 body.dark {
   background-color: #151619;
 }
+body.dark a {
+  color: #fff;
+}
 body.dark input,
 body.dark select {
   color: #fff;
 }
 body.light {
   background-color: #f2f2f2;
+}
+body.light a {
+  color: #fff;
 }
 body.light input,
 body.light select {

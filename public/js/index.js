@@ -45,8 +45,6 @@ function light() {
 	// console.log('light clicked');
 	if ($('.expanded').length == 0) {
 		// Switch Theme when navbar is not expanded
-		$('.light-btn').css('display', 'none');
-		$('.dark-btn').css('display', 'flex');
 		Array.from($('.light')).forEach((element) => {
 			$(element).addClass('dark');
 			$(element).removeClass('light');
@@ -72,8 +70,6 @@ function dark() {
 	// console.log('dark clicked');
 	if ($('.expanded').length == 0) {
 		// Switch Theme when navbar is not expanded
-		$('.dark-btn').css('display', 'none');
-		$('.light-btn').css('display', 'flex');
 		// console.log(Array.from($('.dark')));
 		// console.log(Array.from($('[data-theme]')));
 		Array.from($('.dark')).forEach((element) => {

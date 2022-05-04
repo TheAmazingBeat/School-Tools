@@ -1,8 +1,8 @@
-@use 'variables';
+@use 'variables' as v;
 @use 'breakpoints';
 
-$animationDuration: variables.$animationDuration;
-$animationStyle: variables.$animationStyle;
+$animationDuration: v.$animationDuration;
+$animationStyle: v.$animationStyle;
 
 nav {
   .menu-btn {
@@ -11,14 +11,20 @@ nav {
   }
 
   &.dark {
+    a {
+      @include v.theme-bg(v.$dark-font);
+    }
     .menu-btn {
-      @include variables.theme-bg(variables.$dark-one);
+      @include v.theme-bg(v.$dark-one);
     }
   }
 
   &.light {
+    a {
+      @include v.theme-bg(v.$light-font);
+    }
     .menu-btn {
-      @include variables.theme-bg(variables.$light-one);
+      @include v.theme-bg(v.$light-one);
     }
   }
 
@@ -32,7 +38,7 @@ nav {
     background-color: #000;
     opacity: 0;
     pointer-events: none;
-    transition: all variables.$animationDuration variables.$animationStyle;
+    transition: all v.$animationDuration v.$animationStyle;
 
     &.expanded-overlay {
       opacity: 0.5 !important;
@@ -70,6 +76,7 @@ div.mobile-header {
 }
 
 ul.mobile-bottom-nav {
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -87,17 +94,17 @@ ul.mobile-bottom-nav {
   }
 
   &.dark {
-    @include variables.theme-bg($theme-bg: variables.$dark-two);
+    @include v.theme-bg($theme-bg: v.$dark-two);
 
     a {
-      @include variables.theme-color(variables.$dark-font);
+      @include v.theme-color(v.$dark-font);
     }
   }
 
   &.light {
-    @include variables.theme-bg($theme-bg: variables.$light-two);
+    @include v.theme-bg($theme-bg: v.$light-two);
     a {
-      @include variables.theme-color(variables.$light-font);
+      @include v.theme-color(v.$light-font);
     }
   }
 
@@ -116,7 +123,6 @@ div.main-navbar {
   transition: $animationDuration all $animationStyle;
 
   @include breakpoints.for-phone-only {
-    // display: none;
     width: 0%;
     padding: 0;
     pointer-events: none;
@@ -198,6 +204,7 @@ div.main-navbar {
       position: relative;
 
       a.nav-link {
+        color: inherit;
         width: 100%;
         height: 100%;
         display: flex;
@@ -240,7 +247,7 @@ div.main-navbar {
         border-radius: 10px;
         width: 100%;
         height: 100%;
-        display: flex;
+        display: none;
         transition: all calc($animationDuration - 200ms) $animationStyle;
 
         span {
@@ -249,36 +256,51 @@ div.main-navbar {
         }
       }
 
-      .dark-btn.dark {
-        width: 100%;
-        opacity: 1;
-        pointer-events: all;
-        background-color: rgba($color: #fff, $alpha: 0.05);
-        &:hover {
-          background-color: rgba($color: #fff, $alpha: 0.05);
+      .dark-btn {
+        // background-color: v.$dark-three;
+        &.dark {
+          display: flex;
+          width: 100%;
+          opacity: 1;
+          pointer-events: all;
+          // background-color: rgba($color: #fff, $alpha: 0.05);
+          background-color: v.$dark-three;
+          &:hover {
+            // background-color: rgba($color: #fff, $alpha: 0.05);
+            background-color: v.$dark-two;
+          }
         }
-      }
-      .dark-btn.light {
-        width: 0%;
-        opacity: 0;
-        pointer-events: none;
+
+        &.light {
+          display: none;
+          width: 0%;
+          opacity: 0;
+          pointer-events: none;
+        }
       }
 
-      .light-btn.light {
-        width: 100%;
-        opacity: 1;
-        pointer-events: all;
-        background-color: rgba($color: #000, $alpha: 0.05);
-        &:hover {
-          background-color: rgba($color: #000, $alpha: 0.05);
+      .light-btn {
+        // background-color: rgba($color: #000, $alpha: 0.1);
+        &.light {
+          display: flex;
+          width: 100%;
+          opacity: 1;
+          pointer-events: all;
+          background-color: rgba($color: #000, $alpha: 0.1);
+          &:hover {
+            background-color: rgba($color: #000, $alpha: 0.05);
+            // background-color: v.$light-two;
+          }
         }
-      }
-      .light-btn.dark {
-        width: 0%;
-        opacity: 0;
-        pointer-events: none;
-        &:hover {
-          background-color: rgba($color: #fff, $alpha: 0.05);
+
+        &.dark {
+          display: none;
+          width: 0%;
+          opacity: 0;
+          pointer-events: none;
+          &:hover {
+            background-color: rgba($color: #fff, $alpha: 0.05);
+          }
         }
       }
     }
@@ -373,6 +395,7 @@ div.main-navbar {
     div.theme-switcher {
       .light-btn,
       .dark-btn {
+        display: flex;
         width: 7rem !important;
         opacity: 1 !important;
         pointer-events: all !important;
@@ -409,10 +432,10 @@ div.main-navbar {
   // Dark Theme
   &.dark {
     a {
-      @include variables.theme-color(variables.$dark-font);
+      @include v.theme-color(v.$dark-font);
 
       &.active {
-        color: #000;
+        color: #000 !important;
         background-color: #e5e5e5;
         &:hover {
           background-color: #e5e5e5;
@@ -431,13 +454,13 @@ div.main-navbar {
     }
 
     .nav-tooltip {
-      background-color: variables.$dark-two;
-      @include variables.theme-color(variables.$dark-font);
+      background-color: v.$dark-two;
+      @include v.theme-color(v.$dark-font);
       box-shadow: 0px 5px 10px rgba(92, 92, 92, 0.3);
     }
 
     button {
-      @include variables.theme-color(variables.$dark-font);
+      @include v.theme-color(v.$dark-font);
     }
 
     .light-btn.dark {
@@ -451,13 +474,13 @@ div.main-navbar {
   // Light Theme
   &.light {
     a {
-      @include variables.theme-color(variables.$light-font);
+      @include v.theme-color(v.$light-font);
 
       &.active {
-        color: #fff;
-        background-color: variables.$light-font;
+        color: #fff !important;
+        background-color: v.$light-font;
         &:hover {
-          background-color: variables.$light-font;
+          background-color: v.$light-font;
         }
       }
 
@@ -467,8 +490,8 @@ div.main-navbar {
     }
 
     .nav-tooltip {
-      background-color: variables.$light-three;
-      @include variables.theme-color(variables.$light-font);
+      background-color: v.$light-three;
+      @include v.theme-color(v.$light-font);
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     }
 
@@ -477,7 +500,7 @@ div.main-navbar {
     }
 
     button {
-      @include variables.theme-color(variables.$light-font);
+      @include v.theme-color(v.$light-font);
       &:hover {
         background-color: rgba($color: #000000, $alpha: 0.05);
       }

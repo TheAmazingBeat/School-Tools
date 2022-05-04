@@ -31,6 +31,9 @@ body {
   font-family: v.$primary-font;
   &.dark {
     @include v.theme-bg(v.$bg-dark);
+    a {
+      @include v.theme-color(v.$dark-font);
+    }
     input,
     select {
       @include v.theme-color(v.$dark-font);
@@ -38,6 +41,9 @@ body {
   }
   &.light {
     @include v.theme-bg(v.$bg-light);
+    a {
+      @include v.theme-color(v.$dark-font);
+    }
     input,
     select {
       @include v.theme-color(v.$light-font);
