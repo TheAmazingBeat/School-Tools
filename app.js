@@ -12,11 +12,12 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 const user = {
-  userName: 'Ice',
+  userName: '',
   plannerEvents: [],
   homeworks: [],
   completedHW: 0,
 };
+
 app.get('/', (req, res) => {
   // res.sendFile(__dirname + '/index.html');
   res.render('index', {
@@ -39,8 +40,8 @@ app.get('/prioritizer', (req, res) => {
 app.get('/calculator', (req, res) => {
   // res.sendFile(__dirname + '/public/pages/calculator.html');
   res.render('calculator', {
-		pageTitle: 'Calculator',
-		userName: user.userName,
+    pageTitle: 'Calculator',
+    userName: user.userName,
   });
 });
 
@@ -55,8 +56,8 @@ app.get('/planner', (req, res) => {
 app.get('/writing-counter', (req, res) => {
   // res.sendFile(__dirname + '/public/pages/writing-counter.html');
   res.render('writing-counter', {
-		pageTitle: 'Writing Counter',
-		userName: user.userName,
+    pageTitle: 'Writing Counter',
+    userName: user.userName,
   });
 });
 
