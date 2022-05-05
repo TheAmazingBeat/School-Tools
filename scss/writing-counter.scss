@@ -1,0 +1,59 @@
+@use 'variables' as v;
+@use 'breakpoints' as bp;
+
+body {
+	input, select{
+		border: 0;
+		background: transparent !important;
+		outline: none;
+		margin: 0 0.5rem;
+
+	}
+
+  &.dark {
+    input,
+    select {
+      border-bottom: 1px solid v.$dark-font;
+
+      option {
+        color: v.$light-font;
+      }
+    }
+  }
+  &.light {
+    input,
+    select {
+      border-bottom: 1px solid v.$light-font;
+    }
+  }
+}
+
+textarea {
+	resize: none;
+	width: 95%;
+	height: 60vh;
+
+	@include bp.for-tablet-portrait-up {
+		height: 75vh;
+	}
+
+	&.dark:focus{
+		color: white;
+		background-color: #212529 !important;
+	}
+	&.light:focus{
+		color: #212529;
+		background-color: #fff !important;
+	}
+}
+
+.row.counter-options{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+p{
+	width: auto !important;
+}

@@ -1,20 +1,49 @@
+body input, body select {
+  border: 0;
+  background: transparent !important;
+  outline: none;
+  margin: 0 0.5rem;
+}
+body.dark input,
+body.dark select {
+  border-bottom: 1px solid #fff;
+}
+body.dark input option,
+body.dark select option {
+  color: #181c1f;
+}
+body.light input,
+body.light select {
+  border-bottom: 1px solid #181c1f;
+}
+
 textarea {
-	resize: none;
-	height: 75vh;
-	color: white !important;
+  resize: none;
+  width: 95%;
+  height: 60vh;
+}
+@media (min-width: 600px) {
+  textarea {
+    height: 75vh;
+  }
+}
+textarea.dark:focus {
+  color: white;
+  background-color: #212529 !important;
+}
+textarea.light:focus {
+  color: #212529;
+  background-color: #fff !important;
 }
 
-.form-control:focus {
-	color: white !important;
+.row.counter-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.bg-dark {
-	color: white !important;
+p {
+  width: auto !important;
 }
 
-@media screen and (max-width: 768px) {
-	textarea {
-		width: 95%;
-		height: 60vh;
-	}
-}
+/*# sourceMappingURL=writing-counter.css.map */

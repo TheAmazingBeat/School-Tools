@@ -1,55 +1,78 @@
-import { createCheckBox, createNameInput, createDateInput, createTypeInput } from './Creator.js';
+import {
+	createNameInput,
+	createDateType,
+	createEmptyAlert,
+} from './Creator.js';
 import { getFromLocalStorage, storeToLocalStorage } from './UsefulFunks.js';
 
 let homeworks = [],
-	sortedHW = [];
-const requiredNumberOfHW = 3;
+	sortedHW = [],
+	doneHW = [];
+const requiredNumberOfHW = 1;
+let homeworkClicked = false;
 
-$(document).ready(() => {
+jQuery(() => {
 	checkForHomework();
-	$('#addHwBtn').click(() => {
-		addHW(false);
+
+	$('#addHwBtn').on('click', () => {
+		addHomework(false);
 	});
-	$('#removeHwBtn').click(() => {
-		removeHW(false);
-	});
-	$('#prioritizeBtn').click(prioritize);
-	$('#editBtn').click(editList);
-	$('.stored-hw-item').click((e) => {
-		removeHW(true, e);
+
+	$('#prioritizeBtn').on('click', prioritize);
+
+	$(document).on('click', (e) => {
+		if ($(e.target).parents('svg.fa-trash-can').length > 0)
+			removeHomework(e.target, false);
+		else if ($(e.target).hasClass('fa-trash-can'))
+			removeHomework(e.target, false);
+		else homeworkClickHandler(e);
 	});
 });
 
 /**
  * Main function to call functions in order
  */
-const prioritize = () => {
-	sortHW(), showPrioritized(), storeToLocalStorage('homeworks', homeworks);
-};
+function prioritize() {
+	sortHomework(getAllInput);
+	storeToLocalStorage('homeworks', sortedHW);
+}
 
 /**
  * Checks whether user has prioritized homeworks
  */
-const checkForHomework = () => {
+function checkForHomework() {
 	sortedHW = getFromLocalStorage('homeworks');
-	// console.log(sortedHW);
+	doneHW = getFromLocalStorage('doneHomework');
+	console.info('%cSorted Homework ::', 'color:green;');
+	console.table(sortedHW);
+	console.info('%cDone Homework ::', 'color:blue;');
+	console.table(doneHW);
+
+	if (doneHW != null) {
+		for (let i in doneHW) {
+			addHomework(true, doneHW[i], true);
+		}
+	} else doneHW = [];
 
 	/// When there is no homeworks found in localStorage
 	if (sortedHW == null || sortedHW.length == 0) {
-		//// First three homework items
+		//// Required Homework Items
 		for (let i = 0; i < requiredNumberOfHW; i++) {
-			addHW(false);
+			addHomework(false);
 		}
-		$('#userDiv').slideToggle('slow');
 		return false;
 	} else {
-		showPrioritized(true);
+		$('.homework-list').css('list-style-type', 'decimal');
+
 		for (let i = 0; i < sortedHW.length; i++) {
-			addHW(true, sortedHW[i]);
+			addHomework(true, sortedHW[i], false);
 		}
+
+		console.log('%cHomework ::', 'color:green;');
+		console.table(homeworks);
 		return true;
 	}
-};
+}
 
 /**
  * Homework Object
@@ -60,70 +83,278 @@ const checkForHomework = () => {
  * @param {jQueryObject} hwObject
  */
 function Homework(hwName, hwDueDate, hwType, isStored, hwObject) {
-	let hwItem = $('<tr class="homework-item animate__animated animate__fadeInDown"></tr>');
+	let hwItem = $('<li class="homework-item"></li>');
+
 	this.element = $(hwItem).append(
-		createCheckBox(isStored, hwObject),
 		createNameInput(isStored, hwObject),
-		createDateInput(isStored, hwObject),
-		createTypeInput(isStored, hwObject)
-	);
+		createDateType(isStored, hwObject)
+	)[0];
 	this.name = hwName;
 	this.dueDate = hwDueDate;
 	this.type = hwType;
+
+	this.getName = () => {
+		return $(this.element).find('.hw-name').val();
+	};
+
+	this.getDate = () => {
+		return $(this.element).find('.hw-date').val();
+	};
+
+	this.getType = () => {
+		return $(this.element).find('.hw-type').val();
+	};
+
+	this.updateName = () => {
+		this.name = $(this.element).find('.hw-name').val();
+		return this.name;
+	};
+	this.updateDate = () => {
+		this.dueDate = $(this.element).find('.hw-date').val();
+
+		/// Format to MM-DD-YYYY
+		let month = this.dueDate.substring(
+			this.dueDate.indexOf('-') + 1,
+			this.dueDate.indexOf('-', this.dueDate.indexOf('-') + 1)
+		);
+		let day = this.dueDate.substring(
+			this.dueDate.indexOf('-', this.dueDate.indexOf('-') + 1) + 1
+		);
+		let year = this.dueDate.substring(0, 4);
+
+		let formattedDate = month + '/' + day + '/' + year;
+
+		this.dueDate = formattedDate;
+		return this.dueDate;
+	};
+	this.updateType = () => {
+		this.type = $(this.element).find('.hw-type').val();
+	};
 }
 
 /**
  * Add a homework item in the list
- * @param {bool} isStored Boolean if there are stored homeworks
+ * @param {boolean} isStored Boolean if there are stored homeworks
  * @param {Homework} hwObject The stored homework
+ * @param {boolean} done
  */
-const addHW = (isStored, hwObject) => {
-	const homework = new Homework(undefined, undefined, undefined, isStored, hwObject);
-	homeworks.push(homework);
-	$('#homework-list > tbody').append(homework.element);
-};
+function addHomework(isStored, hwObject, done) {
+	let objName, objDate, objType;
+	if (isStored) {
+		if (hwObject) objName = hwObject.name;
+		if (hwObject) objDate = hwObject.dueDate;
+		if (hwObject) objType = hwObject.type;
+	}
+
+	const homework = new Homework(objName, objDate, objType, isStored, hwObject);
+
+	if (!done) {
+		homeworks.push(homework);
+		$('.homework-list').append(homework.element);
+	} else {
+		$(homework.element).addClass('done');
+		$(homework.element).find('.hw-check').prop('checked', true);
+		$('.done-homework-list').prepend(homework.element);
+	}
+
+	/// Focus Event Handler
+	$(homework.element).on('focusin', (e) => {
+		homeworkClicked = true;
+		const options = $(e.currentTarget).find('.options');
+		const checkbox = $(e.currentTarget).find('.name-input').find('.hw-check');
+		const trashcan = $(e.currentTarget).find('.name-input').find('svg');
+
+		$(options).addClass('visible');
+		$(checkbox).addClass('visible');
+		$(trashcan).addClass('visible');
+	});
+
+	// Check Handler
+	const checkbox = $(homework.element).find('.name-input').find('.hw-check');
+	$(checkbox).on('click', () => {
+		if ($(checkbox).prop('checked'))
+			homeworkCheckedHandler(homework, removeHomework);
+		// console.log(doneHW);
+	});
+
+	if (!isStored) $('.homework-list').css('list-style-type', 'disc');
+
+	$(homework.element).on('mouseenter', (e) => {
+		homeworkHoverHandler(e);
+	});
+	$(homework.element).on('mouseleave', (e) => {
+		homeworkHoverHandler(e);
+	});
+
+	// console.log(homeworks);
+}
 
 /**
  * Removes the selected homework item(s) in the list
- * @param {boolean} isStored Boolean if there are stored homeworks
- * @param {Event} eventData
+ * @param {jQueryObject} target DOM Element to be removed
  */
-const removeHW = (isStored, eventData) => {
-	if (isStored) {
-		// Removes from prioritized list
-		const parent = $(eventData.currentTarget).parents('tbody');
-		let children = $(parent).children();
-		for (let i = 0; i < children.length; i++) {
-			if (children[i] == eventData.currentTarget) {
-				$(parent).find(children[i]).remove();
-				sortedHW.splice(i, 1);
-			}
-		}
-		// Refreshes localStorage to update sortedHW
-		storeToLocalStorage('homeworks', sortedHW);
-		showPrioritized();
-	} else {
-		// Removes from editing list
-		for (let i = 0; i < homeworks.length; i++) {
-			let tempObj = homeworks[i].element;
-			if ($(tempObj).find('.hw-select-cell').find('.hw-select').is(':checked')) {
-				$(tempObj).attr('class', 'homework-item my-2 animate__animated animate__fadeOutUp');
-				$(tempObj).remove();
-				// Removes from homeworks
+function removeHomework(target, done) {
+	const hwItem =
+		$(target).parents('.homework-item').length > 0
+			? $(target).parents('.homework-item')
+			: $(target);
+	console.log(hwItem);
+
+	$(hwItem).animate(
+		{
+			left: '100%',
+			opacity: 0,
+			'pointer-events': 'none',
+		},
+		500,
+		'swing',
+		() => {
+			// if matches sortedHW, remove from sortedHW
+			for (let i = 0; i < homeworks.length; i++) {
+				if (homeworks[i].element != hwItem[i]) break;
+				if (sortedHW == null || sortedHW.length == 0) break;
+				if (homeworks[i].name == undefined || homeworks[i].name.length == 0)
+					break;
+
+				if (
+					homeworks[i].name == sortedHW[i].name &&
+					homeworks[i].dueDate == sortedHW[i].dueDate &&
+					homeworks[i].type == sortedHW[i].type
+				)
+					sortedHW.splice(i, 1);
+
 				homeworks.splice(i, 1);
-				// Also removes from sortedHW
-				for (let j = 0; j < sortedHW.length; j++) {
-					if (homeworks[i] == sortedHW[i]) sortedHW.splice(i, 1);
-				}
 			}
+
+			for (let i = 0; i < doneHW.length; i++) {
+				// if (doneHW[i].element != hwItem[i]) break;
+				if (doneHW == null || doneHW.length == 0) break;
+				if (doneHW[i].name == undefined || doneHW[i].name.length == 0)
+					break;
+
+        console.log($(hwItem[i]).find('.name-input').find('.hw-name').val());
+
+				if (
+					doneHW[i].name ==
+					$(hwItem[i]).find('.name-input').find('.hw-name').val()
+				)
+					doneHW.splice(i, 1);
+			}
+
+			if (!done) {
+				$(hwItem).remove();
+			} else {
+				$(hwItem).css('opacity', 0.2);
+			}
+			storeToLocalStorage('homeworks', sortedHW);
+			storeToLocalStorage('doneHomework', doneHW);
+
+			// console.log(homeworks);
+			// console.log(sortedHW);
 		}
+	);
+}
+
+let prevClicked = null;
+function homeworkClickHandler(e) {
+	const parentOne = $(e.target).parents('.homework-item');
+	const parentTwo = $(prevClicked).parents('.homework-item');
+
+	if (e.target != prevClicked && parentOne[0] != parentTwo[0]) {
+		$(parentTwo).find('.options').removeClass('visible');
+		$(parentTwo).find('.name-input').find('.hw-check').removeClass('visible');
+		$(parentTwo)
+			.find('.name-input')
+			.find('.fa-trash-can')
+			.removeClass('visible');
 	}
-};
+
+	if (!$(e.target).closest('.homework-item').length && homeworkClicked) {
+		$(parentOne).find('.options').removeClass('visible');
+		$(parentOne).find('.name-input').find('.hw-check').removeClass('visible');
+		$(parentOne)
+			.find('.name-input')
+			.find('.fa-trash-can')
+			.removeClass('visible');
+		homeworkClicked = false;
+	}
+	prevClicked = e.target;
+}
+
+function homeworkHoverHandler(e) {
+	if (homeworkClicked) return;
+
+	const parentOne =
+		$(e.target).hasClass('hw-check') ||
+		$(e.target).hasClass('hw-name') ||
+		$(e.target).hasClass('fa-trash-can')
+			? $(e.target).parents('.homework-item')[0]
+			: e.target == $('.homework-list')[0]
+			? $(e.target).find('.homework-item')[0]
+			: e.target;
+
+	if (e.type == 'mouseenter') {
+		$(parentOne).find('.name-input').find('.hw-check').addClass('visible');
+		$(parentOne)
+			.find('.name-input')
+			.find('.fa-trash-can')
+			.addClass('visible');
+	}
+
+	if (e.type == 'mouseleave') {
+		$(parentOne).find('.name-input').find('.hw-check').removeClass('visible');
+		$(parentOne)
+			.find('.name-input')
+			.find('.fa-trash-can')
+			.removeClass('visible');
+		homeworkClicked = false;
+	}
+}
+
+function homeworkCheckedHandler(object, remove) {
+	object.updateName();
+
+	if (object.name == undefined || object.name.length == 0) {
+		$(object.element).find('#doneCheck').prop('checked', false);
+		validateName($(object.element).find('.hw-name'));
+	}
+
+	if (validateName($(object.element).find('.hw-name'))) {
+		$(object.element).addClass('checked');
+		storeDoneHomework(object).then(remove(object.element, true));
+	}
+	// console.log(doneHW);
+}
+
+function validateName(object) {
+	const value = $(object).val();
+	if (value.length > 0) {
+		$(object).removeClass('empty');
+		return true;
+	}
+
+	if ($('.empty-alert').length <= 0)
+		$('.list-container').prepend(createEmptyAlert);
+
+	$(object).addClass('empty');
+
+	return false;
+}
+
+async function storeDoneHomework(object) {
+	object.updateName();
+	object.updateDate();
+	object.updateType();
+	doneHW.push(object);
+	$('.done-homework-list').prepend(object.element);
+	storeToLocalStorage('doneHomework', doneHW);
+	return true;
+}
 
 /**
  * Assigns all input values to homework object inside hwValues Array
  */
-const getAllInput = () => {
+function getAllInput() {
 	/**
 	 * Getting the value of Homework Name Input
 	 * @param {number} index The index of the homework
@@ -132,57 +363,9 @@ const getAllInput = () => {
 	const getNameInput = (index) => {
 		let value = '(No Name)';
 		try {
-			value = $(homeworks[index].element).find('.hw-name').val();
-		} catch (error) {
-			console.log(error);
-		}
-		return value;
-	};
-
-	/**
-	 * Getting the value of Homework Due Date Input
-	 * @param {number} index The index of the homework
-	 * @returns Due Date value inside Date Input
-	 */
-	const getDateInput = (index) => {
-		//TODO Maybe there is a Built-in JS function for formatting dates
-		/// Initial Format YYYY-MM-DD
-		let dateString = '';
-
-		try {
-			dateString = $(homeworks[index].element).find('.hw-date').val();
-		} catch (error) {
-			console.log(error);
-		}
-
-		if (dateString == '') return;
-
-		/// Format to MM-DD-YYYY
-		let month = dateString.substring(
-			dateString.indexOf('-') + 1,
-			dateString.indexOf('-', dateString.indexOf('-') + 1)
-		);
-		//// Removes ZERO in the first digit of month
-		if (month.substring(0, 1) == '0' && month.length > 1) {
-			month = month.substring(1);
-		}
-		let day = dateString.substring(dateString.indexOf('-', dateString.indexOf('-') + 1) + 1);
-		let year = dateString.substring(0, 4);
-
-		let formattedDate = month + '/' + day + '/' + year;
-
-		return formattedDate;
-	};
-
-	/**
-	 * Getting the value of Homework Type Input
-	 * @param {number} index The index of the homework
-	 * @returns Option value inside Select Type Input
-	 */
-	const getTypeInput = (index) => {
-		let value = '';
-		try {
-			value = $(homeworks[index].element).find('.hw-type').val();
+			if (validateName($(homeworks[index].element).find('.hw-name')))
+				value = $(homeworks[index].element).find('.hw-name').val();
+			else return false;
 		} catch (error) {
 			console.log(error);
 		}
@@ -190,36 +373,42 @@ const getAllInput = () => {
 	};
 
 	for (let i in homeworks) {
-		homeworks[i].name = getNameInput(i);
-		homeworks[i].dueDate = getDateInput(i);
-		homeworks[i].type = getTypeInput(i);
+		if (!getNameInput(i)) return false;
+		homeworks[i].updateName();
+		homeworks[i].updateDate();
+		homeworks[i].updateType();
 	}
-};
+	return true;
+}
 
 /**
  * Sorts array from closest date to farthest date.
  * @param {Array} array Array to sort.
  */
-const sortByDate = (array) => {
+function sortByDate(array) {
 	/// Selection Sort
 	for (let i = 0; i < array.length; i++) {
 		let min = i;
+
 		for (let j = i + 1; j < array.length; j++) {
 			if (new Date(array[j].dueDate) < new Date(array[i].dueDate)) min = j;
 		}
+
 		if (min != i) {
 			let temp = array[min];
 			array[min] = array[i];
 			array[i] = temp;
 		}
 	}
-};
+}
 
 /**
  * Sort the homeworks.
  */
-const sortHW = () => {
-	getAllInput();
+function sortHomework(getValues) {
+	if (!getValues()) return;
+	else getValues();
+
 	let majorHW = [],
 		minorHW = [];
 
@@ -255,13 +444,12 @@ const sortHW = () => {
 	for (let i = 0; i < homeworks.length; i++) {
 		if (sortedHW[i].type == 'Minor' && firstMajor != undefined) {
 			/*
-			 * If there are more minor than major and
 			 * the major is due in 4 days then the minor comes first
 			 * 4 days = 345600000 milliseconds
 			 */
 			if (
-				minorHW.length > majorHW.length &&
-				new Date(firstMajor.dueDate) - new Date(sortedHW[i].dueDate) >= 345600000
+				new Date(firstMajor.dueDate) - new Date(sortedHW[i].dueDate) >=
+				345600000
 			) {
 				let temp = sortedHW[i];
 				sortedHW[i] = firstMajor;
@@ -269,62 +457,9 @@ const sortHW = () => {
 			}
 		}
 	}
-};
 
-/**
- * Show sorted homework.
- */
-const showPrioritized = (isStored) => {
-	/**
-	 * Hides where the user edits homework list.
-	 */
-	const hideList = () => {
-		$('#userDiv:visible').slideToggle('slow');
+	$('.homework-list').css('list-style-type', 'decimal');
 
-		// Prevents the table from having old list
-		$('#homework-list > tbody').empty();
-
-		for (let i = 0; i < sortedHW.length; i++) {
-			$('#homework-list > tbody').append(sortedHW[i].element);
-		}
-	};
-
-	if (!isStored) hideList();
-
-	// prevents the table from having old list
-	$('#sorted-list > tbody').empty();
-
-	// shows the #sortedDiv when button is clicked
-	$('#sortedDiv:hidden').slideToggle('slow');
-
-	// each homework row
-	for (let i = 0; i < sortedHW.length; i++) {
-		let $row = $(
-				`<tr class="stored-hw-item animate__animated animate__fadeInUp" data-rank="${i + 1}">`
-			),
-			$numCell = $('<td class="rank-num">'),
-			$nameCell = $('<td class="stored-hw-name">'),
-			$dateCell = $('<td class="stored-hw-date">'),
-			$typeCell = $('<td class="store-hw-type">');
-
-		$($numCell).html(i + 1);
-		$($nameCell).html(sortedHW[i].name);
-		$($dateCell).html(sortedHW[i].dueDate);
-		$($typeCell).html(sortedHW[i].type);
-
-		$($row).append($numCell, $nameCell, $dateCell, $typeCell);
-		$($row).click((e) => {
-			removeHW(true, e);
-		});
-
-		$('#sorted-list > tbody').append($row);
-	}
-};
-
-/**
- * Shows where the user edits the homework list
- */
-const editList = () => {
-	$('#sortedDiv:visible').slideToggle('slow');
-	$('#userDiv:hidden').slideToggle('slow');
-};
+	// console.log('Sorted HW ::');
+	// console.log(sortedHW);
+}
