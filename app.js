@@ -61,6 +61,13 @@ app.get('/writing-counter', (req, res) => {
   });
 });
 
+app.get('/timer', (req, res) => {
+  res.render('timer', {
+    pageTitle: 'Timer',
+    userName: '',
+  });
+});
+
 app.get('/snake', (req, res) => {
   res.render('snake', {
     pageTitle: 'Snake',
